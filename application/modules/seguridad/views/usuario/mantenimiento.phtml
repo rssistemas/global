@@ -1,0 +1,45 @@
+<div class="row-fluid">
+        <div class="col-lg-8 col-md-6">
+        <div class="panel panel-default">
+            <div class="">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="<?php echo BASE_URL ?>seguridad/usuario/index/" title="Regresar ..."><button ><i class="fa fa-undo"></i></button></a>
+ 
+                        </div>   
+                    </div>
+                </nav>
+            </div>
+          <div class="panel-body">
+				<canvas id="canvas" height="400" width="600"></canvas>
+            
+          </div>
+
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Acciones Para Aplicar</div>
+            <div class="panel-body">
+                  <form name="form-usuario" id="form-usuario" method="post" action="">
+						<input name="guardar" type="hidden" value="1"  />
+						<input name="id" type="hidden" value="<?php if(isset($this->usuario['id_usuario'])) echo $this->usuario['id_usuario']  ?>"  />
+						 <div class="form-group">
+							<label>*Accion:</label>
+							<select name="accion" id="accion" class="form-control">
+								<option value="">-Seleccione-</option>
+								<option value="1">Bloqueo</option>
+								<option value="2">Desbloqueo</option>
+								<option value="3">Desconectar</option>
+								
+							</select>
+						</div>
+						
+						<button type="submit"  name="agregar"  title="Ejecutar Accion"  class="btn btn-primary"> <i class="fa fa-rocket"></i> Ejecutar</button>
+						
+				  </form>
+            </div>
+        </div>
+    </div>    
+</div>

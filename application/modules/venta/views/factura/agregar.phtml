@@ -1,0 +1,147 @@
+<div class="row">
+<form name="form-recep" method="post" autocomplete="off" action="">
+<input name="guardar" type="hidden" value="1" />
+<div class="col-lg-3">
+	<div class="panel panel-default">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">			
+				<div class="form-group">
+					<label class="label">Unidad Operativa</label>
+					<select class="form-control" name="unidad" id="unidad" required  />
+					<option value="-">-TODOS-</option>
+					<?php if(isset($this->unidad)&& count($this->unidad)): ?>
+						<?php foreach ($this->unidad as $val): ?>
+						<option value="<?php echo $val['id_unidad_operativa'] ?>"><?php echo strtoupper($val['nombre_unidad_operativa']) ?> </option>
+						<?php endforeach; ?>
+					<?php endif; ?>
+					</select>
+				</div>	  							
+			</div>
+		</nav>
+		 <div class="panel-body">
+			<div class="form-group">
+				<label>Almacen</label>
+				<select name="forma" id="forma" class="form-control" disabled="true" >
+					<option value="-">-Seleccione-</option>
+					<option value="CONTADO">CONTADO</option>
+					<option value="CREDTIO">CREDITO</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label>Modalidad de Venta</label>
+				<select name="forma" id="forma" class="form-control" disabled="true" >
+					<option value="-">-Seleccione-</option>
+					<option value="CONTADO">CONTADO</option>
+					<option value="CREDTIO">CREDITO</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label>Cliente</label>
+				<input name="cliente" type="text" class="form-control" id="cliente"   required  disabled="true" ><input name="id_cliente" type="hidden" id="id_cliente" value="0" />
+			</div>
+			<div class="form-group">
+				<label>Vendedor</label>
+				<select name="forma" id="forma" class="form-control" disabled="true" >
+					<option value="-">-Seleccione-</option>
+					<option value="CONTADO">CONTADO</option>
+					<option value="CREDTIO">CREDITO</option>
+				</select>
+			</div>	
+			<div class="form-group">
+				<label>Fecha Emisión</label>
+				<input name="emision" type="date" class="form-control" id="emision"   required disabled="true" >
+			</div>
+			<div class="form-group">
+				<label>Fecha Vencimiento</label>
+				<input name="vencimiento" type="date" class="form-control" id="vencimiento"   required disabled="true" >
+			</div>
+								
+			<div class="form-group">
+				<label>Comentario</label>
+				<textarea name="comentario" id="comentario" class="form-control" disabled="true" ></textarea>
+			</div>		
+		</div>
+		
+		<br/>
+		<div class="panel-footer">
+			<a href="<?php echo BASE_URL ?>compra/ordencompra/index/"><button type="button" class="btn btn-danger"><i class="fa fa-undo"></i> Cancelar</button></a>   
+			<button type="submit" class="btn btn-primary" oninvalid="alert('Llene todos los campos obligatorios ....');"><i  class="fa fa-floppy-o"></i></i> Guardar</button> 
+		</div>
+	</div>
+</div>
+
+<div class="col-lg-9"> 
+	<div class="form-group">
+			<div class="input-group">				
+				<input type="text" name="producto" id="producto" class="form-control" />
+				<input name="id_producto" id="id_producto" value="" type="hidden" />
+				<span class="input-group-btn">
+					<button name="add" id="add" class="btn btn-default" type="button" ><i  class="fa fa-search" ></i></button>		
+				</span>	
+			</div>
+	</div>			
+	<div class="panel-default">
+		<div class="panel panel-body">			
+			<div class="table-responsive">
+				<table class="table  table-striped"" id="tabla">
+					<thead>
+						<tr class="cabecera-gris">
+							<th width="100">Codigo</th>
+							<th width="350">Descripcion</th>
+							<th width="120">Precio</th>                              
+							<th width="100">Cant.</th>
+							<th width="100">Tsa. IVA</th>
+							<th width="120">Monto</th>
+							<th width="30"></th>
+						</tr>
+					</thead>
+					<tbody>					
+					</tbody>
+				</table>				
+			</div>
+			<br/>
+			<h4 style="margin-bottom:0px;margin-top:10px;padding:0px;">Totales</h4>
+			<hr style="margin:0px;margin-bottom:8px;">
+			<div class="form-inline" >
+				<div class="form-group">
+					<label style="margin-left:25px">Sub total</label>
+					<input type="text" name="subtotal" id="subtotal" class="form-control text-right" value="0" readonly="true" />
+				</div>
+				<div class="form-group">
+					<label style="margin-left:25px">Total Iva</label>
+					<input type="text" name="total_iva" id="total_iva" class="form-control text-right" value="0" readonly="true" />
+				</div>
+				<div class="form-group">
+					<label style="margin-left:25px">Total</label>
+					<input type="text" name="total" id="total" class="form-control text-right" value="0" readonly="true" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+</div> 
+
+<div class="modal fade" id="myModal" data-toggle="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header ">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <label>Nombre del Producto</label>
+        <input name="prov" id="prov" type="text" class="form-control"  />        
+      </div>
+      <div class="modal-body">
+          <div class="panel panel-default" >
+              <div class="panel-body">
+                  <div id="table_concepto">
+                      
+                  </div>   
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">       
+      </div>
+    </div>
+  </div>
+</div>
+        

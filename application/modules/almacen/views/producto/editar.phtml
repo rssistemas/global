@@ -1,0 +1,79 @@
+<div class="row">
+<form name="form-menu" method="post" enctype="multipart/form-data" autocomplete="off" action=""> 
+    <div class="col-lg-8">
+         
+      <div class="panel panel-default">
+          <div class="panel-heading">Datos del producto</div>
+          <div class="panel-body">
+              <input name="guardar" type="hidden" value="1" />
+              <input name="id_producto" type="hidden" value="<?php if($this->producto['id_producto']>0) echo $this->producto['id_producto'] ?>" />
+              <input name="id_det_producto" type="hidden" value="<?php if($this->producto['id_det_producto']>0) echo $this->producto['id_det_producto'] ?>" />
+              <div class="form-group col-xs-6 ">
+                <label class="control-label">Clasificacion</label>
+                <input type="text" name="clasificacion" id="clasificacion" class="form-control" value="<?php if(isset($this->producto['nombre_clasificacion']))echo $this->producto['nombre_clasificacion'] ?>" required="true" placeholder="Clasificacion del Producto"  />
+  		<input name="id_clasificacion" id="id_clasificacion" type="hidden" value="<?php if(isset($this->producto['id_clasificacion']))echo $this->producto['id_clasificacion'] ?>"/>
+              </div>
+			  <div class="form-group col-xs-6 ">
+                <label class="control-label">Grupo</label>
+                <input type="text" name="grupo" id="grupo" class="form-control" value="<?php if(isset($this->producto['nombre_grupo']))echo $this->producto['nombre_grupo'] ?>" required="true" placeholder="Grupo del Producto" />
+                <input name="id_grupo" id="id_grupo" type="hidden" value="<?php if(isset($this->producto['grupo_id']))echo $this->producto['grupo_id'] ?>"/>
+              </div>
+              <div class="form-group col-xs-6">
+                  <label class="control-label">Código</label>
+                  <input name="codigo" type="text" class="form-control alfa_num" maxlength="20" value="<?php if(isset($this->producto['codigo_producto']))echo $this->producto['codigo_producto'] ?>"  id="codigo" placeholder="Código del producto" required="true"   />            
+              </div>
+              <div class="form-group col-xs-6">
+                <label class="control-label">Nombre</label>
+                <input name="nombre" maxlength="60" type="text" class="form-control alfa_num" value="<?php if(isset($this->producto['nombre_producto']))echo $this->producto['nombre_producto'] ?>"  id="nombre" placeholder="Nombre del Producto" required="true"  />            
+              </div>
+              <div class="form-group col-xs-6 ">
+              <label class="control-label">Presentación</label>
+              <input type="text" name="presentacion" id="presentacion" maxlength="50" class="form-control alfa_num" placeholder="Presentación del Producto" value="<?php if(isset($this->producto['nombre_presentacion']))echo $this->producto['nombre_presentacion'] ?>" required="true" />
+               <input name="id_presentacion" id="id_presentacion" type="hidden" value="<?php if(isset($this->producto['presentacion_id']))echo $this->producto['presentacion_id'] ?>"  />
+            </div>
+              <div class="form-group col-xs-6 ">
+                <label class="control-label">Marca</label>
+                <input name="marca" type="text" class="form-control" id="marca" maxlength="50" value="<?php if(isset($this->producto['marca']))echo $this->producto['marca'] ?>"  placeholder="Marca del Producto" required  >
+                <input name="id_marca" id="id_marca" type="hidden" value="<?php if(isset($this->producto['marca_id']))echo $this->producto['marca_id'] ?>"/>
+              </div>
+              <div class="form-group col-xs-6">
+                <label class="control-label">Modelo</label>
+                <input name="modelo" maxlength="60" type="text" class="form-control alfa_num" value="<?php if(isset($this->producto['modelo']))echo $this->producto['modelo'] ?>" id="modelo" placeholder="Introduzca el modelo del producto"  />            
+              </div>
+              <div class="form-group col-xs-6 ">
+              <label class="control-label">Unidad de Almacenamiento</label>
+                <input name="medida" maxlength="60" type="text" class="form-control alfa_num" value="<?php if(isset($this->producto['nombre_uni_med']))echo $this->producto['nombre_uni_med'] ?>" id="medida" placeholder="Introduzca unidad de medida"  />            
+                <input name="id_uni_med" id="id_uni_med" type="hidden" value="<?php if(isset($this->producto['unidad_almacenamiento']))echo $this->producto['unidad_almacenamiento'] ?>"/>
+              </div>
+              <div class="form-group col-xs-12">
+                 <label class="control-label">Comentario</label>     
+                 <textarea name="comentario" id="comentario" maxlength="100" class="form-control input-sm alfa_num" ><?php if(isset($this->producto['comentario'])) echo $this->producto['comentario'] ?></textarea>
+              </div>
+  			
+          </div>
+      </div>
+    	<div class="form-inline ">
+    		<a href="<?php echo BASE_URL ?>almacen/producto/index" ><button type="button" class="btn btn-danger"><i class="fa fa-undo"></i> Cancelar</button></a>
+    		<button type="submit" class="btn btn-primary " ><i class="fa fa-floppy-o"> Guardar </i></button> 
+    	</div>
+       
+   </div>
+   <div class="col-lg-4">
+     <div class="panel panel-default">
+        <div class="panel-heading">Imágen del producto</div>
+        <div class="panel-body">          
+            <div class="">
+                <img src="<?php echo BASE_IMG.'producto'.'/'.$this->producto['codigo_producto'].'.jpg' ?>" />
+                <output id="list"></output>               
+            </div>
+            
+            <div class="form-group col-md-12">
+              <label>Seleccione Imágen</label>
+              <input type="file" id="files" name="files[]" class="filestyle" data-icon="false">
+              <p class="help-block">Seleccione la Imágen a subir</p>
+            </div>        
+        </div>
+     </div>
+   </div>
+</form>
+</div>

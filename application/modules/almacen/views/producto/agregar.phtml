@@ -1,0 +1,86 @@
+<div class="row">
+<form name="form-menu" method="post" enctype="multipart/form-data" autocomplete="off" action=""> 
+    <div class="col-lg-8">
+         
+      <div class="panel panel-default">
+          <div class="panel-heading">Datos del producto</div>
+          <div class="panel-body">
+              <input name="guardar" type="hidden" value="1" />
+              <div class="form-group col-xs-6 ">
+                <label class="control-label">Clasificacion</label>
+                <input type="text" name="clasificacion" id="clasificacion" class="form-control" value="<?php if(isset($this->clasificacion))echo $this->clasificacion['nombre_clasificacion'] ?>" required="true" placeholder="Clasificacion del Producto" title="Introduzca la Clasificacion del Producto" />
+                <input name="id_clasificacion" id="id_clasificacion" type="hidden" value="<?php if(isset($this->clasificacion))echo $this->clasificacion['id_clasificacion'] ?>"/>
+              </div>
+			  <div class="form-group col-xs-6 ">
+                <label class="control-label">Grupo</label>
+                <input type="text" name="rubro" id="rubro" class="form-control" value="<?php if(isset($this->grupo['nombre_grupo']))echo $this->grupo['nombre_grupo'] ?>" required="true" placeholder="Grupo del Producto" title="Introduzca el Grupo del Producto" />
+  			       <input name="id_rubro" id="id_rubro" type="hidden" value="<?php if(isset($this->grupo['id_grupo']))echo $this->grupo['id_grupo'] ?>"/>
+              </div>
+              <div class="form-group col-xs-6">
+                  <label class="control-label">Código</label>
+                  <input name="codigo" type="text" class="form-control alfa_num" maxlength="20" value="<?php if(isset($this->codigo))echo $this->codigo ?>"  id="codigo" placeholder="Código del producto" required="true" title="Introduzca el código del Producto"  />            
+              </div>
+              <div class="form-group col-xs-6">
+                <label class="control-label">Nombre</label>
+                <input name="nombre" maxlength="60" type="text" class="form-control alfa_num" value="<?php if(isset($this->nombre))echo $this->nombre ?>"  id="nombre" placeholder="Nombre del Producto" required="true" title="Introduzca el Nombre del Producto" />            
+              </div>
+              <div class="form-group col-xs-6 ">
+              <label class="control-label">Presentación</label>
+              <input type="text" name="presentacion" id="presentacion" maxlength="50" class="form-control alfa_num" placeholder="Presentación del Producto" value="<?php if(isset($this->presentacion['nombre_presentacion']))echo $this->presentacion['nombre_presentacion'] ?>" required="true" />
+               <input name="id_presentacion" id="id_presentacion" type="hidden" value="<?php if(isset($this->presentacion['id_presentacion']))echo $this->presentacion['id_presentacion'] ?>"  />
+            </div>
+              <div class="form-group col-xs-6 ">
+                <label class="control-label">Marca</label>
+                <input name="marca" type="text" class="form-control" id="marca" maxlength="50" value="<?php if(isset($this->marca['nombre_marca']))echo $this->marca['nombre_marca'] ?>"  placeholder="Marca del Producto" required  >
+                <input name="id_marca" id="id_marca" type="hidden" value="<?php if(isset($this->marca['id_marca']))echo $this->marca['id_marca'] ?>"/>
+              </div>
+              <div class="form-group col-xs-6">
+                <label class="control-label">Modelo</label>
+                <input name="modelo" maxlength="60" type="text" class="form-control alfa_num" value="<?php if(isset($this->modelo))echo $this->modelo ?>" id="modelo" placeholder="Introduzca el modelo del producto"  />            
+              </div>
+              <div class="form-group col-xs-6 ">
+              <label class="control-label">Unidad de Almacenamiento</label>
+              <select class="form-control" name="medida" id="medida" required title="Seleccione La Unidad para el Almacenamiento del Producto" />
+                  <option value="-">-Seleccione Unidad-</option>
+                  <?php if(isset($this->medida) && count($this->medida)):  ?>
+                  <?php foreach($this->medida as $val): ?>
+						<?php if(isset($this->uni_medida) && $this->uni_medida == $val['id_uni_med'] ): ?>
+							<option value="<?php echo $val['id_uni_med']  ?>" selected><?php echo strtoupper($val['nombre_uni_med']) ?></option>
+						<?php else: ?>	
+							<option value="<?php echo $val['id_uni_med']  ?>" ><?php echo strtoupper($val['nombre_uni_med']) ?></option>
+                        <?php endif ?>    
+                  <?php endforeach; ?>
+                  <?php endif; ?>
+              </select>
+              </div>
+              <div class="form-group col-xs-12">
+                 <label class="control-label">Comentario</label>     
+                 <textarea name="comentario" id="comentario" maxlength="100" class="form-control input-sm alfa_num" ><?php if(isset($this->comentario)) echo $this->comentario ?></textarea>
+              </div>
+  			
+          </div>
+      </div>
+    	<div class="form-inline ">
+    		<a href="<?php echo BASE_URL ?>almacen/producto/index" ><button type="button" class="btn btn-danger"><i class="fa fa-undo"></i> Cancelar</button></a>
+    		<button type="submit" class="btn btn-primary " ><i class="fa fa-floppy-o"> Guardar </i></button> 
+    	</div>
+       
+   </div>
+   <div class="col-lg-4">
+     <div class="panel panel-default">
+        <div class="panel-heading">Imágen del producto</div>
+        <div class="panel-body">          
+            <div class="">
+               <output id="list"></output>               
+            </div>
+            
+            <div class="form-group col-md-12">
+              <label>Seleccione Imágen</label>
+              <input type="file" id="files" name="files[]" class="filestyle" data-icon="false">
+              <p class="help-block">Seleccione la Imágen a subir</p>
+            </div>        
+        </div>
+     </div>
+   </div>
+</form>
+</div>

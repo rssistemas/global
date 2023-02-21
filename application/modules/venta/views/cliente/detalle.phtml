@@ -1,0 +1,81 @@
+<?php //print_r($_layoutParams['argumentos']) ?>
+<div class="row">
+        <div class="col-lg-8 col-md-6">
+		<ul class="nav nav-tabs">
+			<li role="presentation" class="active" ><a href="#">Analisis Comercial</a></li>
+			<li role="presentation"><a href="<?php echo  BASE_URL ?>venta/cliente/premisaCliente/<?php echo $this->id ?>">Premisas de Venta</a></li>
+							
+		</ul>
+        <div class="panel panel-default">
+        <div class="">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+						<a class="navbar-brand"> <button class="nuevo" title="Presione aquí para AGREGAR un nuevo registro" value="" ><i  class="fa fa-plus"></i></button> </a>
+                        <a class="navbar-brand" target="_blank" href="<?php echo BASE_URL ?>reporte/index/catRubrosProd/" title="Imprimir Catálogo"><button><i class="fa fa-print"></i></button></a>
+                    </div>  
+                    <form class="navbar-form navbar-right" role="search" action="" method="post">
+                        <div class="form-group">
+                            <input type="text" maxlength="100" name="busqueda" class="form-control" placeholder="Filtrar nombre">
+                        </div>
+                        <button type="submit" class="btn btn-default"><i  class="fa fa-search" > Buscar</i></button>
+                    </form>    
+                </div>
+            </nav>
+        </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Comentario</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php $i = 1; ?>    
+                    <?php if(isset($this->lista) && count($this->lista)) :?>
+                        <?php foreach ($this->lista as $val) :?>
+                        <tr >
+                            <td><?php echo $val['id_grupo'] ?></td>
+                            <td><?php echo $val['nombre_grupo'] ?></td>
+                            <td><?php echo $val['comentario_grupo'] ?></td>
+                            
+                            <td>
+                                <?php if($val['estatus_grupo']==1): ?>
+                                <button class="editar" title="Presione aquí para EDITAR" value="<?php echo $val['id_grupo'] ?>" ><i  class="fa fa-pencil-square-o"></i></button>
+                                <?php endif; ?>
+                            </td>    
+                            <td>
+                                <?php if($val['estatus_grupo']==1): ?>
+                                <button class="eliminar" title="Presione aquí para ELIMINAR" value="<?php echo $val['id_grupo'] ?>"><i class="fa fa-trash-o"></i></button>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php $i++; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>    
+                    </tbody>
+                </table>
+                
+            </div>
+          </div>
+		  <div class="panel-footer" >
+            <p>
+                <?php if(isset($this->paginacion)) echo $this->paginacion; ?>
+            </p>
+    	  </div>	
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Analisis Comercial</div>
+            <div class="panel-body">
+                   
+            </div>
+        </div>
+    </div>    
+</div>

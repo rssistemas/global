@@ -1,0 +1,382 @@
+<div class="row">
+<div class="col-lg-12">
+<div class="panel panel-default"> 
+	<form name="form_compra" method="post" autocomplete="off" action="<?php echo BASE_URL ?>compra/compras/agregar" id="form_compra">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">				
+			<div class="navbar-header">
+				<h4>Compras  /    Fecha: <?php echo date('d-m-Y') ?></h4>
+			</div>	
+			<div class="navbar-form navbar-right" >
+				<label >Unidad Operativa</label>
+				<select class="form-control input-sm" name="unidad" id="unidad" required  />
+					<option value="-">-TODOS-</option>
+					<?php if(isset($this->unidad)&& count($this->unidad)): ?>
+						<?php foreach ($this->unidad as $val): ?>
+						<option value="<?php echo $val['id_unidad_operativa'] ?>"><?php echo strtoupper($val['nombre_unidad_operativa']) ?> </option>
+						<?php endforeach; ?>
+					<?php endif; ?>
+				</select>
+				
+				<label >Almacen</label>
+				<select class="form-control input-sm" name="almacen" id="almacen" required  />
+					<option value="">-Seleccione-</option>
+					
+				</select>
+			</div>					  							
+		</div>
+	</nav>
+        <div class="panel-body" style="margin-bottom:0px;margin-top:1px;padding:5px;">    
+        <input name="guardar" type="hidden" value="1" /> 
+        <input name="control" type="hidden" value="0" id="control" />
+        
+        
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div class="panel-heading ">
+                    <h3 style="margin-bottom:0px;margin-top:0px;padding:0px;">Datos de Factura</h3>			
+                </div>
+                <div class="panel-body">
+                <div id="" class="tabbable tabs-left">
+                    <ul  class="nav nav-tabs ">
+        		<li class="active">
+        		    <div data-target="#lA" data-toggle="tab">
+        		        <div>
+                                    <span class="account-type"><i class="fa fa-group"></i> Proveedor</span><br/>
+                                </div>
+                            </div>
+        		</li>
+        		<li>
+        		    <div data-target="#lB" data-toggle="tab">
+        		        <div>
+                                    <span class="account-type"><i class="fa fa-list-alt"></i> Documento</span><br/>
+                                </div>
+                            </div>
+        		</li>
+        		<li>
+        		    <div data-target="#lC" data-toggle="tab">
+        		        <div>
+            		        <span class="account-type">Condiciones</span><br/>            		        
+            	            <!-- <span class="account-amount">$587.00</span><br/>
+            	            <a href="#" class="account-link">Investments</a>-->
+        	            </div>
+        	        </div>
+        		</li>
+        		
+                    </ul>
+                    
+                </div>
+                <div class="tab-content col-md-10">
+                    <div class="tab-pane active" id="lA">
+                        <div>
+                            <div class="form-inline">
+                                <div class="form-group col-md-12">    
+                                    <label class="col-md-2" >Rif</label>
+                                    <input name="rif" type="text" class="form-control input-sm "  id="rif" size="50" disabled="true"  >
+                                    <input name="proveedor" type="hidden" id="proveedor" />
+                                </div>
+                            </div>
+                            <br>
+                            <hr>
+                            <div class="form-inline">
+                                <div class="form-group col-md-12">    
+                                    <label class="col-md-2" >Razon Social</label>
+                                    <input name="razon_social" type="text" class="form-control input-sm "  id="razon_social" size="50" disabled="true" >            
+                                </div>
+                            </div>
+                            <br>
+                            <hr>
+                            <div class="form-inline">
+                                <div class="form-group col-md-12">    
+                                    <label class="col-md-2" >Direccion Fiscal</label>
+                                    <input name="direccion" type="text" class="form-control input-sm "  id="direccion" size="50" disabled="true" >            
+                                </div>
+                            </div>
+                            <br>
+                            <hr>
+                            <div class="form-inline">
+                                <div class="form-group col-md-12">    
+                                    <label class="col-md-2" >Correo Electronico</label>
+                                    <input name="correo" type="text" class="form-control input-sm "  id="correo" size="50" disabled="true" >            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="lB" >
+                        <div>
+                            <div class="form-inline">
+                                <div class="form-group ">
+                                    <label >Inf. Recepcion </label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="..." id="act_pedido" >
+                                        </span>
+                                        <input name="recepcion" id="recepcion" type="text" class="form-control  text-right" size="5"  required disabled="true" >
+                                        <span class="input-group-btn">
+                                            <button id="bto_recepcion" class="btn btn-default " type="button" disabled="true"><i  class="fa fa-search" ></i></button>
+                                        </span>
+                                    </div>
+                                    <label >   Orden de Compra </label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="..." id="act_pedido" >
+                                        </span>
+                                        <input name="orden_compra" id="orden_compra" type="text" class="form-control  text-right" size="5"  required disabled="true" >
+                                        <span class="input-group-btn">
+                                            <button id="bto_orden" class="btn btn-default " type="button" disabled="true"><i  class="fa fa-search" ></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-inline">
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-2" >Tipo</label>
+                                    <select class="form-control input-sm" name="tipo_doc_rec" id="tipo_doc_rec" disabled="true">
+                                        <option value="">-Seleccione-</option>
+					<?php if(isset($this->documento)&& count($this->documento)): ?>
+						<?php foreach ($this->documento as $val): ?>
+						<option value="<?php echo $val['id_tipo_documento'] ?>"><?php echo strtoupper($val['nombre_tipo_documento']) ?> </option>
+						<?php endforeach; ?>
+					<?php endif; ?>
+                                    </select>
+                                    <input name="nro_doc_rec" type="text" class="form-control input-sm "  id="nro_doc_rec" size="30" value="" disabled="true" >
+                                </div>
+                            </div>
+                            <br>
+                            <hr>
+                            <div class="form-inline">
+                                <div class="form-group col-md-12 ">    
+                                    <label class="col-md-2" >Serie</label>
+                                    <input name="serie" type="text" class="form-control input-sm "  id="serie" size="50"  value="" disabled="true" >                
+                                </div>
+                            </div>
+                            <br>
+                            <hr>
+                            <div class="form-inline">
+                                <div class="form-group col-md-12">    
+                                    <label class="col-md-2" >Emision</label>
+                                    <input name="emision" type="date" class="form-control input-sm "  id="emision"   value="" disabled="true" >                
+                                </div>
+                            </div>    
+                        </div>
+                    </div>   
+                    
+                    <div class="tab-pane" id="lC">
+                        <div>
+                            <div class="form-inline">
+                                <div class="form-group col-md-12">    
+                                    <label class="col-md-2" >Tipo Compra</label>
+                                    <select name="tipo" id="tipo" class="form-control input-sm" disabled="true" >
+                                        <option value="">-Seleccione-</option>
+                                        <option value="CREDITO">Credito</option>
+                                        <option value="CONTADO">Contado</option>
+                                    </select>    
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <hr>                            
+                            <div class="form-inline">
+                                <div class="form-group col-md-12">    
+                                    <label class="col-md-3" >Pronto Pago</label>
+                                    <input type="radio" name="prontopago" value="1" disabled="true"  /><span>SI</span> | 
+                                    <input type="radio" name="prontopago" value="0" disabled="true" /><span>NO</span>
+                                </div>
+                            </div>                        
+                            <br>
+                            <hr>                            
+                            <div class="form-inline">
+                                <div class="form-group col-md-12">    
+                                    <label class="col-md-3" >Tasa Descuento</label>
+                                    <input name="tasa_pronto_pago" type="text" class="form-control input-sm" id="tasa_pronto_pago" size="10" disabled="true" /><span class="h4">%</span>
+                                    
+                                </div>
+                            </div>
+                            <br>
+                            <hr>
+                            <div class="form-inline">
+                                <div class="form-group col-md-12">
+                                    <label class="col-md-3" >Plazo</label>
+                                    <input name="plazo_pronto_pago" type="text" class="form-control input-sm" id="plazo_pronto_pago" size="10" disabled="true" /><span> Dias</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                   
+                </div>                     
+               </div>
+            
+            </div>
+                       
+        </div>
+               
+        <div class="col-lg-4">
+            <div class="panel bg-light-blue-gradient">
+                <div class="panel-heading"><h3 style="margin-bottom:0px;margin-top:2px;padding:2px;">Totales</h3></div>
+
+                <hr style="margin:0px;margin-bottom:4px;">
+                <div class="panel-body">
+                    <div class="form-group">    
+                        <div class="form-inline">
+                            <label class="col-lg-6" >Sub Total</label>
+                            <input name="subtotal" type="text" class="form-control  text-right"  id="subtotal" size="15" disabled="true" value="0.00" >
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">    
+                        <div class="form-inline">
+                            <label class="col-lg-6" >Desc.  <span><input name="tsa_desc" id="tsa_desc" type="text" class="form-control input-sm text-right" size="2" />%</span></label>                            
+                            <input name="descuento" type="text" class="form-control  text-right"  id="descuento" size="15" disabled="true" value="0.00" >
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">    
+                        <div class="form-inline">
+                            <label class="col-lg-6" >I.V.A. &nbsp  <span><input name="tsa_iva" id="tsa_iva" type="text" class="form-control input-sm text-right" size="2" readonly="true" value="<?php  if(isset($this->impuesto['tasa_impuesto'])) echo $this->impuesto['tasa_impuesto']; ?>" />%</span>	</label>
+                            <input name="iva" type="text" class="form-control  text-right"  id="iva" size="15" disabled="true" value="0.00" >
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">    
+                        <div class="form-inline">
+                            <label class="col-lg-6" >Total</label>
+                            <input name="total" type="text" class="form-control  text-right"  id="total" size="15" disabled="true" value="0.00" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="col-lg-12">    
+            
+            <div class="panel panel-default">
+                
+                <div class="panel-body">
+                	<p>
+                		<button class="btn btn-default input-sm"  id="agregar" type="button" disabled="true" ><i class="fa fa-plus"></i></button>
+            		</p>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="tabla">
+                            <thead>
+                                <tr class="bg-light-blue-active">
+                                    <th width='130'>Codigo</th>
+                                    <th width='400'>Descripcion</th>
+                                    <th width='130'>Precio</th>
+                                    <th width='130'>Cantidad</th>
+                                    <th width='130'>Monto</th>
+                                    <th width='130'>I.V.A</th>
+                                    <th width='150'>Total</th>
+                                    <th></th>
+				</tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" id="guardar" disabled="true" ><i class="fa fa-floppy-o"></i> Guardar </button>
+            <a href="<?php echo BASE_URL ?>compra/compras/index"><button type="button" class="btn btn-danger" id="cancelar"><i class="fa fa-undo"></i> Cancelar </button></a>
+             
+            <br/>
+            <br/>   
+        </div>
+      
+         
+	</div>
+	</form>   
+</div>
+</div>    
+</div>
+
+<div class="modal fade" id="myModal" data-toggle="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-light-blue-gradient">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <label>Nombre del Producto</label>
+        <input name="producto" id="producto" type="text" class="form-control"  />        
+      </div>
+      <div class="modal-body">
+          <input name="id_fila" id="id_fila" type="hidden" class="form-control"  />
+          <div class="panel panel-default" >
+              <div class="panel-body">
+                  <div id="table_concepto">
+                     <table class="table  table-bordered" >
+                     <tr>           
+                     	<td class="cabecera" width="70">Codigo.</td>
+                     	<td class="cabecera" width="400">Nombre</td>
+                     	<td class="cabecera" width="80">Precio</td>
+                     	<td class="cabecera" width="50">Exist.</td>
+                     	<td class="cabecera" width="180">Ubicacion</td>  
+                     	<td class="cabecera" width="30"></td>
+                     </tr>
+                     </table>
+                  </div>   
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="recModal" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-blue-gradient">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<h3>Recepción de Productos</h3>
+      </div>
+      <div class="modal-body">
+          <div class="panel-default">
+              <div class="panel-body">
+                <div class="form-group col-md-3">
+                    <label>Nro de Recepción</label>
+                    <input name="nro" id="nro" type="text" class="form-control " value="" />
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Fecha</label>
+                    <input name="fecha" id="fecha" type="text" class="form-control" value="" />
+                </div>
+                <div class="form-group col-md-5">
+                    <label>Depósito de Recepción</label>
+                    <input name="deposito" id="deposito" type="text" class="form-control" value="" />
+                </div>
+              </div>    
+          </div>
+          <div class="panel-default">
+              <div class="panel-body">
+                    <div id="tabla-detalle">
+                        <div class="table-responsive">
+                          <table class="table table-bordered" id="tabla_recepcion">
+                              <thead>
+                                  <tr class="cabecera-gris" >
+                                      <th width='120'>Código</th>
+                                      <th width='450'>Descripción</th>
+                                      <th width='120'>Precio</th>
+                                      <th width='100'>Solicitados</th>
+                                      <th width='120'>Monto</th>
+                                      <th width='120'>Recibidos</th>                                     
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                          </table>
+                      </div>
+                    </div>
+                  <div>
+                  	<hr style="margin:0px;margin-bottom:4px;">
+                    <button type="button" data-dismiss="modal" class="cerrar" title="Cargar Informe de Recepcion"><i class="fa fa-level-down"></i></button>
+                  </div>
+                  </div>
+          </div>
+      </div>    
+    </div>
+  </div>
+</div>

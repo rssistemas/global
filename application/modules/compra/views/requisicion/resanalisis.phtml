@@ -1,0 +1,188 @@
+<div class="row">
+        <div class="col-lg-12 col-md-6">
+            <ul class="nav nav-tabs">
+            <li role="presentation" ><a href="<?php echo  BASE_URL ?>compra/requisicion/index/">Listado Requisiciones </a></li>
+            <li role="presentation" class="active"><a href="<?php echo  BASE_URL ?>compra/requisicion/analisis/">Analisis de Requisiciones</a></li>
+        </ul>
+        <div class="panel panel-default">
+            <div class="">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header navbar-btn">
+                            
+                        </div>  
+                        <form class="navbar-form navbar-right" role="search" action="" method="post">
+                            <div class="form-group">
+                                <label>Depósito</label>    
+                                <?php if(isset($this->depTrb) && count($this->depTrb)>0): ?>
+                                <select name="deposito" id="deposito" class="form-control">   
+                                    <option value="0">TODOS</option>   
+                                <?php foreach($this->depTrb as $dep): ?>
+                                    <?php if(isset($this->depAct)&& $this->depAct==$dep['id_deposito']): ?>
+                                    <option value="<?php echo $dep['id_deposito'] ?>" selected="true"><?php echo $dep['nombre_deposito'] ?></option>       
+                                    <?php else: ?>
+                                    <option value="<?php echo $dep['id_deposito'] ?>"><?php echo $dep['nombre_deposito'] ?></option>       
+                                    <?php endif; ?>
+                                <?php endforeach; ?>    
+                                </select>     
+                                <?php endif; ?> 
+                                <input type="text" name="busqueda" class="form-control" placeholder="Busqueda">
+                            </div>
+                            <button type="submit" class="btn btn-default">Enviar</button>
+                        </form>    
+                    </div>
+                </nav>
+            </div>     
+                
+			<div class="panel-body">
+			<?php if(isset($this->lista) && count($this->lista)>0): ?>
+				<?php $i=0; ?>
+				<?php foreach($this->lista as $row): ?>
+				
+				<div <?php echo ($row['condicion'] == 'APROBADO')? "class='panel-info'" : "class='panel-danger'"   ?> >
+					<div class="panel-heading form-inline ">
+						<div class="form-group ">
+						<?php if($row['condicion'] == 'POR EVALUAR'):  ?>
+							<input name="id<?php echo $i ?>" id="id<?php echo $i ?>" type="checkbox" value="<?php echo $row['id']  ?>" class="checkbox habilitar" data-id="<?php echo $i  ?>" />	|						
+						<?php endif; ?>
+						</div>
+						<div class="form-group ">
+							<label>Fecha:</label>
+							<?php echo $row['fecha'].'  |  '  ?>
+						</div>
+						<div class="form-group ">
+							<label>Solicitante:</label>
+							<?php echo $row['solicitante'].'  |  ' ?>
+						</div>
+						<div class="form-group ">
+							<label>Almacen:</label>
+							<?php echo $row['deposito'].'  |  ' ?>
+						</div>
+						<div class="form-group ">
+							<label>Tipo:</label>
+							<?php echo $row['tipo'].'  |  ' ?>
+						</div>
+						<div class="form-group ">
+							<label>Prioridad:</label>
+							<?php echo $row['prioridad'].'  |  ' ?>
+						</div>
+						<div class="form-group ">
+							<label>Plazo de ejecucion:</label>
+							<?php echo $row['plazo'].' dias |  ' ?>
+						</div>
+					</div>
+					<div class="panel-body">												
+						<div class="col-md-4">
+							<div class="box box-warning">
+								<div class="box-header with-border">
+									<div class="box-title"><h4>Detalle Requisicion</h4></div>
+								</div>
+								<div class="box-body">
+									<table class="table table-bordered">
+									<thead>
+										
+										<th>Producto</th>
+										<th>Marca</th>
+										<th>Cant.</th>										
+									</thead>
+									<tbody>
+									<?php if(isset($row['detalle']) && count($row['detalle'])>0 ) :?>					
+										<?php foreach($row['detalle'] as $cel): ?>
+											<tr>
+												
+												<td><span class="h6 small"><?php echo strtoupper($cel['producto']) ?></span></td>
+												<td><span class="h6 small"><?php echo strtoupper($cel['marca']) ?></span></td>
+												<td><span class="h6 small"><?php echo strtoupper($cel['cantidad']) ?></span></td>
+											</tr>										
+										<?php endforeach; ?>
+									<?php endif; ?>
+									</tbody>
+									</table>
+								</div>
+							</div>		
+						</div>
+						
+						<div class="col-md-5">
+							<div class="box box-danger">
+								<div class="box-header with-border">
+									<div class="box-title"><h4>Inf. de Inventario</h4></div>
+								</div>
+								<div class="box-body">
+									<table class="table table-bordered">
+									<thead>
+										
+										<th>Producto</th>
+										<th>Almacen</th>
+										<th>Exist.</th>										
+									</thead>
+									<tbody>
+									<?php if(isset($row['inv']) && count($row['inv'])>0 ) :?>					
+										<?php foreach($row['inv'] as $inv): ?>
+											<tr>
+												
+												<td><span class="h6 small"><?php echo strtoupper($inv['nombre_producto']) ?></span></td>
+												<td><span class="h6 small"><?php echo strtoupper($inv['nombre_deposito']) ?></span></td>
+												<td><span class="h6 small"><?php echo strtoupper($inv['existencia']) ?></span></td>
+											</tr>										
+										<?php endforeach; ?>
+									<?php endif; ?>
+									</tbody>
+									</table>
+								</div>
+							</div>		
+						</div>
+						
+						<div class="col-md-3">
+							<div class="box box-primary">
+								<div class="box-header with-border">
+									<div class="box-title"><h4>Inf. Requisicion</h4></div>
+								</div>
+								<div class="box-body">
+								<form class="form-horizontal">
+									<div class="form-group">
+										<label class="control-label">Motivo</label>
+										<div class="ha">
+											<textarea class="form-control input-sm h6" disabled="true" name="motivo<?php echo $i ?>" id="motivo<?php echo $i ?>"   ><?php echo $row['motivo'] ?></textarea>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Accion</label>
+										<div class="h6">
+											<select class="form-control input-sm" name="accion<?php echo $i ?>" disabled="true" id="accion<?php echo $i ?>" >
+												<option value="">-Seleccione-</option>
+												<option value="APROBADO"<?php if($row['condicion'] == 'APROBADO')echo 'selected' ?> ><span class="small">APROBADO</span></option>
+												<option value="RECHAZADO" <?php if($row['condicion'] == 'RECHAZADO')echo 'selected' ?>><span class="small">RECHAZADO</span></option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Justificacion</label>
+										<div class="h6">
+											<textarea type="text" class="form-control input-sm h6" disabled="true" name="justificacion<?php echo $i ?>" id="justificacion<?php echo $i ?>"  ></textarea>
+										</div>
+									</div>									
+								</div>
+								<div class="box-footer text-right"><span id="barra" class="small"></span>
+									<button type="button" class="btn btn-primary grabar" id="grabar<?php echo $i  ?>" data-id="<?php echo $i  ?>" disabled="true"  ><i class="fa fa-floppy-o"></i></button>
+								</div>
+								
+								
+								</form>
+												
+							</div>
+						</div>
+					</div>			
+				</div>
+				<?php $i++; ?>
+				<?php endforeach; ?>
+			<?php endif; ?>	
+			</div>
+			<div class="panel-footer" >
+				<p>
+					<?php if(isset($this->paginacion)) echo $this->paginacion; ?>
+				</p>
+			</div>
+    </div>        
+</div>
+</div>  
+

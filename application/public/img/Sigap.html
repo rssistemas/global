@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)http://localhost/pdval/transaccion/logistica/requisicion/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sigap</title>
+    <script src="./Sigap_files/jquery.js" type="text/javascript"></script>    <script src="./Sigap_files/bootstrap.js" type="text/javascript"></script>        
+        
+    <link href="./Sigap_files/bootstrap.css" rel="stylesheet" type="text/css">    <link href="./Sigap_files/sb-admin.css" rel="stylesheet" type="text/css">    <link href="./Sigap_files/morris.css" rel="stylesheet" type="text/css">    <link href="./Sigap_files/font-awesome.min.css" rel="stylesheet" type="text/css">        
+        
+    
+           
+    <script src="./Sigap_files/jquery.js" type="text/javascript"></script>                    <script src="./Sigap_files/solicitud.js" type="text/javascript"></script>
+               
+           
+</head>
+<body class="modal-open" style="padding-right: 23px;">
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://localhost/pdval/transaccion/logistica/requisicion/index.html">Sigap</a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                                                               <li class="dropdown">
+                    <a href="http://localhost/pdval/transaccion/logistica/requisicion/#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Danielys Alfonzo <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        
+                        <li>
+                            <a href="http://localhost/pdval/index/salir/"><i class="fa fa-sign-out"></i> Salir</a>
+                        </li>
+                    </ul>
+                </li>
+                        </ul>
+    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav side-nav">
+        	                            <li>
+                <a href="javascript:;" data-toggle="collapse" data-target="#demo0"><i class="fa fa-folder-o"></i> Archivo<i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="demo0" class="collapse">
+                                <li>
+                        <a href="http://localhost/pdval/archivo/producto/index"><i class="fa fa-cubes"></i> Producto</a>
+                    </li>
+                    
+                </ul>
+            </li>
+                                            <li>
+                <a href="javascript:;" data-toggle="collapse" data-target="#demo1"><i class="fa fa-globe"></i> Logistica<i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="demo1" class="collapse">
+                                <li>
+                        <a href="http://localhost/pdval/transaccion/logistica/requisicion/"><i class="fa fa-shopping-cart
+"></i> Requisicion</a>
+                    </li>
+                                <li>
+                        <a href="http://localhost/pdval/transaccion/logistica/planificacion/"><i class="fa fa-calendar"></i> Planificacion Despacho</a>
+                    </li>
+                    
+                </ul>
+            </li>
+                                            <li>
+                <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-building-o"></i> Almacen<i class="fa fa-fw fa-caret-down"></i></a>
+                <ul id="demo2" class="collapse">
+                                <li>
+                        <a href="http://localhost/pdval/transaccion/almacen/recepcion/"><i class="fa fa-download"></i> Recepcion</a>
+                    </li>
+                    
+                </ul>
+            </li>
+                                            <li>
+            <a class="" href=""><i class="fa fa-cogs"></i> Operacion</a>
+            </li>
+                                            <li>
+            <a class="" href=""><i class="fa fa-lock"></i> Seguridad</a>
+            </li>
+                                            <li>
+            <a class="" href=""><i class="fa fa-wrench"></i> Configuracion</a>
+            </li>
+                                            <li>
+            <a class="" href=""><i class="fa fa-print"></i> Reporte</a>
+            </li>
+                	    
+        </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+</nav>
+ <!-- Page Content -->
+<div class="container-fluid">
+    <div id="page-wrapper">
+
+        <div id="page-wrapper">
+            <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>
+                    Requisición 
+                </h1>
+                        
+                            </div>
+        </div>
+        <!-- /.row -->
+</div>    
+        </div><div class="row-fluid">
+    <div class="col-lg-12 col-md-6">
+        
+        <br>
+        <div class="panel panel-default">    
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="http://localhost/pdval/transaccion/logistica/solRequisicion/" title="Agregar Solicitud de Requisición"><button><i class="fa fa-plus"></i></button> | </a>                                     
+                </div>  
+                <form class="navbar-form navbar-right" role="search" action="" method="post">
+                    <div class="form-group">
+                        <label>Deposito</label>    
+                                                <select name="deposito" id="deposito" class="form-control">   
+                            <option value="0">TODOS</option>   
+                                                                                <option value="3">CENTRO DE DISTRIBUCION HUGO CHAVEZ</option>       
+                                                                                                            <option value="2">SILOS ARAURE</option>       
+                                                        
+                        </select>     
+                         
+                        <input type="text" name="busqueda" class="form-control" placeholder="Busqueda Nro Requisision">
+                    </div>
+                    <button type="submit" class="btn btn-default">Enviar</button>
+                </form>    
+            </div>
+        </nav>            
+        <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr class="cabecera-gris">
+                    <th>Id</th>
+                    <th>Fecha</th>
+                    <th>Origen de solicitud</th>
+                    <th>Teléfono</th>
+                    <th>Condición</th>
+                    <th>Comentario</th>
+                    <th></th>
+                    <th></th>
+					
+                </tr>
+                </thead>
+                <tbody>
+                                                        <tr>
+                        <td>1</td>
+                        <td>12-04-2016</td>
+                        <td>CENTRO DE DISTRIBUCION HUGO CHAVEZ</td>
+                        <td>234242</td>
+                        <td>PLANIFICADA</td>
+                        <td></td>
+						<td>
+							<button type="button" class="editar" data-toggle="modal" data-target=".bs-example-modal-lg" data-id="1"><i class="fa fa-search"></i></button>
+						</td>
+                       
+                        <td><a href="http://localhost/pdval/transaccion/logistica/requisicion/#">
+                            <button> <i class="fa fa-trash-o"></i></button>
+                        </a></td>
+                        
+                    </tr>
+                                        <tr>
+                        <td>2</td>
+                        <td>12-04-2016</td>
+                        <td>SILOS ARAURE</td>
+                        <td>1212313</td>
+                        <td>PLANIFICADA</td>
+                        <td></td>
+						<td>
+							<button type="button" class="editar" data-toggle="modal" data-target=".bs-example-modal-lg" data-id="2"><i class="fa fa-search"></i></button>
+						</td>
+                       
+                        <td><a href="http://localhost/pdval/transaccion/logistica/requisicion/#">
+                            <button> <i class="fa fa-trash-o"></i></button>
+                        </a></td>
+                        
+                    </tr>
+                                        <tr>
+                        <td>3</td>
+                        <td>13-04-2016</td>
+                        <td>CENTRO DE DISTRIBUCION HUGO CHAVEZ</td>
+                        <td>234242</td>
+                        <td>PLANIFICADA</td>
+                        <td></td>
+						<td>
+							<button type="button" class="editar" data-toggle="modal" data-target=".bs-example-modal-lg" data-id="3"><i class="fa fa-search"></i></button>
+						</td>
+                       
+                        <td><a href="http://localhost/pdval/transaccion/logistica/requisicion/#">
+                            <button> <i class="fa fa-trash-o"></i></button>
+                        </a></td>
+                        
+                    </tr>
+                                        <tr>
+                        <td>4</td>
+                        <td>23-04-2016</td>
+                        <td>CENTRO DE DISTRIBUCION HUGO CHAVEZ</td>
+                        <td>234242</td>
+                        <td>PLANIFICADA</td>
+                        <td>PRUEBA</td>
+						<td>
+							<button type="button" class="editar" data-toggle="modal" data-target=".bs-example-modal-lg" data-id="4"><i class="fa fa-search"></i></button>
+						</td>
+                       
+                        <td><a href="http://localhost/pdval/transaccion/logistica/requisicion/#">
+                            <button> <i class="fa fa-trash-o"></i></button>
+                        </a></td>
+                        
+                    </tr>
+                                        <tr>
+                        <td>5</td>
+                        <td>30-04-2016</td>
+                        <td>CENTRO DE DISTRIBUCION HUGO CHAVEZ</td>
+                        <td>234242</td>
+                        <td>PLANIFICADA</td>
+                        <td>PRUEBA</td>
+						<td>
+							<button type="button" class="editar" data-toggle="modal" data-target=".bs-example-modal-lg" data-id="5"><i class="fa fa-search"></i></button>
+						</td>
+                       
+                        <td><a href="http://localhost/pdval/transaccion/logistica/requisicion/#">
+                            <button> <i class="fa fa-trash-o"></i></button>
+                        </a></td>
+                        
+                    </tr>
+                                        <tr>
+                        <td>6</td>
+                        <td>01-05-2016</td>
+                        <td>CENTRO DE DISTRIBUCION HUGO CHAVEZ</td>
+                        <td>234242</td>
+                        <td>PLANIFICADA</td>
+                        <td>PRUEBA</td>
+						<td>
+							<button type="button" class="editar" data-toggle="modal" data-target=".bs-example-modal-lg" data-id="6"><i class="fa fa-search"></i></button>
+						</td>
+                       
+                        <td><a href="http://localhost/pdval/transaccion/logistica/requisicion/#">
+                            <button> <i class="fa fa-trash-o"></i></button>
+                        </a></td>
+                        
+                    </tr>
+                                        <tr>
+                        <td>7</td>
+                        <td>03-05-2016</td>
+                        <td>CENTRO DE DISTRIBUCION HUGO CHAVEZ</td>
+                        <td>234242</td>
+                        <td>PLANIFICADA</td>
+                        <td>PRUEBA</td>
+						<td>
+							<button type="button" class="editar" data-toggle="modal" data-target=".bs-example-modal-lg" data-id="7"><i class="fa fa-search"></i></button>
+						</td>
+                       
+                        <td><a href="http://localhost/pdval/transaccion/logistica/requisicion/#">
+                            <button> <i class="fa fa-trash-o"></i></button>
+                        </a></td>
+                        
+                    </tr>
+                                        <tr>
+                        <td>8</td>
+                        <td>03-05-2016</td>
+                        <td>CENTRO DE DISTRIBUCION HUGO CHAVEZ</td>
+                        <td>234242</td>
+                        <td>DESPACHADO</td>
+                        <td>PRUEBA</td>
+						<td>
+							<button type="button" class="editar" data-toggle="modal" data-target=".bs-example-modal-lg" data-id="8"><i class="fa fa-search"></i></button>
+						</td>
+                       
+                        <td><a href="http://localhost/pdval/transaccion/logistica/requisicion/#">
+                            <button> <i class="fa fa-trash-o"></i></button>
+                        </a></td>
+                        
+                    </tr>
+                                        <tr>
+                        <td>9</td>
+                        <td>03-05-2016</td>
+                        <td>CENTRO DE DISTRIBUCION HUGO CHAVEZ</td>
+                        <td>234242</td>
+                        <td>DESPACHADO</td>
+                        <td>PETICION SEGUN CONSEJO COMUNAL</td>
+						<td>
+							<button type="button" class="editar" data-toggle="modal" data-target=".bs-example-modal-lg" data-id="9"><i class="fa fa-search"></i></button>
+						</td>
+                       
+                        <td><a href="http://localhost/pdval/transaccion/logistica/requisicion/#">
+                            <button> <i class="fa fa-trash-o"></i></button>
+                        </a></td>
+                        
+                    </tr>
+                                        <tr>
+                        <td>10</td>
+                        <td>03-05-2016</td>
+                        <td>CENTRO DE DISTRIBUCION HUGO CHAVEZ</td>
+                        <td>234242</td>
+                        <td>DESPACHADO</td>
+                        <td>PKRUEBA</td>
+						<td>
+							<button type="button" class="editar" data-toggle="modal" data-target=".bs-example-modal-lg" data-id="10"><i class="fa fa-search"></i></button>
+						</td>
+                       
+                        <td><a href="http://localhost/pdval/transaccion/logistica/requisicion/#">
+                            <button> <i class="fa fa-trash-o"></i></button>
+                        </a></td>
+                        
+                    </tr>
+                                        
+                </tbody>
+            </table>
+            
+            <p>
+                    
+			
+		Primero
+	
+			
+
+	&nbsp;
+
+			
+		Anterior
+	
+		
+	&nbsp;
+                				
+						
+				1				
+	
+				
+									
+				<a href="http://localhost/pdval/transaccion/logistica/abastecimiento//2">
+					2				</a>&nbsp;		
+			
+				
+	
+		                                
+	&nbsp;
+
+			
+		<a href="http://localhost/pdval/transaccion/logistica/abastecimiento//2">Siguiente</a>
+	
+		
+	&nbsp;
+
+			
+		<a href="http://localhost/pdval/transaccion/logistica/abastecimiento//2">Ultimo</a>
+	
+		
+            </p>
+        </div>
+      </div>
+    </div>        
+</div>
+<div class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: block; padding-right: 23px;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+          <div class="panel-default">
+              <div class="panel-body">
+                <div class="form-group col-md-3">
+                    <label>Nro de Requisición</label>
+                    <input name="nro" id="nro" type="text" class="form-control " value="">
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Fecha</label>
+                    <input name="fecha" id="fecha" type="text" class="form-control" value="">
+                </div>
+                <div class="form-group col-md-5">
+                    <label>Deposito</label>
+                    <input name="proveedor" id="proveedor" type="text" class="form-control" value="">
+                </div>
+              </div>    
+          </div>
+          <div class="panel-default">
+              <div class="panel-body">
+                    <div id="tabla-detalle">
+                        <div class="table-responsive">
+                          <table class="table table-bordered" id="tabla">
+                              <thead>
+                                  <tr>
+                                      <th width="150">Codigo</th>
+                                      <th width="400">Descripcion</th>
+                                      <th width="150">Marca</th>
+                                      <th width="250">Modelo</th>
+                                      <th width="100">Cantidad</th>
+                                      <th></th>
+                                  </tr>
+                              </thead>
+                              <tbody></tbody>
+                          </table>
+                      </div>
+                    </div>
+                  <div>
+                      <button><i class="fa fa-print"></i></button>
+                  </div>
+                  </div>
+          </div>
+      </div>    
+    </div>
+  </div>
+</div></div>
+</div>
+</div>
+
+
+</div><div class="modal-backdrop fade in"></div></body></html>

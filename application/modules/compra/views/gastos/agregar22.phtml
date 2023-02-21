@@ -1,0 +1,181 @@
+<div class="row">
+<form name="form-gasto" method="post" autocomplete="off" action="<?php echo BASE_URL ?>compra/gastos/agregar" id="form-gasto">
+<input name="guardar" type="hidden" value="1" />
+<div class="col-lg-3">
+	<div class="panel panel-default">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">			
+				<div class="form-group">
+					<label >Unidad Operativa</label>
+					<select class="form-control" name="unidad" id="unidad" required  />
+					<option value="-">-Seleccione-</option>
+					<?php if(isset($this->unidad)&& count($this->unidad)): ?>
+						<?php foreach ($this->unidad as $val): ?>
+						<option value="<?php echo $val['id_unidad_operativa'] ?>"><?php echo strtoupper($val['nombre_unidad_operativa']) ?> </option>
+						<?php endforeach; ?>
+					<?php endif; ?>
+					</select>
+				</div>	  							
+			</div>
+		</nav>
+		 <div class="panel-body">
+			<div class="form-group">
+				<label>Proveedor</label>
+				<input name="proveedor" type="text" class="form-control" id="proveedor"   required  disabled="true" ><input name="id_proveedor" type="hidden" id="id_proveedor" value="0" />
+			</div>
+			<div class="form-group">
+				<label>Documento</label>
+				<select name="tdoc" id="tdoc" class="form-control" disabled="true" >
+					<option value="">-Seleccione-</option>
+					<?php if(isset($this->tdoc)&& count($this->tdoc)): ?>
+						<?php foreach ($this->tdoc as $val): ?>
+						<?php if($val['accion']='ENTRADA') : ?>
+						<option value="<?php echo $val['id_tipo_documento'] ?>"><?php echo strtoupper($val['nombre_tipo_documento']) ?> </option>
+						<?php endif; ?>
+						<?php endforeach; ?>
+					<?php endif; ?>
+					</select>
+				</select>
+			</div>
+			<div class="form-group">
+				<label>Nro Documento</label>
+				<input name="ndoc" id="ndoc" type="text" class="form-control text-right" required disabled="true" />
+					
+			</div>
+			<div class="form-group">
+				<label>Fecha Emisión</label>
+				<input name="emision" type="date" class="form-control" id="emision"   required disabled="true" >
+			</div>
+			<div class="form-group">
+				<label>Fecha Vencimiento</label>
+				<input name="vencimiento" type="date" class="form-control" id="vencimiento"   required disabled="true" >
+			</div>
+			<div class="form-group">
+				<label>Ref. de Compra </label>
+				<div class="input-group">
+					<span class="input-group-addon">
+						<input type="checkbox" aria-label="..." id="act_cpra" >
+					</span>
+					<input name="compra" id="compra" type="text" class="form-control text-right"  required disabled="true" >
+					<span class="input-group-btn">
+						<button id="bto_cpra" class="btn btn-default" type="button" disabled="true"><i  class="fa fa-search" ></i></button>
+					</span>
+				</div>
+			</div>	
+			<div class="form-group">
+				<label>Comentario</label>
+				<textarea name="comentario" id="comentario" class="form-control" disabled="true" ></textarea>
+			</div>		
+		</div>
+		
+		<br/>
+		<div class="panel-footer">
+			<a href="<?php echo BASE_URL ?>almacen/recepcion/index/"><button type="button" class="btn btn-danger"><i class="fa fa-undo"></i> Cancelar</button></a>   
+			<button type="button" class="btn btn-primary" id="guardar" disabled="true" ><i  class="fa fa-floppy-o"></i></i> Guardar</button> 
+		</div>
+	</div>
+</div>
+<div class="col-lg-9">
+			
+	<div class="panel-default">
+		<div class="panel-heading">
+			<section class="content-header">
+			  <h1>
+				Detalle de los Gastos					
+			  </h1>
+			  <ol class="breadcrumb">
+				<li><button type="button" id="add" disabled="true"  ><i class="fa fa-plus"></i> </button></li>
+			  </ol>
+			</section>
+		</div> 
+		<div class="panel panel-body">			
+			<div class="table-responsive">
+				<table class="table table-bordered" id="tabla">
+					<thead>
+						<tr class="bg-light-blue" >
+							<th width='50'></th>
+							<th width='110'>Código</th>
+							<th width='330'>Descripción</th>
+							<th width='130'>Precio</th>
+							<th width='100'>Cant.</th>
+							<th width='100'>%IMP.</th>
+							<th width='30'></th>
+						</tr>
+					</thead>
+					<tbody>					
+					</tbody>
+				</table>				
+			</div>
+			<br/>
+			<h4 style="margin-bottom:0px;margin-top:10px;padding:0px;">Totales</h4>
+			<hr style="margin:0px;margin-bottom:8px;">
+			<div class="form-inline text-right" >
+				<div class="form-group">
+					<label style="margin-left:25px">Sub Total</label>
+					<input type="text" name="subtotal" id="subtotal" class="form-control text-right" value="0" readonly="true" size="15" />
+				</div>
+				<div class="form-group">
+					<label style="margin-left:25px">Total Iva</label>
+					<input type="text" name="total_iva" id="total_iva" class="form-control text-right" value="0" readonly="true" size="15" />
+				</div>
+				<div class="form-group">
+					<label style="margin-left:25px">Total</label>
+					<input type="text" name="total" id="total" class="form-control text-right" value="0" readonly="true" size="15" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+</div> 
+
+
+<div class="modal fade" id="myModal" data-toggle="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header ">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <label>Busqueda de Compras por Proveedor </label>
+        <input name="prov" id="prov" type="text" class="form-control"  />        
+      </div>
+      <div class="modal-body">
+          <div class="panel panel-default" >
+              <div class="panel-body">
+                  <div id="table_concepto">
+                      
+                  </div>   
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        
+      </div>
+    </div>
+  </div>
+</div>
+        
+<div class="modal fade" id="myprod" data-toggle="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header stylish-color #4B515D
+">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <label>Tipo de Gasto</label>
+        <input name="gasto" id="gasto" type="text" class="form-control"  />        
+      </div>
+      <div class="modal-body">
+          <input name="id_fila" id="id_fila" type="hidden"   />
+          <div class="panel panel-default" >
+              <div class="panel-body">
+                  <div id="table_concepto_pro">
+                      
+                  </div>   
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        
+      </div>
+    </div>
+  </div>
+</div>

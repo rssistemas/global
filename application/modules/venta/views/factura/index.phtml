@@ -1,0 +1,156 @@
+<div class="row">
+    <div class="col-lg-12 col-md-6">
+        <div class="panel panel-default">
+            <div class="">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a href="<?php echo BASE_URL ?>venta/factura/agregar/" title="Agregar Factura"><button class="btn btn-default navbar-btn"><i class="fa fa-plus"></i></button></a>
+                        </div>  
+                        <form class="navbar-form navbar-right" role="search" action="" method="post">
+                            <div class="form-group">
+                                <input type="text" name="busqueda" class="form-control" placeholder="Filtrar descripción">
+                            </div>
+                            <button type="submit" class="btn btn-default"><i  class="fa fa-search" > Buscar</i></button>
+                        </form>    
+                    </div>
+                </nav>
+            </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr class="bg-teal-active">
+                        <th>Fecha</th>
+                        <th>Rif</th>
+                        <th>Razon Social</th>
+                        <th>Direccion Fiscal</th>
+                        <th>Subtotal</th>
+                        <th>I.V.A</th>
+                        <th>Total</th>
+                        <th>Estatus</th>
+                        <th width="30"></th>
+			<th width="30"></th>
+                        <th width="30"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php if(isset($this->lista) && count($this->lista)) :?>
+                        <?php foreach ($this->lista as $val) :?>
+                        <tr>
+                            <td><?php echo date('d-m-Y',strtotime($val['fecha_venta'])) ?></td>
+                            <td><?php echo $val['rif_cliente'] ?></td>
+                            <td><?php echo ucfirst($val['razon_social_cliente']) ?></td>
+                            <td><?php echo ucfirst($val['direccion_fiscal_cliente']) ?></td>
+                            <td class="text-right"><?php echo $val['tproducto']-$val['tiva'] ?></td>
+                            <td class="text-right"><?php echo $val['tiva'] ?></td>
+                            <td class="text-right"><?php echo $val['tproducto'] ?></td>
+                            <td><?php echo $val['condicion_venta'] ?></td>
+                            
+                            <td><button class="buscar btn btn-default"  data-toggle="modal" data-target=".bs-example-modal-lg"  data-id="<?php echo $val['id_venta'] ?>" ><i class="fa fa-search"></i></button></td>
+                            <td><a href="<?php echo BASE_URL ?>venta/factura/anular/<?php echo $val['id_venta'] ?>"><button  class="btn btn-default"><i class="fa fa-trash-o"></i></button></a></td>
+                            <td><a href="<?php echo BASE_URL ?>reporte/index/impFV/<?php echo $val['id_venta'] ?>" target="_blank"><button  class="btn btn-default"><i class="fa fa-print"></i></button></a></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>    
+                    </tbody>
+                </table>
+                
+                <p>
+                        <?php if(isset($this->paginacion)) echo $this->paginacion; ?>
+                </p>
+            </div>
+          </div>
+
+        </div>
+    </div>
+        
+</div>
+<div class="modal fade bs-example-modal-lg" id="compra_modal"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-teal-active">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3>Factura  </h3>
+      </div>
+      <div class="modal-body">
+          <div class="panel-default">
+              <div class="panel-body">
+                <div class="form-group col-md-3">
+                    <label>Nro de Factura</label>
+                    <input name="nro" id="nro" type="text" class="form-control " value="" />
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Fecha Emision</label>
+                    <input name="fecha" id="fecha" type="text" class="form-control" value="" />
+                </div>
+                <div class="form-group col-md-5">
+                    <label>Cliente</label>
+                    <input name="cliente" id="cliente" type="text" class="form-control" value="" />
+                </div>
+               <div class="form-group col-md-3">
+                    <label>Tipo de Factura</label>
+                    <input name="tipo" id="tipo" type="text" class="form-control " value="" />
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Fecha Vencimiento</label>
+                    <input name="vence" id="vence" type="text" class="form-control" value="" />
+                </div>
+                <div class="form-group col-md-5">
+                    <label>Direccion Fiscal</label>
+                    <input name="direccion" id="direccion" type="text" class="form-control" value="" />
+                </div>  
+              </div>    
+          </div>
+          <div class="panel-default">
+              <div class="panel-body">
+                    <div id="tabla-detalle">
+                        <div class="table-responsive">
+                          <table class="table table-bordered" id="tabla">
+                              <thead>
+                                  <tr class="bg-teal-active" >
+                                      <th width='120'>Código</th>
+                                      <th width='400'>Descripción</th>
+                                      <th width='120'>Precio</th>
+                                      <th width='100'>Cantidad</th>
+				      <th width='120'>Monto</th>
+				      <th width='90'>Iva %</th>
+				      <th width='120'>Total</th>
+				      <th ></th>									  
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                          </table>
+                      </div>
+                    </div>
+                            <div>
+                                    <div class="text-right">
+                                            <h4 style="margin-bottom:0px;margin-top:10px;padding:0px;">Totales</h4>
+                                            <hr style="margin:0px;margin-bottom:8px;">
+                                            <div class="form-inline" >
+                                                    <div class="form-group">
+                                                            <label style="margin-left:25px">Sub total</label>
+                                                            <input type="text" name="subtotal" id="subtotal" class="form-control text-right" value="0" readonly="true" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label style="margin-left:25px">Total Iva</label>
+                                                            <input type="text" name="iva" id="iva" class="form-control text-right" value="0" readonly="true" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label style="margin-left:25px">Total</label>
+                                                            <input type="text" name="total" id="total" class="form-control text-right" value="0" readonly="true" />
+                                                    </div>
+                                            </div>
+                                            <hr />
+                                    </div>	
+                                    <div id="enlace"></div>
+                              </div>
+                  </div>
+                  
+                  </div>
+          </div>
+      </div>    
+    </div>
+  </div>
+

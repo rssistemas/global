@@ -1,0 +1,198 @@
+<?php //print_r($_layoutParams['argumentos']) ?>
+<div class="row">
+        <div class="col-lg-12 col-md-6">
+        <div class="panel panel-default">
+        <div class="">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header navbar-btn">
+						<a href="<?php echo  BASE_URL ?>compra/planificacion/index/" class=""> <button   value="" class="btn btn-default nuevo" id="atras" ><i  class="fa fa-mail-reply"></i></button> </a>
+						<a class=""> <button   value="" class="btn btn-default nuevo" id="nuevo" ><i  class="fa fa-plus"></i></button> </a>
+                    </div>  
+                    <form class="navbar-form navbar-right" role="search" action="" method="post">
+                        <div class="form-group">
+                            <input type="text" maxlength="100" name="busqueda" class="form-control" placeholder="Filtrar nombre">
+                        </div>
+                        <button type="submit" class="btn btn-default"><i  class="fa fa-search" > Buscar</i></button>
+                    </form>    
+                </div>
+            </nav>
+        </div>
+          <div class="panel-body">
+            
+			<div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr class="bg-light-blue-active">
+                        <th  width="80">Codigo</th>
+						<th width="100">Tipo</th>
+                        <th width="400">Requisito</th>
+						<th width="90">Cantidad</th>
+						<th width="90">Plazo Ejecucion</th>
+                        <th width="100">Estatus</th>
+						<th width="200">Motivo</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php $i = 1; ?>    
+                    <?php if(isset($this->lista) && count($this->lista)) :?>
+                        <?php foreach ($this->lista as $val) :?>
+                        <tr >
+                            <td class="text-right"><?php echo $val['id_det_requisicion'] ?></td>
+							<td><?php echo strtoupper($val['tipo']) ?></td>
+                            <td><?php echo strtoupper($val['requisito']) ?></td>
+							<td class="text-right"><?php echo $val['cantidad_requisito'] ?></td>
+							<td class="text-right"><?php echo $val['plazo'] . ' Dias' ?></td>
+                            <td><?php echo strtoupper($val['condicion_requisito']) ?></td>  
+                            <td><?php echo strtoupper($val['motivo']) ?></td>
+							<td>
+                                <?php if($val['estatus_det_requisito']==1): ?>
+									<button class="eliminar btn btn-default" title="Presione aquí para ELIMINAR" value="<?php echo $val['id_det_pln'] ?>"><i class="fa fa-trash-o"></i></button>
+                                <?php endif; ?>
+                            </td>
+							<td>
+								<?php if($val['estatus_det_requisito']==1): ?>
+									<button class="btn btn-default" title="Presione aquí para Pausar" value="<?php echo $val['id_det_pln'] ?>"><i class="fa fa-toggle-on"></i></button>
+								<?php endif; ?>
+								<?php if($val['estatus_det_requisito']==0): ?>
+									<button class="btn btn-default" title="Presione aquí para reactivar" value="<?php echo $val['id_det_pln'] ?>"><i class="fa fa-toggle-off"></i></button>
+								<?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php $i++; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>    
+                    </tbody>
+                </table>
+                <hr>
+                <p>
+                      <?php if(isset($this->paginacion)) echo $this->paginacion; ?>
+                </p>
+            </div>
+          </div>
+
+        </div>
+    </div>
+        
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="pln_modal"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-teal-active">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h3>Registro de Requisikto</h3>
+      </div>
+      <div class="modal-body">
+          <div class="panel-default">
+              <div class="panel-body">
+					<form name="detalle" id="detalle" method="post" autocomplete="off" action="<?php echo BASE_URL ?>compra/planificacion/detalle/">
+						<input name="guardar" type="hidden" value="1" id="guardar">
+						<input name="id" type="hidden" value="0" id="id">
+						<input name="id_pln" type="hidden"  value="<?php echo $this->pln ?>" id="id_pln">
+						<input name="aux" type="hidden" value="0" id="aux">
+						<input name="unidad" type="hidden" value="<?php if(isset($this->arrPln['unidad_operativa_id'])) echo $this->arrPln['unidad_operativa_id'] ?>" id="unidad">
+						<input name="departamento" type="hidden" value="<?php if(isset($this->arrPln['departamento_id'])) echo $this->arrPln['departamento_id'] ?>" id="departamento">
+						
+						<div class="col-lg-6">
+							<div class="panel panel-default">                
+								<div class="panel-heading "><h4 style="margin-bottom:0px;margin-top:2px;padding:2px;">Inf. de Requisición</h4></div>
+								<div class="panel-body">
+							
+									<div class="form-group">
+									  <label>***Tipo de Requisito:</label>
+									  <select name="tipo" id="tipo" class="form-control input-sm" disabled="true">
+										<option value="">-Seleccone-</option>
+										<option value="PRODUCTO">PRODUCTO</option>
+										<option value="SERVICIO">SERVICIO</option>
+									  </select>
+									</div>
+									<div class="form-group">
+									  <label>***Prioridad:</label>
+									  <select name="prioridad" id="prioridad" class="form-control input-sm" disabled="true">
+										<option value="">-Seleccone-</option>
+										<option value="BAJA">BAJA</option>
+										<option value="MEDIA">MEDIA</option>
+										<option value="ALTA">ALTA</option>
+									  </select>
+									</div>
+									<div class="form-group">
+									  <label>***Plazo(diás):</label>
+									  <input name="plazo" maxlength="100" type="text" class="form-control input-sm" disabled="true" id="plazo" required placeholder="Ingrese el plazo de ejecucion" >
+									</div>
+								</div>
+							</div>
+						</div>
+							
+						<div class="col-lg-6">
+							<div class="panel panel-info ">
+								<div class="panel-heading bg-light-blue-gradient"><h4 style="margin-bottom:0px;margin-top:2px;padding:2px;">Comentarios</h4></div>
+								
+								<hr style="margin:0px;margin-bottom:4px;">
+								<div class="panel-body">
+									<div class="col-lg-12">
+										<div class="form-group">    
+											<label>Motivo de Requisicion</label>
+											<textarea name="motivo" id="motivo" class="form-control input-sm " rows="1" disabled="true" ></textarea>    
+										</div>
+									</div>
+									<div class="col-lg-12">
+										<div class="form-group">    
+											<label>Comentario de Requisicion</label>
+											<textarea name="comentario" id="comentario" rows="2" class="form-control input-sm" disabled="true" ></textarea>    
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-lg-12">
+							<div class="panel panel-info ">
+								
+									<div class="panel-body">										
+										<div class="form-inline">
+											<div class="form-group">
+											  <label>***Requisito:</label>
+											  <input name="requisito"  type="text" size="45" class="form-control" disabled="true" id="req" required placeholder="Ingrese nombre del requisito" >
+											  <input name="id_requisito" id="id_requisito" type="hidden"  value="" />
+											</div>	
+											<div class="form-group">
+											  <label>***Cantidad:</label>
+											  <input name="cantidad" maxlength="50" type="text" class="form-control" disabled="true" id="cantidad" required placeholder="Ingrese la cantidad requerida" >
+											  <button type="button" name="incluir" id="incluir" class="form-control"  ><i class="fa-plus-circle"></i></button>	
+											</div>											
+										</div>
+										<div id="visor">
+										
+										</div>
+										<hr>
+										<table id="tabla_req" class="table table-hover">
+											<thead>
+												<th width="80">Nro</th>
+												<th width="550">Requisito</th>
+												<th width="150">Cantidad</th>
+												<th></th>												
+											</thead>
+											<tbody>
+											
+											</tbody>
+										</table>	
+									</div>
+							</div>	
+						</div>
+					
+				</form>
+				</div>
+				<div>		
+					<button type="button" title="Presione aquí para Guardar el registro" name="agregar" id="agregar" class="btn btn-primary" ><i class="fa fa-floppy-o"></i> Guardar</button>
+					<button type="button" name="cancelar" title="Presione aquí para VACIAR el formulario" id="cancelar" class="btn btn-danger"><i class="fa fa-undo"></i> Cancelar</button>
+				</div>
+														
+		</div>	
+	  </div>    
+  </div>  
+</div>
+</div>    
+    

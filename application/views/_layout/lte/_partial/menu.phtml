@@ -1,0 +1,96 @@
+      
+<!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      <?php echo view::tagImg('AdminLTELogo.png',array('clase'=>'brand-image img-circle elevation-3','style'=>'opacity: .8' )) ?>
+     
+      <span class="brand-text font-weight-light">AdminLTE 3</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <?php echo view::tagImg('user2-160x160.jpg',array('clase'=>'img-circle elevation-2' )) ?>
+        </div>
+        <div class="info">
+          <a href="#" class="d-block"><?php echo session::get('nombre').' '.session::get('apellido') ?></a>
+        </div>
+      </div>
+
+      <!-- SidebarSearch Form -->
+      <div class="form-inline">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+           <?php if(isset($_layoutParams))
+                {
+                    $menu = $_layoutParams['lista_menu'];
+                    for($i = 0; $i < count($menu);$i++)
+                    {
+           ?>
+           <?php      
+			if($_layoutParams['item'] && $menu[$i]['id'] == $_layoutParams['item'] )
+                        { 
+                                $_item_style = 'active'; 
+                        } else {
+                            $_item_style = '';
+                        }
+							
+			?> 
+			   
+				  <li class="nav-item <?php echo ($_item_style=='Active')?'menu-open':'' ?> ">
+					<a href="#" class="nav-link <?php echo $_item_style; ?>">
+					  <i class="<?php echo $_layoutParams['lista_menu'][$i]['imagen']  ?>"></i>
+					  <p>
+						<?php echo $_layoutParams['lista_menu'][$i]['titulo'] ?>
+						<i class="right fas fa-angle-left"></i>
+					  </p>
+					</a>
+					 <?php if(isset($_layoutParams['lista_menu'][$i]['submenu']) && count($_layoutParams['lista_menu'][$i]['submenu'])): ?>
+						 
+						<ul class="nav nav-treeview">
+						  <?php foreach($_layoutParams['lista_menu'][$i]['submenu'] as $recurso): ?>
+                                                    <?php      
+                                                            if($_layoutParams['mod'] && $recurso['id'] == $_layoutParams['mod'] )
+                                                            { 
+                                                                    $_item_style = 'active'; 
+                                                            } else {
+                                                                    $_item_style = '';
+                                                            }
+
+                                                    ?>
+                                                    <li class="nav-item <?php echo $_item_style; ?>">
+                                                          <a href="<?php echo $recurso['enlace'] ?>" class="nav-link">
+                                                            <i class="<?php echo $recurso['imagen']  ?>"></i>
+                                                            <p><?php echo ucfirst($recurso['titulo']) ?></p>
+                                                          </a>
+                                                    </li>
+						  <?php endforeach; ?>  
+						</ul>
+					<?php endif; ?>
+				  </li>  
+				  
+				<?php } ?>
+				
+				<?php } ?>          
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

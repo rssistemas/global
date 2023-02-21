@@ -1,0 +1,103 @@
+<div class="row">
+<div class="col-lg-12">
+<form name="unidad" id="form-unidad" method="post"  autocomplete="off" action="">
+<div class="panel panel-default">
+    <div class="panel-heading">Información General</div>
+    <div class="panel-body">
+          <input name="guardar" id="guardar" type="hidden" value="1" />
+          <div class="form-group col-lg-6">
+            <label>*Empresa: </label>
+            <select class="form-control" name="empresa" id="empresa" required />
+                <option value="-">-Seleccione-</option>
+                <?php if(isset($this->empresa)&& count($this->empresa)): ?>
+                    <?php foreach ($this->empresa as $val): ?>
+					<option value="<?php echo $val['id_empresa'] ?>"><?php echo strtoupper($val['nombre_empresa']) ?> </option>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+          </div>
+          <div class="form-group col-lg-6">
+             <label>*Nombre:</label>
+             <input name="nombre" id="nombre" type="text" maxlength="50" class="form-control alfa_desc" placeholder="Ingrese nombre del depósito" required />
+          </div>
+			<div class="form-group col-lg-6">
+				<label>*Estado:</label>
+				<select class="form-control" name="estado" id="estado" required  />
+					 <option value="0">-Seleccione-</option>
+					 <?php if(isset($this->estado) && count($this->estado)):  ?>
+					 <?php foreach($this->estado as $val): ?>
+						<?php if($val['estatus_estado']==1): ?>
+					 <option value="<?php echo $val['id_estado']  ?>"><?php echo strtoupper($val['descripcion_estado']) ?></option>
+						<?php endif; ?>
+					<?php endforeach; ?>
+					 <?php endif; ?>
+				</select>
+			</div>
+			<div class="form-group col-lg-6">
+				<label>*Municipio:</label>
+				<select class="form-control" name="municipio" id="municipio" required />
+					 <option value="0">-Seleccione-</option>
+					 <?php if(isset($this->muni) && count($this->muni)):  ?>
+					 <?php foreach($this->muni as $val): ?>
+							<?php if($val['estatus_municipio']==1): ?>
+					 <option value="<?php echo $val['id_municipio']  ?>"><?php echo ucfirst($val['descripcion_municipio']) ?></option>
+							<?php endif; ?>
+					<?php endforeach; ?>
+					 <?php endif; ?>
+				</select>
+			</div>
+			<div class="form-group col-lg-6">
+				<label>*Sector:</label>
+				<select class="form-control" name="sector" id="sector" required />
+					 <option value="0">-Seleccione-</option>
+					 <?php if(isset($this->sec) && count($this->sec)):  ?>
+					 <?php foreach($this->sec as $val): ?>
+							<?php if($val['estatus_sector']==1): ?>
+					 <option value="<?php echo $val['id_sector']  ?>"><?php echo ucfirst($val['descripcion_sector']) ?></option>
+							<?php endif; ?>
+					<?php endforeach; ?>
+					 <?php endif; ?>
+				</select>
+			</div>
+          <div class="form-group col-xs-6">
+            <label>*Direccion:</label>
+            <input name="direccion" id="direccion" type="text" maxlength="100" class="form-control alfa_dir" placeholder="Ingrese dirección del depósito" required />
+          </div>
+          <div class="form-group col-xs-6">
+            <label>*Teléfono:</label>
+            <input type="text" name="telefono" id="telefono" maxlength="12" class="form-control num_tel" placeholder="Ingrese Teléfono de referencia" required />
+          </div>
+  </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">Detalle </div>
+		<div class="panel-body">
+			<div class="form-group col-xs-4">
+				<label>*Serie de Factura:</label>
+				<input type="text" name="serie" id="serie" maxlength="12" class="form-control num_tel" placeholder="Ingrese Teléfono de referencia" required />
+			</div>
+			<div class="form-group col-xs-4">
+				<label>*Fecha_trabajo:</label>
+				<input type="date" name="fecha" id="fecha"   class="form-control"  required />
+			</div>
+			<div class="form-group col-xs-4">
+				<label>*Condicion:</label>
+				<select class="form-control" name="condicion" id="condicion" required />
+					<option value="-">-Seleccione-</option>
+					<option value="ACTIVO">Activo</option>
+					<option value="INACTIVO">Inactivo</option>
+				</select>
+			</div>
+			<div class="form-group col-xs-12">
+				<label>Comentario:</label>
+				<input type="text" name="comentario" id="comentario" maxlength="12" class="form-control num_tel" placeholder="Ingrese Teléfono de referencia" required />
+			</div>
+		</div>
+</div>
+	<button type="button" name="agregar" id="agregar" title="Presione aquí para Guardar el registro" class="btn btn-primary" ><i class="fa fa-floppy-o"></i> Guardar</button>
+    <a href="<?php echo BASE_URL ?>configuracion/unidad/index">
+    <button type="button" title="Presione aquí para SALIR Y CANCELAR el registro" class="btn btn-danger"><i class="fa fa-undo"></i> Cancelar</button>
+    </a>
+</form>
+</div>
+</div>

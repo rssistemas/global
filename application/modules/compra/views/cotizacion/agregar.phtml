@@ -1,0 +1,165 @@
+<div class="row">
+<div class="col-lg-12">
+<div class="panel panel-default"> 
+	<form name="form_compra" method="post" autocomplete="off" action="<?php echo BASE_URL ?>compra/cotizacion/agregar" id="form_compra">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">				
+			<div class="navbar-header">
+				<h4> Fecha: <?php echo date('d-m-Y') ?></h4>
+			</div>	
+			<div class="navbar-form navbar-right" >
+				<label >Unidad Operativa</label>
+				<select class="form-control input-sm" name="unidad" id="unidad" required  />
+					<option value="-">-TODOS-</option>
+					<?php if(isset($this->unidad)&& count($this->unidad)): ?>
+						<?php foreach ($this->unidad as $val): ?>
+						<option value="<?php echo $val['id_unidad_operativa'] ?>"><?php echo strtoupper($val['nombre_unidad_operativa']) ?> </option>
+						<?php endforeach; ?>
+					<?php endif; ?>
+				</select>
+				
+				<label >Deposito</label>
+				<select class="form-control input-sm" name="almacen" id="almacen" required  />
+					<option value="">-Seleccione-</option>
+					
+				</select>
+			</div>					  							
+		</div>
+	</nav>
+    <div class="panel-body" style="margin-bottom:0px;margin-top:1px;padding:5px;">
+    
+        <input name="guardar" type="hidden" value="1" /> 
+        <input name="control" type="hidden" value="0" id="control" />
+        
+        <div class="col-lg-8">
+              <div class="panel panel-default">                
+                <div class="panel-heading "><h4 style="margin-bottom:0px;margin-top:2px;padding:0px;">Requisitos</h4></div>
+		<div class="panel-body">
+                    <div class="form-group col-lg-4 ">
+                        <label >Tipo Requisito</label>                      
+                        <select class="form-control input-sm" name="tipo" id="tipo" disabled="true"/>
+                                <option value="">-Seleccione-</option>
+                                <option value="PRODUCTO">Producto</option>    
+                                <option value="SERVICIO">Servicio</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-8 ">
+			<label >Busqueda</label>
+                        <input name="requisito"  type="text" class="form-control input-sm" disabled="true" placeholder="Ingrese nombre del requisito a buscar o 'F4' para todos  " id="requisito"  />                                      
+                    </div>
+                    <hr>    
+                    <div id="table-req" >
+                        <table class="table table-bordered" id="table_req">
+                            <thead>
+                                <th width="30"></th>
+                                <th width="80">Requisicion</th>
+                                <th width="70">Requisito</th>
+                                <th width="300">Descripcion</th>
+                                <th width="70">Cantidad</th>
+                                <th width="250">Comentario</th>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                        <div id="enlace"></div>
+                    </div>
+                        
+                </div>
+                    
+                
+              </div>       
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="panel panel-info ">
+		<div class="panel-heading"><h4 style="margin-bottom:0px;">Proveedores</h4></div>
+                <hr style="margin:0px;margin-bottom:4px;">
+                <div class="panel-body">
+                    <div class="form-group">    
+                        <div class="form-inline">
+                            <label class="col-lg-6" >Sub Total</label>
+                            <input name="subtotal" type="text" class="form-control input-sm text-right"  id="subtotal" size="15" disabled="true" value="0.00" >
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="col-lg-12">    
+            
+            <div class="panel panel-default">
+                
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="tabla">
+                            <thead>
+                                <tr class="bg-light-blue-active">
+                                    <th width='120'>Origen</th>
+                                    <th width='120'>Tipo</th>
+                                    <th width='100'>Codigo</th>
+                                    <th width='430'>Descripcion</th>               
+                                    <th width='100'>Cantidad</th>                                    
+                                    <th width='280'>Justificacion</th>
+                                    <th></th>
+				</tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+			<button type="button" class="btn btn-warning" id="cancelar"><i class="fa fa-eraser"></i> </button>
+            <a href="<?php echo BASE_URL ?>compra/compras/index"><button type="button" class="btn btn-danger" id="cancelar"><i class="fa fa-undo"></i> </button></a>
+            <button type="button" class="btn btn-primary" id="guardar" disabled="true" ><i class="fa fa-floppy-o"></i> </button>
+            <br/>
+            <br/>   
+        </div>
+      
+         
+	</div>
+            <input name="empresa" id="empresa" type="hidden" value="<?php if(isset($this->empresa)) echo $this->empresa[0]['id_empresa']; ?>" />   
+	</form>   
+</div>
+</div>    
+</div>
+
+<div class="modal fade" id="myModal" data-toggle="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-teal">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <label>Nombre del Producto</label>
+        <input name="producto" id="producto" type="text" class="form-control"  />        
+      </div>
+      <div class="modal-body">
+          <input name="id_fila" id="id_fila" type="hidden" class="form-control"  />
+          <div class="panel panel-default" >
+              <div class="panel-body">
+                  <div id="table_concepto">
+                     <table class="table  table-bordered" >
+                     <tr>           
+                     	<td class="cabecera" width="70">Codigo.</td>
+                     	<td class="cabecera" width="400">Nombre</td>
+                     	<td class="cabecera" width="80">Precio</td>
+                     	<td class="cabecera" width="50">Exist.</td>
+                     	<td class="cabecera" width="180">Ubicacion</td>  
+                     	<td class="cabecera" width="30"></td>
+                     </tr>
+                     </table>
+                  </div>   
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,148 @@
+<div class="row">
+    <div class="col-lg-12 col-md-6">
+        <div class="panel panel-default">
+            <div class="">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">                            
+                        </div>  
+                        <form class="navbar-form navbar-right" role="search" action="" method="post" id="busqueda">
+                        	<label >Unidad Operativa</label>
+							<select class="form-control" name="unidad" id="unidad" required  />
+								<option value="-">-TODOS-</option>
+								<?php if(isset($this->unidad)&& count($this->unidad)): ?>
+									<?php foreach ($this->unidad as $val): ?>
+									<option value="<?php echo $val['id_unidad_operativa'] ?>"><?php echo strtoupper($val['nombre_unidad_operativa']) ?> </option>
+									<?php endforeach; ?>
+								<?php endif; ?>
+							</select>
+							<label >Deposito</label>
+							<select class="form-control" name="deposito" id="deposito" required  />
+								<option value="-">-TODOS-</option>
+								
+							</select>
+                            <div class="form-group">
+                                <input type="text" name="busqueda" class="form-control" placeholder="Filtrar descripción">
+                            </div>
+                            <button type="submit" class="btn btn-default"><i  class="fa fa-search" > Buscar</i></button>
+                        </form>    
+                    </div>
+                </nav>
+            </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr class="bg-teal-active">
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Marca</th>
+                        <th>Presentacion</th>
+                        <th>Costo</th>
+                        <th>Precio</th>
+                        <th>Utilidad</th>
+                        <th width="30"></th>
+                        <th width="30"></th>
+                        
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php if(isset($this->lista) && count($this->lista)) :?>
+                        <?php foreach ($this->lista as $val) :?>
+                        <tr>
+                            <td ><?php echo $val['codigo_producto'] ?></td>
+                            <td><?php echo ucfirst($val['nombre_producto']) ?></td>
+                            <td><?php echo ucfirst($val['marca']) ?></td>
+                            <td><?php echo $val['presentacion'] ?></td>
+                            <td class="text-right"><?php echo $val['costo'] ?></td>
+                            <td class="text-right"><?php echo $val['precio'] ?></td>
+                            <td class="text-right"><?php echo $val['utilidad'] ?></td>
+                            <td><button class="editar" data-id="<?php echo $val['id_stock'] ?>" title="Editar Utilidad"><i class="fa fa-pencil-square-o"></i></button></td>
+                            <td><button></button></td>
+                            
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>    
+                    </tbody>
+                </table>
+                <hr>
+                <p>
+                        <?php if(isset($this->paginacion)) echo $this->paginacion; ?>
+                </p>
+            </div>
+          </div>
+
+        </div>
+    </div>
+        
+</div>
+
+<div class="modal fade" id="myModal" data-toggle="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <form name="frm-utilidad" id="frm-utilidad" method="post" autocomplete="off" action="<?php echo BASE_URL ?>venta/listaprecio/utilidad" >
+	      <input type="hidden" name="stock" value="" id="stock" />
+	      
+	      <div class="modal-header bg-red-gradient">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <label>Nombre del Producto</label>                
+	      </div>
+	      <div class="modal-body">
+	      		<div class="col-lg-8">
+		      		<div class="panel panel-default">
+		          		<div class="panel-body">
+							<div class="form-group ">
+				      			<label>Nombre</label>
+				      			<input name="nombre" type="text" class="form-control" id="nombre" readonly="true" />
+				      		</div>
+				      		<div class="form-group">
+				      			<label>Marca</label>
+				      			<input name="marca" type="text" class="form-control" id="marca" readonly="true" />
+				      		</div>
+				      		<div class="form-group">
+				      			<label>Modelo</label>
+				      			<input name="modelo" type="text" class="form-control" id="modelo" readonly="true" />
+				      		</div>
+				      		<div class="form-group">
+				      			<label>Deposito</label>
+				      			<input name="dep" type="text" class="form-control" id="dep" readonly="true" />
+				      		</div>
+				      	</div>
+				    </div>
+				 </div>   		
+	          	<div class="col-lg-4">
+		      		<div class="panel panel-default">
+		          		<div class="panel-body">
+			          		<div class="form-group ">
+		          				<label>Costo</label>
+		          				<input name="costo" type="text" class="form-control text-right" id="costo" readonly="true" />
+		          			</div>
+			          		<div class="form-group">
+			          			<label>Utilidad % </label>
+			          			<input name="utilidad" type="text" class="form-control text-right" id="utilidad" />
+			          		</div>
+			          		<div class="form-group">
+			          			<label>Precio de Venta</label>
+			          			<input name="precio" type="text" class="form-control text-right" id="precio" readonly="true" />
+			          		</div>
+			          		<div class="form-group">
+			          			<label>Existencia</label>
+			          			<input name="existe" type="text" class="form-control text-right" id="existe" readonly="true" />
+			          		</div>
+		      			</div>
+		      		</div>
+	      		</div>    
+	       </div>	       
+	      
+	      <br />
+	      <div class="modal-footer">
+	        	<div>
+	        		<button type="button" id="guardar" class="btn btn-default"><i class="fa fa-floppy-o"></i> Guardar</button>        		
+	        	</div>
+	      </div>
+      </form>
+    </div>
+    
+  </div>
+</div>
+

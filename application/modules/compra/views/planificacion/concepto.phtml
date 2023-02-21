@@ -1,0 +1,95 @@
+<?php //print_r($_layoutParams['argumentos']) ?>
+<div class="row">
+        <div class="col-lg-8 col-md-6">
+		<ul class="nav nav-tabs">
+			<li role="presentation" ><a href="<?php echo  BASE_URL ?>compra/planificacion/index/"><i class="fa fa-calendar"></i> Planificacion de Compra </a></li>
+			<li role="presentation" ><a href="<?php echo  BASE_URL ?>compra/planificacion/control/"><i class="fa fa-crosshairs"></i> Evaluación y Seguimiento</a></li>
+			<li role="presentation" class="active"><a href="<?php echo  BASE_URL ?>compra/planificacion/concepto/"><i class="fa fa-tags"></i> Conceptos de Planificacion</a></li>				
+		</ul>
+        <div class="panel panel-default">
+        <div class="">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header navbar-btn">
+						<a class=""> <button  title="Presione aquí para AGREGAR un nuevo registro" value="" class="btn btn-default nuevo" id="nuevo" ><i  class="fa fa-plus"></i></button> </a>
+                    </div>  
+                    <form class="navbar-form navbar-right" role="search" action="" method="post">
+                        <div class="form-group">
+                            <input type="text" maxlength="100" name="busqueda" class="form-control" placeholder="Filtrar nombre">
+                        </div>
+                        <button type="submit" class="btn btn-default"><i  class="fa fa-search" > Buscar</i></button>
+                    </form>    
+                </div>
+            </nav>
+        </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th width="70">Codigo</th>
+                        <th width="90">Fecha</th>
+						<th width="350">Descripcion</th>
+                        <th width="250">Comentario</th>
+                        <th width="30"></th>
+                        <th width="30"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php $i = 1; ?>    
+                    <?php if(isset($this->lista) && count($this->lista)) :?>
+                        <?php foreach ($this->lista as $val) :?>
+                        <tr >
+                            <td><?php echo $val['id_concepto_pln'] ?></td>
+							<td><?php echo date('d-m-Y',strtotime($val['fecha_creacion'])) ?></td>
+                            <td><?php echo $val['descripcion_concepto'] ?></td>
+                            <td><?php echo $val['comentario_concepto_pln'] ?></td>
+                            <td>
+                                <?php if($val['estatus_concepto_pln']==1): ?>
+									<button class="editar btn btn-default" title="Presione aquí para EDITAR" value="<?php echo $val['id_concepto_pln'] ?>" ><i  class="fa fa-pencil-square-o"></i></button>
+                                <?php endif; ?>
+                            </td>    
+                            <td>
+                                <?php if($val['estatus_concepto_pln']==1): ?>
+									<button class="eliminar btn btn-default" title="Presione aquí para ELIMINAR" value="<?php echo $val['id_concepto_pln'] ?>"><i class="fa fa-trash-o"></i></button>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php $i++; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>    
+                    </tbody>
+                </table>
+                <hr>
+                <p>
+                      <?php if(isset($this->paginacion)) echo $this->paginacion; ?>
+                </p>
+            </div>
+          </div>
+
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Formulario Conceptos de Planificacion</div>
+            <div class="panel-body">
+                <form name="concepto" id="concepto" method="post" autocomplete="off" action="<?php echo BASE_URL ?>compra/planificacion/concepto/">
+                    <input name="guardar" type="hidden" value="1" id="guardar">
+                    <input name="id" type="hidden" value="0" id="id">
+                    <input name="aux" type="hidden" value="0" id="aux">
+                    <div class="form-group">
+                      <label>***Descripcion:</label>
+                      <input name="descripcion" maxlength="100" type="text" class="form-control" disabled="true" id="descripcion" required placeholder="Ingrese el concepto de planificacion" >
+                    </div>
+                    <div class="form-group">
+                      <label>Comentario:</label>
+                      <textarea name="comentario" maxlength="150" cols="1" rows="5" type="text" disabled="true" multiple="1" class="form-control" id="comentario"  placeholder="Ingrese un comentario"></textarea>
+                    </div>
+					<button type="button" name="cancelar" title="Presione aquí para VACIAR el formulario" id="cancelar" class="btn btn-danger"><i class="fa fa-undo"></i> Cancelar</button>
+                    <button type="button" title="Presione aquí para Guardar el registro" name="agregar" id="agregar" class="btn btn-primary" ><i class="fa fa-floppy-o"></i> Guardar</button>
+                    
+                </form>    
+            </div>
+        </div>
+    </div>    
+</div>

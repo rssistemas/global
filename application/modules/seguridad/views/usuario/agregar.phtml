@@ -1,0 +1,77 @@
+<div class="row">
+<div class="col-lg-12">
+	<form name="form_usuario_agregar" method="post" id="form_usuario_agregar" action="<?php echo BASE_URL ?>seguridad/usuario/agregar/"  >
+	
+	
+	<div class="card card-default">
+		<div class="card-header">
+			<h3 class="card-title">Introduzca los datos para crear nuevo usuario</h3>
+			<div class="card-tools">
+				<div class="btn-group btn-group-toggle">
+					<button type="button" class="btn btn-xs btn-app"><i class="fa fa-floppy-o"></i>Grabar</button>
+					<button type="button" class="btn btn-xs btn-app"><i class="fa fa-undo"></i>Cancelar</button>					
+				</div>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group col-xs-6">
+						<label>*Nombre :</label>
+						<input name="Nombre"  maxlength="100" type="text" class="form-control" id="nombre" placeholder="Ingrese Nombre de Usuario" required >  
+					</div>
+					<div class="form-group col-xs-6">
+					  <label>*Rol</label>
+					  <select class="form-control"  name="rol" id="rol" title="Seleccione el Rol del Usuario" required />
+						  <option value="0">-Seleccione-</option>
+						  <?php if(isset($this->rol) && count($this->rol)):  ?>
+						  <?php foreach($this->rol as $rl): ?>
+							  <?php if($rl['estatus_role']==1): ?><i class="fa fa-floppy-o">
+							  <option value="<?php echo $rl['id_role']  ?>"><?php echo $rl['nombre_role'] ?></option>
+							  <?php endif; ?>
+						  <?php endforeach; ?>
+						  <?php endif; ?>
+					  </select>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group col-xs-6">
+						<label>*Correo Electrónico:</label>
+						<input type="email"  required maxlength="100" class="form-control alfa_correo"  name="correo" id="correo" placeholder="Ej.: micorreo@hotmail.com"  />
+					</div>
+					<div class="form-group col-xs-6">
+						<label>*Pregunta de Seguridad</label>
+						<select class="form-control"  name="pregunta" id="pregunta" title="Seleccione Pregunta de Seguridad" required />
+							  <option value="0">-Seleccione-</option>
+							  <?php if(isset($this->pregunta) && count($this->pregunta)):  ?>
+							  <?php foreach($this->pregunta as $rl): ?>
+								  <?php if($rl['estatus_pregunta']==1): ?>
+								  <option value="<?php echo $rl['id_pregunta']  ?>"><?php echo $rl['pregunta'] ?></option>
+								  <?php endif; ?>
+							  <?php endforeach; ?>
+							  <?php endif; ?>
+						</select>
+					</div>
+					<div class="form-group col-xs-6">
+						<label>*Respuesta:</label>
+						<input type="text"  required  class="form-control form-control-user "  name="respuesta" id="respuesta" placeholder="Introduzca respuesta"  />
+					</div>
+					<div class="form-group col-xs-6">
+						<label>*Contraseña de Seguridad</label>
+						<input type="password"  required  class="form-control form-control-user a"  name="pwd1" id="pwd1" placeholder="Introduzca Contraseña"  />
+					</div>
+					<div class="form-group col-xs-6">
+						<label>*Confirme Contraseña:</label>
+						<input type="password"  required  class="form-control form-control-user "  name="pwd2" id="pwd2" placeholder="Confirme Contraseña"  />
+					</div>	
+				</div>
+			</div>
+			
+		</div>
+	</div>
+		  
+</div>
+    
+</form>
+</div>
+

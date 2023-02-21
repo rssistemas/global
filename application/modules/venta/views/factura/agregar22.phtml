@@ -1,0 +1,213 @@
+<?php //print_r($this->impuesto); ?>
+<div class="row">
+<form name="form_factura" method="post" autocomplete="off" action="<?php echo BASE_URL ?>venta/factura/agregar" id="form_factura">    
+<div class="col-lg-12">
+<div class="panel panel-default"> 
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">				
+			<div class="navbar-header">
+				<h4>Facturacion (P.V. 1.0)  /    Fecha: <?php echo date('d-m-Y') ?></h4>
+			</div>	
+			<div class="navbar-form navbar-right" >
+				<label class="h5">Unidad Operativa</label>
+				<select class="form-control" name="unidad" id="unidad" required  />
+					<option value="-">-TODOS-</option>
+					<?php if(isset($this->unidad)&& count($this->unidad)): ?>
+						<?php foreach ($this->unidad as $val): ?>
+						<option value="<?php echo $val['id_unidad_operativa'] ?>"><?php echo strtoupper($val['nombre_unidad_operativa']) ?> </option>
+						<?php endforeach; ?>
+					<?php endif; ?>
+				</select>
+			</div>					  							
+		</div>
+	</nav>
+    <div class="panel-body" style="margin-bottom:0px;margin-top:1px;padding:5px;">
+    
+        <input name="guardar" type="hidden" value="1" /> 
+        <input name="control" type="hidden" value="0" id="control" />
+        <input name="default_iva" type="hidden" value="<?php if(isset($this->impuesto['tasa_impuesto'])) echo $this->impuesto['tasa_impuesto']; ?>" id="default_iva" />
+        <div class="col-lg-8">                
+             
+            <p><button class="btn btn-default " type="button" id="agregar" disabled="true"><i class="fa fa-plus"></i></button></p>
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="tabla">
+                        <thead>
+                            <tr class="bg-teal-active">
+                                <th width='100'><span class="h6">Codigo</span></th>
+                                <th width='400'><span class="h6">Descripcion</span></th>
+                                <th width='120'><span class="h6">Precio</span></th>                               
+                                <th width='100'><span class="h6">Cantidad</span></th>
+                                <th width='100'><span class="h6">Imp.</span></th>
+                                <th width='120'><span class="h6">Total</span></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>                
+            
+            <button type="button" class="btn btn-danger" id="cancelar"><i class="fa fa-undo"></i> Cancelar</button>
+            <button type="button" class="btn btn-primary" id="guardar" oninvalid="alert('Llene todos los campos obligatorios ....');" disabled="true"><i class="fa fa-floppy-o"></i> Guardar</button>
+            <br/>
+            <br/>   
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-heading bg-teal-active">
+                    <h3 style="margin-bottom:0px;margin-top:0px;padding:0px;">Datos de Factura</h3>			
+                </div>
+                <div class="panel-body">
+                <div id="" class="tabbable tabs-left">
+                    <ul  class="nav nav-tabs ">
+        		<li class="active">
+        		    <div data-target="#lA" data-toggle="tab">
+        		        <div>
+                                    
+                                    <span class="account-type"><i class="fa fa-list-alt"></i> Condicion</span><br/>                                
+                                
+                                </div>
+                            </div>
+        		</li>
+        		<li>
+        		    <div data-target="#lB" data-toggle="tab">
+        		        <div>
+                                    
+                                    <span class="account-type"><i class="fa fa-group"></i> Cliente</span><br/>
+                                    
+                                </div>
+                            </div>
+        		</li>
+        		<li>
+        		    <div data-target="#lC" data-toggle="tab">
+        		        <div>
+            		        <span class="account-type">Adicional</span><br/>            		        
+            	            <!-- <span class="account-amount">$587.00</span><br/>
+            	            <a href="#" class="account-link">Investments</a>-->
+        	            </div>
+        	        </div>
+        		</li>
+        		
+                    </ul>
+                    
+                </div>
+                <div class="tab-content col-md-9">
+                    <div class="tab-pane active" id="lA" >
+                        <div>
+                            <div class="form-group ">    
+                                <label class="" ><span class="h6">Serie</span></label>
+                                <input name="serie" type="text" class="form-control input-sm "  id="serie" size="15"  value="" disabled="true" >                
+                            </div>
+                            <div class="form-group ">    
+                            <label class="" ><span class="h6">Modalidad</span></label>
+                            <select class="form-control input-sm" name="tipo_doc" id="tipo_doc" disabled="true">
+                                <option value="CONTADO">CONTADO</option>
+                                <option value="CREDITO">CREDITO</option>
+                            </select>
+                            </div>
+                            <div class="form-group ">    
+                                <label class="" ><span class="h6">Plazo</span></label>
+                                <input name="plazo" type="text" class="form-control input-sm "  id="plazo" size="15" disabled="true" value="" >                
+                            </div>
+                        </div>
+                    </div>   
+                    <div class="tab-pane" id="lB">
+                        <div>
+                            <div class="form-group ">    
+                                <label ><span class="h6">Rif</span></label>
+                                <input name="rif" type="text" class="form-control input-sm "  id="rif" size="50" disabled="true"  >
+                                <input name="cliente" type="hidden" id="cliente" />
+                            </div>
+                            <div class="form-group ">    
+                                <label ><span class="h6">Razon Social</span></label>
+                                <input name="razon_social" type="text" class="form-control input-sm "  id="razon_social" size="50" disabled="true" >            
+                            </div>
+                            <div class="form-group ">    
+                                <label ><span class="h6">Direccion Fiscal</span></label>
+                                <input name="direccion" type="text" class="form-control input-sm "  id="direccion" size="50" disabled="true" >            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="lC">
+                        <div>
+                            
+                            <div class="form-group">    
+                                <label><span class="h6">Vendedor</span></label>
+                                <select name="vendedor" id="vendedor" class="form-control input-sm" disabled="true" >
+                                    <option value="">-Seleccione-</option>
+                                    <?php if(isset($this->vendedor)&& count($this->vendedor)): ?>
+                                    <?php foreach ($this->vendedor as $val): ?>
+                                    <option value="<?php echo $val['id_trabajador'] ?>"><?php echo strtoupper($val['pri_nombre_persona'].' '.$val['pri_apellido_persona']) ?> </option>
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </select>    
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>    
+                 
+                 <div class="form-group col-lg-12">    
+                    <label ><span class="h6">Subtotal</span></label>
+                    <input name="subtotal" type="text" class="form-control input-sm text-right "  id="subtotal" size="25" readonly="true" value="00.0" >            
+                </div>
+                <div class="form-group col-lg-12">    
+                    <label ><span class="h6">Impuesto</span></label>
+                    <input name="iva" type="text" class="form-control input-sm text-right"  id="iva" size="25" readonly="true" value="00.0" >            
+                </div>
+                <div class="form-group col-lg-12">    
+                    <label ><span class="h6">Total</span></label>
+                    <input name="total" type="text" class="form-control input-sm text-right"  id="total" size="25" readonly="true" value="00.0">            
+                </div>
+               </div>
+            
+            </div>
+                       
+        </div>
+       
+        
+       
+      
+            
+	</div>
+</div>
+</div> 
+  </form>  
+</div>
+
+<div class="modal fade" id="myModal" data-toggle="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-teal">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <label>Nombre del Producto</label>
+        <input name="producto" id="producto" type="text" class="form-control"  />        
+      </div>
+      <div class="modal-body">
+          <input name="id_fila" id="id_fila" type="hidden" class="form-control"  />
+          <div class="panel panel-default" >
+              <div class="panel-body">
+                  <div id="table_concepto">
+                     <table class="table  table-bordered">
+                     <tr>           
+                     	<td class="cabecera" width="70">Codigo.</td>
+                     	<td class="cabecera" width="400">Nombre</td>
+                     	<td class="cabecera" width="80">Precio</td>
+                     	<td class="cabecera" width="50">Exist.</td>
+                     	<td class="cabecera" width="180">Ubicacion</td>  
+                     	<td class="cabecera" width="30"></td>
+                     </tr>
+                     </table>
+                  </div>   
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        
+      </div>
+    </div>
+  </div>
+</div>

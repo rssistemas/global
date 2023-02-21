@@ -1,0 +1,147 @@
+<div class="row">
+        <div class="col-lg-12 col-md-6">
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="active"><a href="#">Recepción a Proveedor</a></li>
+            <li role="presentation"><a href="<?php echo  BASE_URL ?>almacen/recepcion/recepcionInterna/">Recepción Interna</a></li>
+        </ul>
+        <div class="panel panel-default">
+            <div class="">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header navbar-btn">
+                            <a class="" href="<?php echo BASE_URL ?>almacen/recepcion/agregar/"  ><button class="btn btn-default" type="button" ><i class="fa fa-plus"></i></button></a>
+                            <a class="" href="<?php echo BASE_URL ?>reporte/index/catRecepcion/"  target="_blank"><button class="btn btn-default" type="button"><i class="fa fa-print"></i></button></a>                                     
+                        </div>  
+                        <form class="navbar-form navbar-right" role="search" action="" method="post">
+                            <div class="form-group">
+                                <label>Depósito</label>    
+                                <?php if(isset($this->depTrb) && count($this->depTrb)>0): ?>
+                                <select name="deposito" id="deposito" class="form-control">   
+                                    <option value="0">TODOS</option>   
+                                <?php foreach($this->depTrb as $dep): ?>
+                                    <?php if(isset($this->depAct)&& $this->depAct==$dep['id_deposito']): ?>
+                                    <option value="<?php echo $dep['id_deposito'] ?>" selected="true"><?php echo $dep['nombre_deposito'] ?></option>       
+                                    <?php else: ?>
+                                    <option value="<?php echo $dep['id_deposito'] ?>"><?php echo $dep['nombre_deposito'] ?></option>       
+                                    <?php endif; ?>
+                                <?php endforeach; ?>    
+                                </select>     
+                                <?php endif; ?> 
+                                <input type="text" name="busqueda" class="form-control" placeholder="Busqueda">
+                            </div>
+                            <button type="submit" class="btn btn-default">Enviar</button>
+                        </form>    
+                    </div>
+                </nav>
+            </div>     
+                
+        <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr class="cabecera-gris">
+                    <th width="60">Código</th>
+                    <th width="120">Fecha</th>
+                    <th width="250">Depósito</th>
+                    <th width="350">Proveedor</th>
+                    <th width="90">Tipo Doc.</th>
+                    <th width="90">Nro Doc.</th>                    
+                    <th width="30"></th>
+                    <th width="30"></th>
+                    <th width="30"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if(isset($this->lista) && count($this->lista)) :?>
+                    <?php foreach ($this->lista as $val) :?>
+                    <tr>
+                        <td><?php echo $val['id_recepcion'] ?></td>
+                        <td><?php echo date('d-m-Y',strtotime($val['fecha_recepcion'])); ?></td>
+                        <td><?php echo strtoupper(($val['nombre_deposito'])) ?></td>
+                        <td><?php echo strtoupper($val['razon_social_proveedor']) ?></td>
+                        <td><?php echo strtoupper($val['ncorto']) ?></td>
+                        <td class="text-right"><span class="text-right"><?php echo $val['nro_doc_ori'] ?></span></td>
+                        <td><button type="button" class="editar btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg"  data-id="<?php echo $val['id_recepcion'] ?>"  ><i class="fa fa-search"></i></button></td>
+                        <td>
+                            <a href="<?php echo BASE_URL ?>seguridad/usuario/eliminar/<?php echo $val['id_recepcion'] ?>" >
+                                <button class="btn btn-default "> <i class="fa fa-trash-o"></i></button>
+                        </td>
+                        <td>
+                            <a href="<?php echo BASE_URL ?>reporte/index/print_Recepcion/<?php echo $val['id_recepcion'] ?>" target="_blank" >
+                                <button class="btn btn-default "> <i class="fa fa-print"></i></button></a>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>    
+                </tbody>
+            </table>
+            
+            <p>
+                    <?php if(isset($this->paginacion)) echo $this->paginacion; ?>
+            </p>
+        </div>
+      </div>
+    </div>        
+</div>
+</div>  
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-teal-active">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h3>Recepción de Productos</h3>
+      </div>
+      <div class="modal-body">
+          <div class="panel-default">
+              <div class="panel-body">
+                <div class="form-group col-md-2">
+                    <label>Nro </label>
+                    <input name="nro" id="nro" size="5" type="text" class="form-control " value="" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Fecha</label>
+                    <input name="fecha" id="fecha" size="10" type="text" class="form-control" value="" />
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Proveedor</label>
+                    <input name="proveedor" id="proveedor" type="text" class="form-control" value="" />
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Depósito de Recepción</label>
+                    <input name="deposito" id="deposito" type="text" class="form-control" value="" />
+                </div>
+              </div>    
+          </div>
+          <div class="panel-default">
+              <div class="panel-body">
+                    <div id="tabla-detalle">
+                        <div class="table-responsive">
+                          <table class="table table-bordered" id="tabla">
+                              <thead>
+                                  <tr class="bg-teal-active" >
+                                      <th width='120'>Código</th>
+                                      <th width='400'>Descripción</th>
+                                      <th width='120'>Precio</th>
+                                      <th width='100'>Cantidad</th>
+									  <th width='120'>Monto</th>
+									  <th width='90'>Iva %</th>
+									  <th width='120'>Total</th>                                    
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                          </table>
+                      </div>
+                    </div>
+                  <div>
+                      <div id="enlace">
+                      	
+                      </div>
+                  </div>
+                  </div>
+          </div>
+      </div>    
+    </div>
+  </div>
+</div>

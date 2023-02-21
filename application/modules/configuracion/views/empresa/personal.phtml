@@ -1,0 +1,114 @@
+
+<div class="row">
+    <div class="col-lg-8 col-md-6">
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="active"><a href="#"> <i class="fa fa-users"></i> Colaboradores</a></li>
+            <li role="presentation"><a href="<?php echo  BASE_URL ?>compra/requisicion/control/"> <i class="fa fa-crosshairs"></i> Cobranza</a></li>
+            <li role="presentation"><a href="<?php echo  BASE_URL ?>compra/requisicion/control/"> <i class="fa fa-crosshairs"></i> Pagos</a></li>
+        </ul>
+        <div class="panel panel-default">
+            <div class="">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="<?php echo BASE_URL ?>configuracion/empresa/index/" title="Regresar ..."><button ><i class="fa fa-undo"></i></button></a>
+ 
+                        </div>   
+                    </div>
+                </nav>
+            </div>
+
+            <div class="panel-body">
+                <div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr class="bg-light-blue disabled color-palette">
+                                <th>Nombre</th>
+                                <th>Correo</th>
+                                <th>Fecha Ult. Entrada</th>
+                                <th>Codicion Actual</th>
+                                
+
+                                <th colspan="2" width="50">Acción</th>
+                                
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php $i = 1; ?>    
+                            <?php if(isset($this->lista) && count($this->lista)) :?>
+                                <?php foreach ($this->lista as $val) :?>
+                                
+                                <tr>
+                                    <td><?php echo $val['alias_usuario'] ?></td>
+                                    <td><?php echo ucwords($val['correo_usuario']) ?></td>
+                                    <td><?php echo ucwords($val['fec_ult_ent']) ?></td>
+                                    <td><?php echo $val['condicion_usuario'] ?></td>
+                                
+                                    <td>
+                                        <?php if($val['estatus_usuario']=='1'): ?>
+                                        <button class="editar btn btn-default" title="Presione aquí para EDITAR" value="<?php echo $val['id'] ?>" ><i  class="fa fa-pencil-square-o"></i></button>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <?php if($val['estatus_usuario']=='1'): ?>
+                                        <button class="eliminar btn btn-default" title="Presione aquí para ELIMINAR" value="<?php echo $val['id'] ?>"><i class="fa fa-trash-o"></i></button>
+                                        <?php endif; ?>
+                                    </td>
+                                    
+                                </tr>
+                                <?php $i++; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>   
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <hr>
+                    <p>
+                            <?php if(isset($this->paginacion)) echo $this->paginacion; ?>
+                    </p>
+                </div>
+            </div>
+         
+
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="box">
+            <div class="box-header with-border"><h3 class="box-stitle">Gestión de Colaboradores</h3></div>
+            <div class="panel-body">
+                <form name="form_canal" id="form_canal" method="post" autocomplete="off" action="<?php echo BASE_URL ?>configuracion/canal/agregar/">
+                    <input name="guardar" type="hidden" value="1" id="guardar">
+                    <input name="id" type="hidden" value="1" id="id">
+                    <input name="aux" type="hidden" value="0" id="aux">
+                    <div class="form-group">
+                      <label>*Usuario:</label>
+                      <select name="usuario" id="usuario" class="form-control">
+                           <option value="">-Seleccione-</option>                 
+                           <?php if(count($this->usuarios)):  ?>
+                            <?php foreach($this->usuarios as $usu): ?>
+                                <option value="<?php echo $usu['id_usuario'] ?>"><?php echo $usu['alias_usuario'] ?></option>
+                             <?php endforeach  ?>   
+                            <?php endif ?>
+                      </select>
+                    </div>                    
+                    <div class="form-group">
+                      <label>*Estado Actual:</label>
+                      <select name="estado" id="estado" class="form-control" disabled="disabled" required >
+                          <option value="0">-Seleccione-</option>
+                          <option value="Activo">Activo</option>
+                          <option value="Inactivo">Inactivo</option>                          
+                      </select>
+
+                    </div>
+                            
+                    </br>        
+                    <button type="button" disabled="disabled" name="agregar" id="agregar" title="Presione aquí para GUARDAR el registro"  class="btn btn-primary"> <i class="fa fa-floppy-o"></i></button>
+                    <button type="button" disabled="disabled" name="cancelar" title="Presione aquí para CANCELAR el registro" id="cancelar" class="btn btn-danger"> <i class="fa fa-undo"></i></button>     
+                </form>    
+            </div>
+        </div>
+    </div>
+    
+</div>

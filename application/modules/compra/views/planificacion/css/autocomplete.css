@@ -1,0 +1,40 @@
+
+
+#visor{
+	position: relative;
+	top: 0;
+	left: 0;
+	cursor: default;
+	margin-left:25px;
+	
+}
+
+#visor ul{
+	
+	margin-left:4px;
+	margin-top:5px;
+	
+}
+#visor ul li{
+	background-color:#eeede7 ;
+	width:320px;
+	list-style : none;
+	margin-left:4px;
+	padding:5px 5px;	
+	height:25px;
+	border-bottom: solid;
+    border-width: .5px;	
+	display:block;
+}
+#visor ul li a{
+	font-size:1em;
+	color: #32312d ;
+	text-decoration:none;
+	
+}
+#visor ul li a:hover{
+	font-weight: bold;
+	color:  #898571;
+	text-decoration:none;
+	
+}

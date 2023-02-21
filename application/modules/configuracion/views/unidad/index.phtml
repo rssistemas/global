@@ -1,0 +1,80 @@
+<div class="row">
+    <div class="col-lg-12 col-md-6">
+        <div class="panel panel-default">
+
+            <div class="">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header navbar-btn">
+                            <a class="" href="<?php echo BASE_URL ?>configuracion/unidad/agregar/"> <button class="btn btn-default"  title="Presione aquí para AGREGAR un nuevo registro" value="" ><i  class="fa fa-plus"></i></button> </a>
+                            <a class="" target="_blank" href="<?php echo BASE_URL ?>reporte/index/catDeposito/" title="Imprimir Catálogo"><button class="btn btn-default"><i class="fa fa-print"></i></button></a>
+                        </div>
+                        <form class="navbar-form navbar-right" role="search" action="" method="post">
+                            <div class="form-group">
+                                <input type="text" name="busqueda" class="form-control alfa_desc" placeholder="Filtrar nombre">
+                            </div>
+                            <button type="submit" class="btn btn-default"><i  class="fa fa-search" ></i></button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
+
+          <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr class="bg-light-blue-active">
+                        <th>Código</th>
+			                  <th>Fecha</th>
+                        <th>Nombre</th>
+                        <th>Direccion</th>
+                        <th>Teléfono</th>
+			                  <th>Empresa</th>
+                        <th width="30"></th>
+                        <th width="30"></th>
+                        <th width="30"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php if(isset($this->lista) && count($this->lista)) :?>
+                        <?php foreach ($this->lista as $val) :?>
+                        <tr>
+                            <td><?php echo $val['id_unidad_operativa'] ?></td>
+                            <td><?php echo date('d-m-Y',strtotime($val['fecha_creacion'])) ?></td>
+                            <td><?php echo strtoupper($val['nombre_unidad_operativa']) ?></td>
+                            <td><?php echo strtoupper($val['direccion_unidad_operativa']) ?></td>
+                            <td><?php echo $val['telefono_unidad_operativa'] ?></td>
+                            <td><?php echo strtoupper($val['empresa']) ?></td>
+                            <td>
+                                <?php if($val['estatus_unidad_operativa']==1): ?>
+                                <a href="<?php echo BASE_URL ?>configuracion/unidad/editar/<?php echo $val['id_unidad_operativa'] ?>" >
+                                <button class="editar btn btn-default" title="Presione aquí para EDITAR" value="<?php echo $val['id_unidad_operativa'] ?>" ><i  class="fa fa-pencil-square-o"></i></button>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?php if($val['estatus_unidad_operativa']==1): ?>
+				                              <button class="eliminar btn btn-default" title="Presione aquí para ELIMINAR" value="<?php echo $val['id_unidad_operativa'] ?>" ><i  class="fa fa-trash-o"></i></button>
+                                <?php else: ?>
+				                              <button class="restaurar btn btn-default" title="Presione aquí para RESTAURAR" value="<?php echo $val['id_unidad_operativa'] ?>" ><i  class="fa fa-recycle"></i></button>
+				                        <?php endif; ?>
+                            </td>
+					                  <td>
+                              <a href="<?php echo BASE_URL ?>configuracion/unidad/depositoUnidad/<?php echo $val['id_unidad_operativa'] ?>" >
+                                <button  class="btn btn-default" title="Presione aquí para ver Usuarios Asignados "><i class="fa fa-inbox"></i></button>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    </tbody>
+                </table>
+                <hr>
+                <p>
+                        <?php if(isset($this->paginacion)) echo $this->paginacion; ?>
+                </p>
+            </div>
+          </div>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,86 @@
+<div class="row">
+    <div class="col-lg-12 col-md-6">
+        <div class="panel panel-default">
+            <div class="">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header navbar-btn">
+                            <a class="" href="<?php echo BASE_URL ?>seguridad/usuario/index/" title="Regresar ..."><button class="btn btn-default" ><i class="fa fa-undo"></i></button></a>
+                            <a class="" href="<?php echo BASE_URL ?>seguridad/usuario/nuevoRecursoUsuario/<?php if(isset($this->usuario))echo $this->usuario['id_usuario'] ?>" title="Agregar Recurso al Usuario ..."><button class="btn btn-default" ><i class="fa fa-plus"></i></button></a>  
+                        </div>   
+                    </div>
+                </nav>
+            </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr class="bg-light-blue-active">
+                        <th width="50"></th>
+                        <th width="150" >Recurso</th>
+                        <th width="450">Permisos</th>
+                        <th width="230">Fecha Ult. Actulizacion</th>
+                        <th width="30"></th>
+                        <th width="30"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php if(isset($this->lista) && count($this->lista)) :?>
+                        <?php foreach($this->lista as $val) :?>
+                        
+                        <tr>
+                            <td>
+                                <?php if(!$val['heredado']): ?>
+                                <i class="fa fa-users"></i>
+                                <?php else : ?>
+                                <i class="fa fa-share-alt"></i>
+                                <?php endif; ?>
+                            </td>
+                            <td><?php echo ucfirst($val['recurso']) ?></td>
+                            <td>
+                                <?php
+                                    if(count($val['permiso']))
+                                    {
+                                        foreach($val['permiso'] as $per)
+                                        {
+                                            if($per['estatus']==1)
+                                            {    
+                                                echo "<span class='text-primary'>".$per['nombre_permiso']."</span>-"; 
+                                            }else
+                                            {
+                                                echo "<span class='text-danger'>".$per['nombre_permiso']."</span>-"; 
+                                            }
+                                        }    
+                                    }    
+                                ?>
+                            </td>
+                            <td><?php echo date('d-m-Y',strtotime($val['ult_fecha'])) ?></td>
+                            <td>
+                                <?php if(!$val['heredado']): ?>
+                                <a href="<?php echo BASE_URL ?>seguridad/usuario/editarPermisoRecursoUsuario/<?php echo $this->usuario['id_usuario'] ?>/<?php echo $val['id_recurso'] ?>" title="Presione aquí para Editar el Recurso Asignado al Usuario" >
+                                     <button class="btn btn-default"><i class="fa fa-pencil-square-o "></i></button></a>
+                                <?php endif; ?>     
+                            </td>
+                            
+                            <td>
+                                <?php if(!$val['heredado']): ?>
+                                <a href="<?php echo BASE_URL ?>seguridad/usuario/eliminarRecursoUsuario/<?php echo $this->usuario['id_usuario'] ?>/<?php echo $val['id_recurso'] ?>" title="Presione aquí para Eliminar el Recurso del Usuario" >
+                                <button class="btn btn-default"> <i class="fa fa-trash-o "></i></button></a>
+                                <?php endif; ?>
+                            </td>                           
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>    
+                    </tbody>
+                </table>
+                
+                <p>
+                        <?php if(isset($this->paginacion)) echo $this->paginacion; ?>
+                </p>
+            </div>
+          </div>
+
+        </div>
+    </div>
+        
+</div>

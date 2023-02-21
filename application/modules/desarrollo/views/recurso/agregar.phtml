@@ -1,0 +1,55 @@
+<div class="row">
+<div class="col-lg-12">
+    <form name="form_recurso_agregar" id="form_recurso_agregar" method="post" autocomplete="off" action="">    
+<div class="panel panel-default">
+    <div class="panel-heading">Información del Recurso</div>
+    <div class="panel-body">
+        <input name="guardar" id="guardar" type="hidden" value="1" /> 
+          <div class="form-group ">
+            <div class="form-inline">
+              <label class="control-label">*Nombre:</label>
+              <input name="nombre" type="text" maxlength="60" class="form-control alfa_desc"  id="nombre" placeholder="Ingrese nombre del recurso" required />
+             </div>
+          </div>
+            <hr>
+          <div class="form-group col-xs-6">
+            <label>*Descripción:</label>
+            <input name="descripcion" maxlength="100" required type="text" class="form-control alfa_desc" id="descripcion" placeholder="Ingrese descripción del recurso" >            
+          </div>
+          <div class="form-group col-xs-6">
+            <label>*Url:</label>
+            <input name="url" type="text" maxlength="100" class="form-control" id="url" placeholder="Ingrese dirección url del recurso" size="70" required >  
+          </div>
+          <div class="form-group col-xs-6">
+            <label>*Icono:</label>
+            <input type="text" class="form-control" maxlength="60" name="icono" id="icono" placeholder="Ingrese icono del recurso" required  />
+          </div>
+          <div class="form-group col-xs-6">
+            <label>*Posición:</label>
+            <input type="text" class="form-control num" maxlength="2" name="posicion" id="posicion" placeholder="Ingrese la posición" required  />
+          </div>
+          <div class="form-group col-xs-4">
+            <label>*Módulo:</label>
+            <select name="modulo" id="modulo" class="form-control" required>
+                <option>-Seleccione-</option>
+                <?php if(isset($this->modulos) && count($this->modulos)): ?>
+                      <?php foreach ($this->modulos as $val): ?>
+                          <?php if($val['estatus_modulo']==1): ?>
+                          <option value="<?php echo $val['id_modulo']  ?>"><?php echo $val['nombre_modulo']  ?></option>   
+                          <?php endif; ?>    
+                      <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+          </div>
+    </div>
+  </div>        
+        <br/>
+        <button type="button" name="agregar" id="agregar" title="Presione aquí para Guardar el registro" class="btn btn-primary" ><i class="fa fa-floppy-o"></i>Guardar</button>
+        <a href="<?php echo BASE_URL ?>desarrollo/recurso/index">
+        <button type="button" title="Presione aquí para SALIR Y CANCELAR el registro" class="btn btn-danger"><i class="fa fa-undo"></i>Cancelar</button>
+        </a>
+          <br/>
+          <br/>
+        </form> 
+</div>
+</div>

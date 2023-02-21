@@ -1,0 +1,89 @@
+<div class="row">
+        <div class="col-lg-8 col-md-6">
+        <div class="panel panel-default">
+            <div class="">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header navbar-btn">  
+                            <button type="button" id="nuevo" class="btn btn-default" title="Presione aquí para AGREGAR un nuevo registro" value="" ><i  class="fa fa-plus"></i></button>
+                        </div>  
+                        <form class="navbar-form navbar-right" role="search" action="" method="post">
+                            <div class="form-group">
+                                <input type="text" maxlength="45" name="busqueda" class="form-control" placeholder="Filtrar nombre">
+                            </div>
+                            <button type="submit" class="btn btn-default"><i  class="fa fa-search" ></i></button>
+                        </form>    
+                    </div>
+                </nav>
+            </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr class="bg-light-blue-active">
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Comentario</th>
+                        <th>Estatus</td>
+                        <th width="30"></th>
+                        <th width="30"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php $i = 1; ?>    
+                    <?php if(isset($this->lista) && count($this->lista)) :?>
+                        <?php foreach ($this->lista as $val) :?>
+                        
+                        <tr>
+                            <td><?php echo $val['id_tipo_deposito'] ?></td>
+                            <td><?php echo $val['nombre_tipo_deposito'] ?></td>
+                            <td><?php echo $val['descripcion_tipo_deposito'] ?></td>
+                            <td><?php echo ($val['estatus_tipo_deposito']==1)?'Activo':'Inactivo' ?></td>
+                            <td>
+                                <?php if($val['estatus_tipo_deposito']==1): ?>
+                                <button class="editar btn btn-default" title="Presione aquí para EDITAR" value="<?php echo $val['id_tipo_deposito'] ?>" ><i  class="fa fa-pencil-square-o"></i></button>
+                                <?php endif; ?>
+                            </td>    
+                            <td>
+                                <?php if($val['estatus_tipo_deposito']==1): ?>
+                                <button class="eliminar btn btn-default" title="Presione aquí para ELIMINAR" value="<?php echo $val['id_tipo_deposito'] ?>"><i class="fa fa-trash-o"></i></button>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php $i++; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>    
+                    </tbody>
+                </table>
+                <hr>
+                <p>
+                      <?php if(isset($this->paginacion)) echo $this->paginacion; ?>
+                </p>
+            </div>
+          </div>
+
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Gestión de Tipo de Depósito</div>
+            <div class="panel-body">
+                <form name="tipoDeposito" id="tipoDeposito" method="post" autocomplete="off" action="<?php echo BASE_URL ?>almacen/tipoDeposito/agregar/">
+                    <input name="guardar" type="hidden" value="1" id="guardar">
+                    <input name="id" type="hidden" value="0" id="id">
+                    <input name="aux" type="hidden" value="nada" id="aux">
+                    <div class="form-group">
+                    <label>***Nombre:</label>
+                    <input name="descripcion" maxlength="45" type="text" class="form-control" disabled="true" id="descripcion" placeholder="Ingrese nombre del tipo de depósito" required >
+                    </div>
+                    <div class="form-group">
+                      <label>Comentario:</label>
+                      <textarea name="comentario" maxlength="150" cols="1" rows="5" type="text" disabled="true" multiple="1" class="form-control" id="comentario" placeholder="Ingrese un comentario"></textarea>
+                    </div>
+                    <button type="button" name="agregar" id="agregar" title="Presione aquí para GUARDAR el registro"  class="btn btn-primary" > <i class="fa fa-floppy-o"></i> Guardar</button>
+                    <button type="button" name="limpiar" id="limpiar" title="Presione aquí para VACIAR el formulario" class="btn btn-danger"> <i class="fa fa-undo"></i> Limpiar</button>
+                </form>    
+            </div>
+        </div>
+    </div>    
+</div>

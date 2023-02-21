@@ -1,0 +1,159 @@
+<div class="row">
+    <div class="col-lg-12 col-md-6">
+        <div class="panel panel-default">
+           <div class="">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header navbar-btn">
+                            <a  href="<?php echo BASE_URL ?>compra/gastos/agregar/" title="Agregar Nuevo proveedor"><button class="btn btn-default"><i class="fa fa-plus"></i></button></a>
+                            <a  target="_blank" href="<?php echo BASE_URL ?>reporte/index/catGtoCompra/" title="Imprimir Catálogo"><button class="btn btn-default"><i class="fa fa-print"></i></button></a>
+                        </div>  
+                        <form class="navbar-form navbar-right" role="search" action="" method="post">
+                            <div class="form-group">
+                                <input type="text" name="busqueda" class="form-control alfa_desc" placeholder="Filtrar nombre y/o apellido">
+                            </div>
+                            <button type="submit" class="btn btn-default"><i  class="fa fa-search" > Buscar</i></button>
+                        </form>    
+                    </div>
+                </nav>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="bg-light-blue-active">
+                                <th>Nro</th>
+                                <th>Fecha</th>
+                                <th>Vencimiento</th>
+								<th>Proveedor</th>                              
+                                <th>Mov. Afectado</th>
+								<th>Monto</th>
+								<th>Condicion</th>
+                                <th width="30"></th>
+                                <th width="30"></th>
+                                <th width="30"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php if(isset($this->gasto) && count($this->gasto)) :?>
+                            <?php foreach ($this->gasto as $val) :?>
+                            <tr>
+                                <td><?php echo $val['id_gasto'] ?></td>
+								<td><?php echo date('d-m-Y',strtotime($val['fecha_creacion'])) ?></td>
+                                <td><?php echo date('d-m-Y',strtotime($val['fecha_vencimiento_gasto'])) ?></td>
+								<td><?php echo strtoupper($val['razon_social_proveedor']) ?></td>
+                                
+                                <td><?php echo $val['tipo_mov_af'] ?></td>
+								<td><?php echo $val['total'] ?></td>
+                                <td><?php echo strtoupper($val['condicion_gasto']) ?></td>
+                                
+                                <td><button type="button" class="buscar btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg"  data-id="<?php echo $val['id_gasto'] ?>"  ><i class="fa fa-search"></i></button></td>
+                              
+                                <td>
+                                    <?php if($val['estatus_gasto']==1): ?>
+                                    <a href="<?php echo BASE_URL ?>compra/gasto/editar/<?php echo $val['id_gasto'] ?>"  >
+                                    <button class="editar btn btn-default" title="Presione aquí para EDITAR" value="<?php echo $val['id_gasto'] ?>" ><i  class="fa fa-pencil-square-o"></i></button>
+                                    <?php endif; ?>
+                                </td>
+                                <td>  
+                                    <?php if($val['estatus_gasto']==1): ?>
+                                        <button class="eliminar btn btn-default" title="Presione aquí para ELIMINAR" value="<?php echo $val['id_gasto'] ?>" ><i class="fa fa-trash-o"></i></button>
+                                    <?php elseif($val['estatus_gasto']==9):  ?>
+                                        <button class="restaurar btn btn-default" title="Presione aquí para RESTAURAR" value="<?php echo $val['id_gasto'] ?>" ><i class="fa fa-recycle"></i></button>
+                                    <?php endif; ?>  
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>    
+                        </tbody>
+                    </table>
+                                
+                </div>
+            </div>                
+            <div class="panel-footer" >
+                <p>
+                    <?php if(isset($this->paginacion)) echo $this->paginacion; ?>
+                </p>
+            </div>
+        </div>    
+    </div>        
+</div>
+<div class="modal fade bs-example-modal-lg" id="busqueda" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-light-blue-active">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h3>Factura de Gasto</h3>
+      </div>
+      <div class="modal-body">
+          <div class="panel-default">
+              <div class="panel-body">
+                <div class="form-group col-md-2">
+                    <label>Nro </label>
+                    <input name="nro" id="nro" size="5" type="text" class="form-control " value="" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Emision</label>
+                    <input name="emision" id="emision" size="10" type="text" class="form-control" value="" />
+                </div>
+                <div class="form-group col-md-2">
+                    <label>Vencimiento</label>
+                    <input name="vencimiento" id="vencimiento" size="10" type="text" class="form-control" value="" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Proveedor</label>
+                    <input name="proveedor" id="proveedor" type="text" class="form-control" value="" />
+                </div>
+                
+              </div>    
+          </div>
+          <div class="panel-default">
+              <div class="panel-body">
+                    <div id="tabla-detalle">
+                        <div class="table-responsive">
+                          <table class="table table-bordered" id="tabla">
+                              <thead>
+                                  <tr class="bg-light-blue-active" >
+                                      <th width='120'>Código</th>
+                                      <th width='300'>Descripción</th>
+                                      <th width='120'>Precio</th>
+                                      <th width='90'>Cant.</th>
+									  <th width='120'>Monto</th>
+									  <th width='90'>Iva %</th>
+									  <th width='120'>Total</th>                                    
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              	
+                              </tbody>
+                          </table>
+                      </div>
+                    </div>
+                 <div>
+						<div class="text-right">
+							<h4 style="margin-bottom:0px;margin-top:10px;padding:0px;">Totales</h4>
+							<hr style="margin:0px;margin-bottom:8px;">
+							<div class="form-inline" >
+								<div class="form-group">
+									<label style="margin-left:25px">Sub total</label>
+									<input type="text" name="subtotal" id="subtotal" class="form-control text-right" value="0" readonly="true" />
+								</div>
+								<div class="form-group">
+									<label style="margin-left:25px">Total Iva</label>
+									<input type="text" name="iva" id="iva" class="form-control text-right" value="0" readonly="true" />
+								</div>
+								<div class="form-group">
+									<label style="margin-left:25px">Total</label>
+									<input type="text" name="total" id="total" class="form-control text-right" value="0" readonly="true" />
+								</div>
+							</div>
+							<hr />
+						</div>	
+						<div id="enlace"></div>
+					  </div>
+                  </div>
+          </div>
+      </div>    
+    </div>
+  </div>
+</div>

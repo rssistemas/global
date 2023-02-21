@@ -1,0 +1,266 @@
+<div class="row">
+<div class="col-lg-12">
+<div class="panel panel-default"> 
+	<form name="form_compra" method="post" autocomplete="off" action="<?php echo BASE_URL ?>compra/ordencompra/agregar" id="form_compra">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">				
+			<div class="navbar-header">
+				<h4>Ordenes Compras  /    Fecha: <?php echo date('d-m-Y') ?></h4>
+			</div>	
+			<div class="navbar-form navbar-right" >
+				<label >Unidad Operativa</label>
+				<select class="form-control input-sm" name="unidad" id="unidad" required  />
+					<option value="-">-TODOS-</option>
+					<?php if(isset($this->unidad)&& count($this->unidad)): ?>
+						<?php foreach ($this->unidad as $val): ?>
+						<option value="<?php echo $val['id_unidad_operativa'] ?>"><?php echo strtoupper($val['nombre_unidad_operativa']) ?> </option>
+						<?php endforeach; ?>
+					<?php endif; ?>
+				</select>
+				
+				<label >Almacen</label>
+				<select class="form-control input-sm" name="almacen" id="almacen" required  />
+					<option value="">-Seleccione-</option>
+					
+				</select>
+			</div>					  							
+		</div>
+	</nav>
+    <div class="panel-body" style="margin-bottom:0px;margin-top:1px;padding:5px;">
+    
+        <input name="guardar" type="hidden" value="1" /> 
+        <input name="control" type="hidden" value="0" id="control" />
+        <input name="tdoc" type="hidden" value="<?php if(isset($this->documento)) echo $this->documento['id_tipo_documento']  ?>" id="tdoc" />
+        <div class="col-lg-8">
+              <div class="panel panel-default">                
+                <div class="panel-heading "><h4 style="margin-bottom:0px;margin-top:8px;padding:0px;">Proveedor</h4></div>
+				<div class="panel-body">
+                	<br/>					
+					
+                    <div class="col-lg-5">
+                    <div class="form-group ">
+						 <label class="control-label">Rif:</label>
+						<div class="form-inline">						  
+						  <input name="rif" maxlength="11" type="text" class="form-control input-sm" placeholder="Ingrese N° identificación" id="rif" disabled="true"  required="true" />
+						  <input name="proveedor" id="proveedor" type="hidden" value="" />
+						</div>              
+					</div>
+                    </div>
+  					<div class="col-lg-7">
+                    	<div class="form-group">    
+                      		<label >Razon Social</label>
+                      		<input name="razon_social" type="text" class="form-control input-sm"  id="razon_social" size="50" disabled="true" >            
+                    	</div>  
+                    </div>
+                    <br/>
+					<h4 style="margin-bottom:2px;margin-top:5px;padding:0px;">Inf. Adicional</h4>
+					<hr style="margin:0px;margin-bottom:8px;">
+					<div class="col-lg-3">
+	                    <div class="form-group">    
+	                        <label>Tipo Compra</label>
+	                        <select name="tipo" id="tipo" class="form-control input-sm" disabled="true" >
+	                            <option value="">-Seleccione-</option>
+	                            <option value="CREDITO">Credito</option>
+	                            <option value="CONTADO">Contado</option>
+	                        </select>    
+	                    </div>
+                    </div>
+					<div class="form-group col-lg-3">
+						<label>Presupuesto </label>
+						<div class="input-group">
+							<span class="input-group-addon">
+								<input type="checkbox" aria-label="..." id="act_pedido" >
+							</span>
+							<input name="presupuesto" id="presupuesto" type="text" class="form-control input-sm text-right" size="5"  required disabled="true" >
+							<span class="input-group-btn">
+								<button id="bto_presupuesto" class="btn btn-default input-sm" type="button" disabled="true"><i  class="fa fa-search" ></i></button>
+							</span>
+						</div>
+					</div>
+                    <div class="col-lg-3">
+	                    <div class="form-group">
+	                    	<label>Emision</label>
+	                    	<input name="emision" id="emision" type="text" class="form-control input-sm text-right" disabled="true" value="<?php echo date('Y-m-d') ?>" />
+	                    </div>	
+                    </div>
+                    <div class="col-lg-3">
+	                    <div class="form-group">
+	                    	<label>Vencimiento</label>
+	                    	<input name="vencimiento" id="vencimiento" type="text" class="form-control input-sm text-right" disabled="true" value="<?php echo date('Y-m-d') ?>" />
+	                    </div>	
+                    </div>
+                    	
+                    
+                    
+                    
+                </div>
+              </div>       
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="panel bg-light-blue-gradient">
+				<div class="panel-heading"><h4 style="margin-bottom:0px;margin-top:2px;padding:2px;">Totales</h4></div>
+                
+				<hr style="margin:0px;margin-bottom:4px;">
+                <div class="panel-body">
+                    <div class="form-group">    
+                        <div class="form-inline">
+                            <label class="col-lg-6" >Sub Total</label>
+                            <input name="subtotal" type="text" class="form-control input-sm text-right"  id="subtotal" size="15" disabled="true" value="0.00" >
+                        </div>
+                    </div>
+                    <div class="form-group">    
+                        <div class="form-inline">
+                            <label class="col-lg-6" >Desc.  <span><input name="tsa_desc" id="tsa_desc" type="text" class="form-control input-sm text-right" size="2" />%</span></label>                            
+                            <input name="descuento" type="text" class="form-control input-sm text-right"  id="descuento" size="15" disabled="true" value="0.00" >
+                        </div>
+                    </div>
+                    <div class="form-group">    
+                        <div class="form-inline">
+                            <label class="col-lg-6" >I.V.A. &nbsp  <span><input name="tsa_iva" id="tsa_iva" type="text" class="form-control input-sm text-right" size="2" readonly="true" value="<?php  if(isset($this->impuesto['tasa_impuesto'])) echo $this->impuesto['tasa_impuesto']; ?>" />%</span>	</label>
+                            <input name="iva" type="text" class="form-control input-sm text-right"  id="iva" size="15" disabled="true" value="0.00" >
+                        </div>
+                    </div>
+                    <div class="form-group">    
+                        <div class="form-inline">
+                            <label class="col-lg-6" >Total</label>
+                            <input name="total" type="text" class="form-control input-sm text-right"  id="total" size="15" disabled="true" value="0.00" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="col-lg-12">    
+            
+            <div class="panel panel-default">
+                
+                <div class="panel-body">
+                	<p>
+                		<button class="btn btn-default input-sm"  id="agregar" type="button" disabled="true" ><i class="fa fa-plus"></i></button>
+            		</p>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="tabla">
+                            <thead>
+                                <tr class="bg-light-blue-active">
+									<th width='130'>Codigo</th>
+									<th width='400'>Descripcion</th>
+									<th width='130'>Precio</th>
+									<th width='130'>Cantidad</th>
+									<th width='130'>Monto</th>
+									<th width='130'>I.V.A</th>
+									<th width='150'>Total</th>
+									<th></th>
+								</tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+			<button type="button" class="btn btn-warning" id="cancelar"><i class="fa fa-eraser"></i> </button>
+            <a href="<?php echo BASE_URL ?>compra/compras/index"><button type="button" class="btn btn-danger" id="cancelar"><i class="fa fa-undo"></i> </button></a>
+            <button type="button" class="btn btn-primary" id="guardar" disabled="true" ><i class="fa fa-floppy-o"></i> </button>
+            <br/>
+            <br/>   
+        </div>
+      
+         
+	</div>
+	</form>   
+</div>
+</div>    
+</div>
+
+<div class="modal fade" id="myModal" data-toggle="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-teal">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <label>Nombre del Producto</label>
+        <input name="producto" id="producto" type="text" class="form-control"  />        
+      </div>
+      <div class="modal-body">
+          <input name="id_fila" id="id_fila" type="hidden" class="form-control"  />
+          <div class="panel panel-default" >
+              <div class="panel-body">
+                  <div id="table_concepto">
+                     <table class="table  table-bordered" >
+                     <tr>           
+                     	<td class="cabecera" width="70">Codigo.</td>
+                     	<td class="cabecera" width="400">Nombre</td>
+                     	<td class="cabecera" width="80">Precio</td>
+                     	<td class="cabecera" width="50">Exist.</td>
+                     	<td class="cabecera" width="180">Ubicacion</td>  
+                     	<td class="cabecera" width="30"></td>
+                     </tr>
+                     </table>
+                  </div>   
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" id="recModal" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-blue-gradient">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h3>Recepción de Productos</h3>
+      </div>
+      <div class="modal-body">
+          <div class="panel-default">
+              <div class="panel-body">
+                <div class="form-group col-md-3">
+                    <label>Nro de Recepción</label>
+                    <input name="nro" id="nro" type="text" class="form-control " value="" />
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Fecha</label>
+                    <input name="fecha" id="fecha" type="text" class="form-control" value="" />
+                </div>
+                <div class="form-group col-md-5">
+                    <label>Depósito de Recepción</label>
+                    <input name="deposito" id="deposito" type="text" class="form-control" value="" />
+                </div>
+              </div>    
+          </div>
+          <div class="panel-default">
+              <div class="panel-body">
+                    <div id="tabla-detalle">
+                        <div class="table-responsive">
+                          <table class="table table-bordered" id="tabla_recepcion">
+                              <thead>
+                                  <tr class="cabecera-gris" >
+                                      <th width='120'>Código</th>
+                                      <th width='450'>Descripción</th>
+                                      <th width='120'>Precio</th>
+                                      <th width='100'>Solicitados</th>
+									  <th width='120'>Monto</th>
+									  <th width='120'>Recibidos</th>                                     
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                          </table>
+                      </div>
+                    </div>
+                  <div>
+                  	<hr style="margin:0px;margin-bottom:4px;">
+                    <button type="button" data-dismiss="modal" class="cerrar" title="Cargar Informe de Recepcion"><i class="fa fa-level-down"></i></button>
+                  </div>
+                  </div>
+          </div>
+      </div>    
+    </div>
+  </div>
+</div>

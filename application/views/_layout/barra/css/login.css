@@ -1,0 +1,26 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Oct 13, 2015, 11:53:26 PM
+    Author     : Rafael
+*/
+.loginbox{
+    margin:50px auto;
+    padding-bottom: 50px;
+}
+
+.pantalla{
+    
+}
+.panel-login{
+/* -moz-box-shadow:#5C5C5C 2px 0px 4px 0px;
+ -webkit-box-shadow:#5C5C5C 2px 0px 4px 0px;
+ box-shadow:#5C5C5C 3px 7px 5px 1px;
+ 
+*/
+	border-radius: 10px;
+	border:thin 2px #a5a5a5;
+}

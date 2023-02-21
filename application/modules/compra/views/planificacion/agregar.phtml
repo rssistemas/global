@@ -1,0 +1,194 @@
+<div class="row">
+<div class="col-lg-12">
+<div class="panel panel-default"> 
+	<form name="form_pln" method="post" autocomplete="off" action="<?php echo BASE_URL ?>compra/planificacion/agregar" id="form_pln">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">				
+			<div class="navbar-header">
+				<h4>Compras  /    Fecha: <?php echo date('d-m-Y') ?></h4>
+			</div>
+			<div class="navbar-form navbar-right" >
+				<label >Unidad Operativa</label>
+				<select class="form-control input-sm" name="unidad" id="unidad" required  />
+					<option value="-">-TODOS-</option>
+					<?php if(isset($this->unidad)&& count($this->unidad)): ?>
+						<?php foreach ($this->unidad as $val): ?>
+						<option value="<?php echo $val['id_unidad_operativa'] ?>"><?php echo strtoupper($val['nombre_unidad_operativa']) ?> </option>
+						<?php endforeach; ?>
+					<?php endif; ?>
+				</select>
+				
+				<div class="form-group ">
+				<label >Dependencia</label>
+					<select class="form-control input-sm" name="dependencia" id="dependencia" required disabled="true" />
+						<option value="">-Seleccione-</option>
+						<?php if(isset($this->dpto)&& count($this->dpto)): ?>
+							<?php foreach ($this->dpto as $val): ?>
+							<option value="<?php echo $val['id_departamento'] ?>"><?php echo strtoupper($val['descripcion_departamento']) ?> </option>
+							<?php endforeach; ?>
+						<?php endif; ?>
+					</select>
+				</div>
+				
+			</div>	
+		</div>
+	</nav>
+    <div class="panel-body" style="margin-bottom:0px;margin-top:1px;padding:5px;">
+    
+        <input name="guardar" type="hidden" value="1" /> 
+        
+        <div class="col-lg-8">
+              <div class="panel panel-default">                
+                <div class="panel-heading "><h4 style="margin-bottom:0px;margin-top:8px;padding:0px;">Informacion  de Planificacion</h4></div>
+				<div class="panel-body">
+           
+					<div class="col-lg-3">
+	                    <div class="form-group">    
+	                        <label>Inicio</label>
+	                        <input name="inicio" id="inicio" type="text" class="form-control input-sm text-right" disabled="true" value="<?php echo date('Y-m-d') ?>" />   
+	                    </div>
+                    </div>
+					<div class="col-lg-3">
+	                    <div class="form-group">    
+	                        <label>Finalizacion</label>
+							<input name="fin" id="fin" type="text" class="form-control input-sm text-right" disabled="true"  value="<?php echo date('Y-m-d') ?>" />
+	                    </div>
+                    </div>
+					<div class="col-lg-6">
+                    	<div class="form-group">    
+                      		<label >Referencia Contable</label>
+                      		<input name="ref_contable" type="text" class="form-control input-sm" value="" disabled="true"  id="ref_contable" size="50" >            
+                    	</div>  
+                    </div>
+  					
+					
+					<div class="col-lg-12">
+	                    <div class="form-group">    
+	                        <label>Objetivo</label>
+	                        <select name="objetivo" id="objetivo" class="form-control input-sm"  disabled="true" >
+	                            <option value="">-Seleccione-</option>
+	                            <?php if(isset($this->concepto)): ?>
+								<?php foreach($this->concepto as $con): ?>
+									<option value="<?php echo $con['id_concepto_pln'] ?>"><?php echo strtoupper($con['descripcion_concepto']) ?></option>
+	                            <?php endforeach; ?>
+								<?php endif; ?>
+	                        </select>    
+	                    </div>
+                    </div>
+                                      
+                </div>
+              </div>       
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="panel panel-info ">
+				<div class="panel-heading bg-light-blue-gradient"><h4 style="margin-bottom:0px;margin-top:2px;padding:2px;">Comentarios</h4></div>
+                
+				<hr style="margin:0px;margin-bottom:4px;">
+                <div class="panel-body">
+					<div class="col-lg-12">
+	                    <div class="form-group">    
+	                        <label>Comentario de Planificacion</label>
+	                        <textarea name="comentario" id="comentario" rows="3" class="form-control " disabled="true" ></textarea>    
+	                    </div>
+                    </div>	
+                </div>
+            </div>
+
+        </div>
+		
+		<div class="col-lg-12">    
+            
+            <div class="panel panel-default">
+                
+                <div class="panel-body">
+                	<p>
+                		<button class="btn btn-default input-sm"  id="agregar" type="button"  ><i class="fa fa-plus"></i></button>
+            		</p>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="tabla">
+                            <thead>
+                                <tr class="bg-light-blue-active">
+									<th width='100'>Codigo</th>
+									<th width='450'>Descripcion</th>
+									<th width='90'>Cantidad</th>
+									<th width='150'>Tipo</th>
+									<th width='120'>Prioridad</th>
+									<th width='90'>Plazo</th>								
+									<th></th>
+								</tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+			<div class="col-lg-12">    
+				<button type="button" class="btn btn-warning" id="cancelar"><i class="fa fa-eraser"></i> </button>
+				<a href="<?php echo BASE_URL ?>compra/planificacion/index"><button type="button" class="btn btn-danger" id="cancelar"><i class="fa fa-undo"></i> </button></a>
+				<button type="button" class="btn btn-primary" id="guardar" disabled="true" ><i class="fa fa-floppy-o"></i> </button>
+				<br/>
+				<br/>   
+			</div>  
+        </div>
+         
+	</div>
+	</form>   
+</div>
+</div>    
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-teal-active">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h3>Busqueda de Requisito</h3>
+      </div>
+      <div class="modal-body">
+          <div class="panel-default">
+			<input name="id_fila" type="hidden" value="0" id="id_fila">
+              <div class="panel-body">
+					
+						
+
+						<div class="col-lg-12">
+							<div class="panel panel-default">                
+								
+								<div class="panel-body">
+							
+									<div class="form-group col-lg-6">
+									  <label>***Tipo:</label>
+									  <select name="tipo" id="tipo" class="form-control " >
+										<option value="">-Seleccone-</option>
+										<option value="PRODUCTO">PRODUCTO</option>
+										<option value="SERVICIO">SERVICIO</option>
+									  </select>
+									</div>
+									<div class="form-group col-lg-6">
+									  <label>***Descripcion :</label>
+									  <input name="busqueda" id="busqueda" type="text" class="form-control" />
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<hr/>
+						
+						<div class="col-lg-12">
+							<div class="panel panel-default">                
+								
+								<div class="panel-body">
+									<div id="table_concepto"></div>
+									
+								</div>
+							</div>
+						</div>					
+				  </div>														
+			</div>	
+	  </div>    
+    </div>  
+  </div>
+</div>

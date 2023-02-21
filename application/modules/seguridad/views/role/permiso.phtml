@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-lg-12 col-md-6">
+        <div class="panel panel-default">
+            <div class="">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header navbar-btn">
+                            <a class="" href="<?php echo BASE_URL ?>seguridad/role/index/" title="Presione aquí para REGRESAR a Gestión de Rol"><button class="btn btn-default" type="button" ><i class="fa fa-undo"></i></button></a>
+                            <a class="" href="<?php echo BASE_URL ?>seguridad/role/nuevoRecursoRole/<?php if(isset($this->rol))echo $this->rol['id_role'] ?>" title="Presione aquí para AGREGAR nuevo recurso al Rol"><button class="btn btn-default" type="button" ><i class="fa fa-plus"></i></button></a>  
+                        </div>   
+                    </div>
+                </nav>
+            </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr class="bg-gray">
+                        <th width="350" >Recurso</th>
+                        <th width="550">Permiso </th>
+                        <th>Fecha Ult. Actulización</th>
+                        <th width="30"></th>
+                        <th width="30"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php if(isset($this->lista) && count($this->lista)) :?>
+                        <?php foreach ($this->lista as $val) :?>
+                        <tr>
+                            <td><?php echo ucfirst($val['recurso']) ?></td>
+                            <td>
+                                <?php
+                                    if(count($val['permiso']))
+                                    {
+                                        foreach($val['permiso'] as $per)
+                                        {
+                                            if($per['estatus']==1)
+                                                echo $per['nombre_permiso'].'-'; 
+                                        }    
+                                    }    
+                                ?>
+                            </td>
+                            <td><?php echo date('d-m-Y',strtotime($val['ult_fecha'])) ?></td>
+                            <td>
+                                <a href="<?php echo BASE_URL ?>seguridad/role/editarPermisoRecursoRole/<?php echo $this->rol['id_role'] ?>/<?php echo $val['id_recurso'] ?>" >
+                                    <button class="btn btn-default" title="Presione aquí para Editar el Recurso Asignado al Rol"> <i class="fa fa-pencil-square-o"></i></button></a>
+                            </td>
+                            <td>
+                                <a href="<?php echo BASE_URL ?>seguridad/role/eliminarPermisoRecursoRole/<?php echo $val['id_recurso'] ?>/<?php echo $this->rol['id_role'] ?>" >
+                                    <button class="btn btn-default" title="Presione aquí para Eliminar el Recurso Asignado al Rol"> <i class="fa fa-trash-o"></i></button></a>
+                            </td>
+                           
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>    
+                    </tbody>
+                </table>
+                
+                <p>
+                        <?php if(isset($this->paginacion)) echo $this->paginacion; ?>
+                </p>
+            </div>
+          </div>
+
+        </div>
+    </div>
+        
+</div>

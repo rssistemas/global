@@ -1,0 +1,73 @@
+  <div class="row-fluid"> 
+    <form method="post" autocomplete="off" name="form-permiso" id="form-permiso" action="<?php echo BASE_URL ?>seguridad/role/guardarRecursoRole/" >
+   <div class="panel panel-default">
+          <div class="panel-heading">Asignar Recurso al Rol</div>
+          <div class="panel-body">
+            <div class="row">
+                <input name="guardar" id="guardar" type="hidden" value="1"/>
+            <input name="nro_permiso" type="hidden" value="<?php echo $this->nro_permiso ?>" />
+            <input name="role" type="hidden" value="<?php echo $this->role ?>" />
+            <div class="col-lg-4 col-md-6">
+                <div class="form-group col-xs-8">
+                    <label>*Recurso:</label>
+                    <select class="form-control" title="Seleccione el Recuro del sistema" name="recurso" id="recurso" required="true" />
+                    <option value="0">-Seleccione-</option>
+                    <?php if(isset($this->recurso)&& count($this->recurso)):  ?>
+                        <?php foreach ($this->recurso as $rec): ?>
+                    <option value="<?php echo $rec['id_recurso'] ?>"><?php echo ucfirst($rec['nombre_recurso']) ?></option>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </select>
+                </div>
+            </div>
+                    <div class="col-lg-8 col-md-6">
+                        <div class="panel panel-default">
+                            
+                            <div class="panel-body">
+                                <table class="table table-hover">
+                                      <thead>
+                                      <tr class="bg-gray">
+                                          <th>Permiso</th>
+                                          <th>Descripción</th>
+                                          <th></th>
+
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                                      <?php if(isset($this->lista) && count($this->lista)) :?>
+                                          <?php foreach ($this->lista as $per) :?>
+                                          <tr>
+                                                <td><?php echo $per['nombre_permiso'] ?></td>
+                                                <td><?php echo $per['descripcion_permiso'] ?></td>
+                                                <td>
+                                                    <select name="estatus<?php echo $per['id_permiso'] ?>" class="form-control">
+                                                        <option value="2" > POR ASIGNAR </option>
+                                                        <option value="9" > DENEGADO </option>
+                                                        <option value="1" > AUTORIZADO </option>
+                                                    </select>
+                                                    <input name="permiso<?php echo $per['id_permiso'] ?>" value="<?php echo $per['id_permiso'] ?>" type="hidden" />
+                                                </td>
+                                          </tr>
+                                          <?php endforeach; ?>
+                                      <?php endif; ?>    
+                                      </tbody>
+                                </table>  
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>    
+                     
+           
+          </div>      
+          </div>
+        </div>
+        <div class="form-inline col-lg-12">
+            <button type="button" name="agregar_recurso" id="agregar_recurso" title="Presione aquí para GUARDAR la Asignación del Recurso al Rol"  class="btn btn-primary"> <i class="fa fa-floppy-o"></i> Guardar</button>
+            <a href="<?php echo BASE_URL ?>seguridad/role/permisoRoles/<?php echo $this->role ?>" >
+            <button type="button" name="cancelar" title="Presione aquí para CANCELAR la Asignación del Recurso al Rol" id="cancelar" class="btn btn-danger"> <i class="fa fa-undo"></i> Cancelar</button>
+            </a>            
+        </div>    
+  </form>        
+</div>
+

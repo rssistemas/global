@@ -1,0 +1,164 @@
+<div class="col-lg-12">
+    <form name="form_agregar" id="form_agregar"  method="post" autocomplete="off" action="">    
+
+    <div class="panel-heading">Información Personal</div>
+    
+    <div class="panel-body">
+        <input name="guardar" id="guardar" type="hidden" value="1" /> 
+        <div class="form-group ">
+            <div class="form-inline">
+              <label class="control-label">Cédula:</label>
+              <select class="form-control" name="nacionalidad" id="nacionalidad" />
+                  <option value="V">V</option>
+                  <option value="E">E</option>
+              </select>
+              <input name="cedula" maxlength="11" type="text" class="form-control" placeholder="Ingrese N° identificación" id="cedula" />
+             </div>              
+        </div>
+        <hr>   
+        <div class="form-group col-xs-6">
+            <label>Primer Nombre:</label>
+            <input name="pri_nombre" maxlength="30" disabled="true" type="text" class="form-control" size="10" id="pri_nombre" placeholder="*** Ingrese primer nombre" required >
+        </div>
+        <div class="form-group col-xs-6">
+            <label>Segundo Nombre:</label>
+            <input name="seg_nombre" maxlength="30" disabled="true" type="text" class="form-control" size="30" id="seg_nombre" placeholder="Ingrese segundo nombre" >
+        </div>
+        <div class="form-group col-xs-6">
+            <label>Primer Apellido:</label>
+            <input name="pri_apellido" maxlength="30" disabled="true" type="text" class="form-control" size="30" id="pri_apellido" placeholder="*** Ingrese primer apellido" required >
+        </div>
+        <div class="form-group col-xs-6">
+            <label>Segundo Apellido:</label>
+            <input name="seg_apellido" maxlength="30" disabled="true" type="text" class="form-control" size="30" id="seg_apellido" placeholder="Ingrese segundo apellido" >
+        </div>
+        <div class="form-group col-xs-6">
+            <label>Fecha de Nacimiento:</label>
+            <input name="fecha_nac" maxlength="10" disabled="true" type="date" class="form-control" size="30" id="fecha_nac" placeholder="*** Ej.: 1982-10-20" required > 
+        </div>
+        <div class="form-group col-xs-6">
+            <label>Sexo: ***</label>
+            <select class="form-control" disabled="true" name="sexo" id="sexo" required />
+                    <option value="-">-Seleccione-</option>
+                    <option value="F">Femenino</option>
+                    <option value="M">Masculino</option>
+                </select>
+        </div>
+        <div class="form-group col-xs-6">
+            <label>Estado Civil: ***</label>
+            <select class="form-control" disabled="true" name="estado_civil" id="estado_civil" required />
+                    <option value="-">-Seleccione-</option>
+                    <option value="S">Soltero(a)</option>
+                    <option value="C">Casado(a)</option>
+                    <option value="D">Divorciado(a)</option>
+                    <option value="V">Viudo(a)</option>
+                </select>
+        </div>
+        <div class="form-group col-xs-6">
+            <label>Lugar de Nacimiento:</label>
+            <input name="lugar_nac" maxlength="50" disabled="true" type="text" class="form-control" size="70" id="lugar_nac" placeholder="*** Ingrese lugar de nacimiento" required >
+        </div>
+    </div>
+    
+    
+       
+    
+    
+<div class="panel panel-default">
+    <div class="panel-heading">Información Laboral:</div>
+    <div class="panel-body">
+        <div class="form-group col-xs-6">
+            <label>Cargo: ***</label>
+            <select class="form-control" disabled="true" name="cargo" id="cargo" required />
+                <option value="-">-Seleccione-</option>
+                <?php if(isset($this->tipo) && count($this->tipo)):  ?>
+                <?php foreach($this->tipo as $val): ?>
+                    <option value="<?php echo $val['id_cargo']  ?>"><?php echo $val['nombre_cargo'] ?></option>
+                <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+        </div>
+        <div class="form-group col-xs-6">
+            <label>N° Licencia de Conducir:</label>
+            <input name="licencia" maxlength="12" disabled="true" type="text" class="form-control" id="licencia" placeholder="Ingrese su número de licencia para conducir" >  
+        </div>
+    </div>
+</div>
+    
+<div class="panel panel-default">
+    <div class="panel-heading">Datos de Referencia</div>
+    <div class="panel-body">
+        <div class="form-group col-xs-6">
+            <label>Estado: ***</label>
+            <select class="form-control" disabled="true" name="estado" id="estado" required  />
+                 <option value="-">-Seleccione-</option>
+                 <?php if(isset($this->esta) && count($this->esta)):  ?>
+                 <?php foreach($this->esta as $val): ?>
+                     <option value="<?php echo $val['id_estado']  ?>"><?php echo $val['descripcion_estado'] ?></option>
+                 <?php endforeach; ?>
+                 <?php endif; ?>
+            </select>
+        </div>
+        <div class="form-group col-xs-6">
+            <label>Municipio: ***</label>
+            <select class="form-control" disabled="true" name="municipio" id="municipio" required />
+                 <option value="-">-Seleccione-</option>
+                 <?php if(isset($this->muni) && count($this->muni)):  ?>
+                 <?php foreach($this->muni as $val): ?>
+                     <option value="<?php echo $val['id_municipio']  ?>"><?php echo $val['descripcion_municipio'] ?></option>
+                 <?php endforeach; ?>
+                 <?php endif; ?>
+            </select>
+        </div>
+        <div class="form-group col-xs-6">
+            <label>Parroquia: ***</label>
+            <select class="form-control" disabled="true" name="parroquia" id="parroquia" required />
+             <option value="-">-Seleccione-</option>
+             <?php if(isset($this->parr) && count($this->parr)):  ?>
+             <?php foreach($this->parr as $val): ?>
+                 <option value="<?php echo $val['id_parroquia']  ?>"><?php echo $val['descripcion_parroquia'] ?></option>
+             <?php endforeach; ?>
+             <?php endif; ?>
+            </select>
+        </div>
+        <div class="form-group col-xs-6">
+            <label>Sector: ***</label>
+            <select class="form-control" disabled="true" name="sector" id="sector" required />
+             <option value="-">-Seleccione-</option>
+             <?php if(isset($this->sect) && count($this->sect)):  ?>
+             <?php foreach($this->sect as $val): ?>
+                 <option value="<?php echo $val['id_sector']  ?>"><?php echo $val['descripcion_sector'] ?></option>
+             <?php endforeach; ?>
+             <?php endif; ?>
+            </select>
+        </div>
+        <div class="form-group col-xs-6">
+            <label>Dirección de Domicilio:</label>
+            <input name="direccion" maxlength="100" disabled="true" type="text" class="form-control" id="direccion" placeholder="*** Ingrese dirección de domicilio" required >  
+        </div>
+        <div class="form-group col-xs-6">
+            <label>Teléfono Movil:</label>
+            <input name="celular" maxlength="11" disabled="true" type="text" class="form-control" id="celular" placeholder="*** Ej.: 04141592306" required>
+        </div>
+        <div class="form-group col-xs-6">
+            <label>Teléfono Local:</label>
+            <input name="local" id="local" maxlength="11" disabled="true"  type="text" class="form-control" placeholder="Ej.: 02552569856"  />
+        </div>
+        <div class="form-group col-xs-6">
+            <label>Correo Electrónico:</label>
+            <input type="email" maxlength="100" disabled="true" class="form-control" name="correo" id="correo" placeholder="Ej.: micorreo@hotmail.com"  />
+        </div>
+    </div>
+</div>
+
+</div>
+    <br/>
+        <a href="<?php echo BASE_URL ?>archivo/trabajador/index">
+        <button type="button" title="Presione aquí para SALIR del registro" class="btn btn-danger"><i class="fa fa-undo"></i>Cancelar</button>
+        </a>
+        <button type="submit" name="agregar" id="agregar" disabled="true" title="Presione aquí para Guardar" class="btn btn-primary" ><i class="fa fa-floppy-o"></i>Guardar</button>
+        <button type="button" name="limpiar" id="limpiar" title="Presione aquí para REINICIAR el formulario" class="btn btn-danger">Limpiar</button>
+    <br/>
+        <br/>
+</form>
+</div>

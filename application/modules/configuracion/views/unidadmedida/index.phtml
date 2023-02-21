@@ -1,0 +1,97 @@
+<div class="row">
+        <div class="col-lg-8 col-md-6">
+        	<ul class="nav nav-tabs">
+				<li role="presentation"><a href="<?php echo  BASE_URL ?>almacen/clasificacion/index/">Clasificaciones</a></li>
+				<li role="presentation"><a href="<?php echo  BASE_URL ?>almacen/grupo/index/">Grupos</a></li>
+				<li role="presentation"><a href="<?php echo  BASE_URL ?>almacen/presentacion/index/">Presentaciones</a></li>
+				<li role="presentation"><a href="<?php echo  BASE_URL ?>almacen/marca/index/">Marcas</a></li>
+				<li role="presentation" class="active"><a href="<?php echo  BASE_URL ?>configuracion/unidadmedida/index/">Unidad Medida</a></li>			
+			</ul>
+        <div class="panel panel-default">
+            <div class="">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                           
+                        </div>  
+                        <form class="navbar-form navbar-right" role="search" action="" method="post">
+                            <div class="form-group">
+                                <input type="text" name="busqueda" class="form-control" placeholder="Filtrar descripción">
+                            </div>
+                            <button type="submit" class="btn btn-default"><i  class="fa fa-search" > Buscar</i></button>
+                        </form>    
+                    </div>
+                </nav>
+            </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr  class="bg-light-blue-active">
+                        <th>Código</th>
+                        <th>Descripción</th>
+                        <th>Símbolo</th>
+                        <th>Creación</th>
+                        <th>Estatus</td>
+                        <th width="30"></th>
+                        <th width="30"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php $i = 1; ?>    
+                    <?php if(isset($this->lista) && count($this->lista)) :?>
+                        <?php foreach ($this->lista as $val) :?>
+                        
+                        <tr>
+                            <td><?php echo $val['id_uni_med'] ?></td>
+                            <td><?php echo $val['nombre_uni_med'] ?></td>
+                            <td><?php echo $val['simbolo_uni_med'] ?></td>
+                            <td><?php echo date('d-m-Y',strtotime($val['fecha_creacion'])) ?></td>
+                            <td><?php echo ($val['estatus_uni_med']==1)?'Activo':'Inactivo' ?></td>
+                            <td>
+                                <?php if($val['estatus_uni_med']==1): ?>
+                                <button class="boton btn btn-default" title="Presione aquí para EDITAR"  value="<?php echo $val['id_uni_med'] ?>" type="button"><i  class="fa fa-pencil-square-o"></i></button>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <?php if($val['estatus_uni_med']==1): ?>
+                                <button class="eliminar btn btn-default" title="Presione aquí para ELIMINAR" value="<?php echo $val['id_uni_med'] ?>" type="button"><i class="fa fa-trash-o"></i></button>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php $i++; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>    
+                    </tbody>
+                </table>
+                <hr>
+                <p>
+                      <?php if(isset($this->paginacion)) echo $this->paginacion; ?>
+                </p>
+            </div>
+          </div>
+
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Gestión de Unidad de Medida</div>
+            <div class="panel-body">
+                <form name="permiso" method="post" autocomplete="off" action="<?php echo BASE_URL ?>configuracion/unidadMedida/agregar/">
+                    <input name="guardar" type="hidden" value="1" id="guardar">
+                    <input name="id" type="hidden" value="0" id="id">
+                    <div class="form-group">
+                      <label>Descripción:</label>
+                      <input name="descripcion" type="text" class="form-control" id="descripcion" required placeholder="Ingrese nombre de Unidad de Medida">
+                    </div>
+                    <div class="form-group">
+                      <label>Símbolo:</label>
+                      <input name="simbolo" type="text" class="form-control" id="simbolo" placeholder="Ejemplo Kg, L" required >
+                    </div>
+                    <button type="submit" class="btn btn-primary" >Guardar</button>
+                    <button type="reset" class="btn btn-danger">Limpiar</button>
+                </form>    
+            </div>
+        </div>
+    </div>    
+</div>

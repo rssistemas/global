@@ -1,0 +1,145 @@
+<div class="row">
+        <div class="col-lg-12 col-md-6">
+            <ul class="nav nav-tabs">
+				<li role="presentation" ><a href="<?php echo  BASE_URL ?>compra/planificacion/index/"><i class="fa fa-calendar"></i> Planificación de Compra </a></li>
+				<li role="presentation" class="active"><a href="#"><i class="fa fa-crosshairs"></i> Evaluación y Seguimiento</a></li>				
+				<li role="presentation" ><a href="<?php echo  BASE_URL ?>compra/planificacion/concepto/"><i class="fa fa-tags"></i> Conceptos de Planificación</a></li>				
+			</ul>
+        <div class="panel panel-default">
+            <div class="">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header navbar-btn">
+                            
+                        </div>  
+                        <form class="navbar-form navbar-right" role="search" action="" method="post">
+                            <div class="form-group">
+                                <label>Depósito</label>    
+                                <?php if(isset($this->depTrb) && count($this->depTrb)>0): ?>
+                                <select name="deposito" id="deposito" class="form-control">   
+                                    <option value="0">TODOS</option>   
+                                <?php foreach($this->depTrb as $dep): ?>
+                                    <?php if(isset($this->depAct)&& $this->depAct==$dep['id_deposito']): ?>
+                                    <option value="<?php echo $dep['id_deposito'] ?>" selected="true"><?php echo $dep['nombre_deposito'] ?></option>       
+                                    <?php else: ?>
+                                    <option value="<?php echo $dep['id_deposito'] ?>"><?php echo $dep['nombre_deposito'] ?></option>       
+                                    <?php endif; ?>
+                                <?php endforeach; ?>    
+                                </select>     
+                                <?php endif; ?> 
+                                <input type="text" name="busqueda" class="form-control" placeholder="Busqueda">
+                            </div>
+                            <button type="submit" class="btn btn-default">Enviar</button>
+                        </form>    
+                    </div>
+                </nav>
+            </div>     
+                
+			<div class="panel-body">
+			<?php if(isset($this->lista) && count($this->lista)>0): ?>
+				<?php $i=0; ?>
+				<?php foreach($this->lista as $row): ?>
+				
+				<div <?php echo ($row['condicion'] == 'APROBADO')? "class='panel-info'" : "class='panel-danger'"   ?> >
+					<div class="panel-heading form-inline ">
+						<div class="form-group ">
+						<?php if($row['condicion'] == 'POR EVALUAR'):  ?>
+							<input name="id<?php echo $i ?>" id="id<?php echo $i ?>" type="checkbox" value="<?php echo $row['id']  ?>" class="checkbox habilitar" data-id="<?php echo $i  ?>" />	|						
+						<?php endif; ?>
+						</div>
+						<div class="form-group ">
+							<label>Fecha:</label>
+							<?php echo $row['creacion'].'  |  '  ?>
+						</div>
+						<div class="form-group ">
+							<label>Solicitante:</label>
+							<?php echo $row['unidad'].'  |  ' ?>
+						</div>
+						<div class="form-group ">
+							<label>Departamento:</label>
+							<?php echo $row['dpto'].'  |  ' ?>
+						</div>
+						<div class="form-group ">
+							<label>Objetivo:</label>
+							<?php echo $row['concepto'].'  |  ' ?>
+						</div>
+						
+					</div>
+					<div class="panel-body">												
+						<div class="col-md-9">
+							<div class="box box-warning">
+								<div class="box-header with-border">
+									<div class="box-title"><h4>Detalle de Planificacion</h4></div>
+								</div>
+								<div class="box-body">
+									<table class="table table-bordered">
+									<thead>
+										<th width="60">Tipo</th>
+										<th width="260">Requisito</th>
+										<th width="60">Prioridad</th>
+										<th width="60">Cantidad</th>
+										<th width="60">Plazo.</th>
+										<th width="80">Condicion</th>	
+									</thead>
+									<tbody>
+									<?php if(isset($row['detalle']) && count($row['detalle'])>0 ) :?>					
+										<?php foreach($row['detalle'] as $cel): ?>
+											<tr>
+												<td><span class="h6 small"><?php echo strtoupper($cel['tipo_requisito']) ?></span></td>
+												<td><span class="h6 small"><?php echo strtoupper($cel['requisito']) ?></span></td>
+												
+												<td><span class="h6 small"><?php echo strtoupper($cel['prioridad_requisito']) ?></span></td>
+												<td><span class="h6 small"><?php echo strtoupper($cel['cantidad_requisito']) ?></span></td>
+												<td><span class="h6 small"><?php echo strtoupper($cel['plazo_ejecucion']) ?></span></td>
+												<?php if($cel['condicion_requisito']=='POR EVALUAR'): ?>
+												<td><span class="h6 small label label-warning"><?php echo strtoupper($cel['condicion_requisito']) ?></span></td>
+												<?php endif ?>
+												<?php if($cel['condicion_requisito']=='APROBADO'): ?>
+												<td><span class="h6 small label label-success"><?php echo strtoupper($cel['condicion_requisito']) ?></span></td>
+												<?php endif ?>
+												<?php if($cel['condicion_requisito']=='RECHAZADO'): ?>
+												<td><span class="h6 small label label-danger"><?php echo strtoupper($cel['condicion_requisito']) ?></span></td>
+												<?php endif ?>
+												<?php if($cel['condicion_requisito']=='COTIZADO'): ?>
+												<td><span class="h6 small label label-info"><?php echo strtoupper($cel['condicion_requisito']) ?></span></td>
+												<?php endif ?>
+												<td><span class="h6 small"><button class='btn btn-default'><i class='fa fa-gamepad'><i/></button></span></td>
+											</tr>										
+										<?php endforeach; ?>
+									<?php endif; ?>
+									</tbody>
+									</table>
+								</div>
+							</div>		
+						</div>
+						
+						
+						
+						<div class="col-md-3">
+							<div class="box box-primary">
+								<div class="box-header with-border">
+									<div class="box-title"><h4>Estatus de Planificacion</h4></div>
+								</div>
+								<div class="box-body">
+									<canvas id="doughnutChart" style="width:100%;">
+				
+									</canvas>
+									<div id="doughnutLegend"></div>
+												
+								</div>
+							</div>
+					</div>			
+				</div>
+				<?php $i++; ?>
+				<?php endforeach; ?>
+			<?php endif; ?>	
+			</div>
+			<div class="panel-footer" >
+				<p>
+					<?php if(isset($this->paginacion)) echo $this->paginacion; ?>
+				</p>
+			</div>
+    </div>        
+</div>
+</div>  
+

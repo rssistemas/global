@@ -1,0 +1,44 @@
+<div class="col-lg-12">
+    <form name="form_modulo_editar" id="form_modulo_editar" method="post" autocomplete="off" action="">    
+<div class="panel panel-default">
+    <div class="panel-heading">Información del Módulo</div>
+    <div class="panel-body">
+        <input name="guardar" id="guardar" type="hidden" value="2" /> 
+         <input name="id" id="id" type="hidden" value="<?php if(isset($this->modulo['id_modulo'])) echo $this->modulo['id_modulo'] ?>"  /> 
+          <div class="form-group ">
+            <div class="form-inline">
+              <label class="control-label">*Nombre:</label>
+              <input name="nombre" maxlength="60" value="<?php if(isset($this->modulo['nombre_modulo'])) echo $this->modulo['nombre_modulo'] ?>" type="text" class="form-control alfa_nom"  id="nombre" placeholder="Ingrese nombre del modulo" required />
+             </div>
+          </div>
+            <hr>
+          <div class="form-group col-xs-6">
+            <label>*Descripción:</label>
+            <input name="descripcion" maxlength="100" value="<?php if(isset($this->modulo['descripcion_modulo'])) echo $this->modulo['descripcion_modulo'] ?>" type="text" class="form-control alfa_desc" id="descripcion" placeholder="Ingrese descripción del módulo" >            
+          </div>
+          <div class="form-group col-xs-6">
+            <label>*Url:</label>
+            <input name="url" maxlength="150" value="<?php if(isset($this->modulo['url_modulo'])) echo $this->modulo['url_modulo'] ?>" type="text" class="form-control" id="url" placeholder="Ingrese dirección url del módulo" required >  
+          </div>
+          <div class="form-group col-xs-6">
+            <label>*Icono:</label>
+            <input type="text" maxlength="40" value="<?php if(isset($this->modulo['icon_modulo'])) echo $this->modulo['icon_modulo'] ?>" class="form-control alfa_desc" name="icono" id="icono" placeholder="Ingrese icono del módulo" required  />
+          </div>
+          <div class="form-group col-xs-6">
+            <label>*Posición:</label>
+            <input type="text" maxlength="2" value="<?php if(isset($this->modulo['posicion_modulo'])) echo $this->modulo['posicion_modulo'] ?>" class="form-control num" name="posicion" id="posicion" placeholder="Ingrese el número de posición del módulo" required  />
+          </div>
+          <div class="form-group col-xs-4">
+            <label>Clave</label>
+            <input name="clave" maxlength="30" value="<?php if(isset($this->modulo['clave_modulo'])) echo $this->modulo['clave_modulo'] ?>" type="text" class="form-control alfa_desc" id="clave" placeholder="Ingrese la clave del módulo" required />
+          </div>
+    </div>
+  </div>        
+        <br/>
+        <button type="button" name="agregar" id="agregar" title="Presione aquí para Guardar el registro" class="btn btn-primary" ><i class="fa fa-floppy-o"></i> Guardar</button>
+          <a href="<?php echo BASE_URL ?>desarrollo/modulo/index">
+          <button type="button" title="Presione aquí para SALIR Y CANCELAR el registro" class="btn btn-danger"><i class="fa fa-undo"></i> Cancelar</button>
+          </a> 
+        <br/>
+    </form>
+</div>

@@ -1,0 +1,119 @@
+<div class="row">
+	<div class="col-md-12">
+		<form name="form-empresa" method="post" autocomplete="off" action="<?php echo BASE_URL ?>configuracion/empresa/agregar" id="form-empresa">
+			<input name="guardar" id="guardar" value="1" hidden />
+			<div class="col-md-12">
+				<div class="box box-info">
+					<div class="box-header with-border">
+						<h3 class="box-title">Datos de la Empresa</h3>
+					</div>
+					<div class="box-body">
+						<div class="form-group col-md-6">
+							<label>*Razon Social Empresa:</label>
+							<input name="razon_social"  maxlength="30" type="text" class="form-control input-sm" id="razon_social" placeholder="Ingrese la razon social de la empresa o el nombre" required >
+						</div>
+						<div class="form-group col-md-6">
+							<label>*Direccion Empresa:</label>
+							<input name="direccion"   type="text" class="form-control input-sm" id="direccion" placeholder="Ingrese la direccion fiscal de la empresa" required >
+						</div>
+						<div class="form-group col-md-6">
+							<label>*Telefono Empresa:</label>
+							<input name="telefono"  maxlength="30" type="text" class="form-control input-sm" id="telefono" placeholder="Ingrese el numero de telefono de la empresa" required >
+						</div>
+						<div class="form-group col-md-6">
+							<label>*Correo Electronico Empresa:</label>
+							<input name="correo"   type="text" class="form-control input-sm" id="correo" placeholder="Ingrese el correo de la empresa " required >
+						</div>
+						<div class="form-group col-md-6">
+							<label>*Tipo Empresa:</label>
+							<select name="tipo_empresa"  class="form-control input-sm" id="tipo_empresa" placeholder="" required >
+									<option value="">-Seleccione-</option>
+									<option >Compra y Venta</option>
+									<option >Fabricacion</option>
+									<option >Distibucion</option>
+									<option >Importacion</option>
+							</select>
+						</div>
+						<div class="form-group col-md-6">
+							<label>*Modalidad de Prestaciones:</label>
+							<select name="prestaciones"  class="form-control input-sm" id="prestaciones" placeholder="" required >
+									<option value="">-Seleccione-</option>
+									<option value="MENSUAL">MENSUAL</option>
+									<option value="TRIMESTRAL">TRIMESTRAL</option>
+									<option value="ANUAL">ANUAL</option>
+							</select>
+						</div>
+						<div class="form-group col-md-6">
+							<label>*Moneda Principal:</label>
+							<select name="moneda"  class="form-control input-sm" id="moneda" placeholder="" required >
+									<option value="">-Seleccione-</option>
+									<?php if(count($this->moneda)): ?>
+										<?php foreach ($this->moneda as $dato): ?>
+												<option value="<?php echo $dato['id_moneda'] ?>"><?php echo $dato['nombre_moneda'].' - '.$dato['nombre_corto'] ?></option>
+										<?php endforeach; ?>
+									<?php endif ?>
+							</select>
+						</div>
+						<div class="form-group col-md-6">
+							<label>*Moneda Secundaria:</label>
+							<select name="moneda2"  class="form-control input-sm" id="moneda2" placeholder="" required >
+									<option value="">-Seleccione-</option>
+									<?php if(count($this->moneda)): ?>
+										<?php foreach ($this->moneda as $dato): ?>
+												<option value="<?php echo $dato['id_moneda'] ?>"><?php echo $dato['nombre_moneda'].' - '.$dato['nombre_corto'] ?></option>
+										<?php endforeach; ?>
+									<?php endif ?>
+							</select>
+						</div>
+						<div class="form-group col-md-6">
+							<label>*Licencia de Actividad:</label>
+							<input name="licencia_actividad"   type="text" class="form-control input-sm" id="licencia_actividad" placeholder="" required >
+						</div>
+
+						<div class="form-group col-md-12">
+							<label>Seleccione Imágen para Logo</label>
+							<input type="file" id="files" name="files" class="filestyle" data-icon="false">
+							<p class="help-block">Seleccione la Imágen a subir</p>
+						</div>
+					</div>
+				</div>
+				</div>
+				<div class="col-md-12">
+					<div class="box box-info">
+						<div class="box-header with-border">
+							<h3 class="box-title">Informacion Fiscal</h3>
+						</div>
+						<div class="box-body">
+							<div class="form-group col-md-6">
+								<label>*RIF Empresa:</label>
+								<input name="rif"   type="text" class="form-control input-sm" id="rif" placeholder="Ingrese el rif de la empresa " required >
+							</div>
+							<div class="form-group col-md-6">
+								<label>NIF:</label>
+								<input name="nif"   type="text" class="form-control input-sm" id="nif" placeholder="Ingrese el nif de la empresa " required >
+							</div>
+							<div class="form-group col-md-6">
+								<label>*Formato Factura:</label>
+								<select name="formato_factura"  class="form-control input-sm" id="formato_factura" placeholder="" required >
+										<option value="">-Seleccione-</option>
+										<option value="C">Carta</option>
+										<option value="MC">Media Carta</option>
+										<option value="T">Ticket</option>
+								</select>
+							</div>
+
+							<div class="form-group col-md-6">
+								<label>*Es Agente de Retencion:</label>
+								<input name="agente_retencion"   type="checkbox" class="icheckbox_minimal-blue checked" id="agente_retencion"  >
+							</div>
+						</div>
+					</div>
+
+			</div>
+				<div col-lg-12">
+					<button type="button" title="Presione aquí para GUARDAR" oninvalid="alert('Llene todos los campos obligatorios ....');" name="agregar" id="agregar" class="btn btn-primary" ><i class="fa fa-floppy-o"></i> Guardar</button>
+					<a href="<?php echo BASE_URL ?>configuracion/empresa/index"><button type="button" title="Presione aquí para CANCELAR el registro" class="btn btn-danger"><i class="fa fa-undo"></i> Cancelar</button></a>
+				</div>
+		</form>
+	</div>
+</div>

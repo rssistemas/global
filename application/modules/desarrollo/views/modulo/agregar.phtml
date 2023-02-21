@@ -1,0 +1,81 @@
+<div class="row">
+<div class="col-lg-12">
+    <form name="form_modulo_agregar" id="form_modulo_agregar" method="post" autocomplete="off" action="">    
+	<div class="panel panel-default">
+		<div class="panel-heading">Información del Módulo</div>
+		<div class="panel-body">
+			<input name="guardar" id="guardar" type="hidden" value="1" /> 
+                            
+                        <div class="form-group col-xs-6">
+                            <label class="control-label">Organizacion</label>
+                            <select class="form-control" name="org" id="org" required  >
+                            <option value="-">-TODOS-</option>
+                            <?php if(isset($this->org)&& count($this->org)): ?>
+                                    <?php foreach ($this->org as $val): ?>
+                                    <option value="<?php echo $val['id_organizacion'] ?>"><?php echo strtoupper($val['nombre_organizacion']) ?> </option>
+                                    <?php endforeach; ?>
+                            <?php endif; ?>
+                            </select>  
+                        </div>
+			  <div class="form-group col-xs-6">
+				  <label class="control-label">*Nombre:</label>
+				  <input name="nombre" type="text" maxlength="60" class="form-control alfa_nom"  id="nombre" placeholder="Ingrese nombre del módulo" required />
+			  </div>
+			  <div class="form-group col-xs-6">
+				<label>*Descripción:</label>
+				<input name="descripcion" type="text" maxlength="100" class="form-control alfa_desc" id="descripcion" placeholder="Ingrese descripción del módulo" required >            
+			  </div>
+			  <div class="form-group col-xs-6">
+				<label>*Icono:</label>
+				<input type="text" class="form-control alfa_desc" maxlength="40" name="icono" id="icono" placeholder="Ingrese icono del módulo" required  />
+			  </div>
+                        
+			  <div class="form-group col-xs-6">
+				<label>*Posición:</label>
+				<input type="text" maxlength="2" class="form-control num" name="posicion" id="posicion" placeholder="Ingrese el número de posición del módulo" required  />
+			  </div>
+			  <div class="form-group col-xs-4">
+				<label>*Clave</label>
+				<input name="clave" type="text" maxlength="30" class="form-control alfa_desc" id="clave" placeholder="Ingrese la clave del módulo" required />
+			  </div>
+                        <div class="form-group col-xs-2">
+                            <label class="control-label">Condición Modulo</label>
+                            <select class="form-control" name="condicion" id="condicion" required  >
+                                <option value="-">-Seleccione-</option>                                
+                                <option value="SIN IMPLEMENTAR">Sin Implementar</option>
+                                <option value="IMPLEMENTADO">Implementado</option>
+                                <option value="OCULTO">Oculto</option>
+                            </select>  
+                        </div>
+		</div>
+	</div>
+        <div class="panel panel-default">
+		<div class="panel-heading">Relacion de Datos</div>
+		<div class="panel-body">
+                    <div class="form-group col-xs-6">
+                        <label class="control-label">Tabla Asociada</label>
+                        <select class="form-control" name="tabla" id="tabla" required  >
+                        <option value="-">-Seleccione-</option>
+                        <?php if(isset($this->org)&& count($this->org)): ?>
+                                <?php foreach ($this->org as $val): ?>
+                                <option value="<?php echo $val['id_organizacion'] ?>"><?php echo strtoupper($val['nombre_organizacion']) ?> </option>
+                                <?php endforeach; ?>
+                        <?php endif; ?>
+                        </select>  
+                    </div>
+                    <div class="form-group col-xs-6">
+                        <label>Condicion de Carga:</label>
+                        <input type="text" maxlength="2" class="form-control num" name="conWhere" id="conWhere" placeholder="Ingrese parametros para la condicion Where " required  />
+                  </div>
+                    
+                </div>
+        </div>
+    <br/>          
+        <button type="submit" name="agregar" id="agregar" title="Presione aquí para Guardar el registro" class="btn btn-primary" ><i class="fa fa-floppy-o"></i> Guardar</button>
+        <a href="<?php echo BASE_URL ?>desarrollo/modulo/index">
+        <button type="button" title="Presione aquí para SALIR Y CANCELAR el registro" class="btn btn-danger"><i class="fa fa-undo"></i> Cancelar</button>
+        </a>          
+    <br/>
+    </form> 
+</div>
+</div>

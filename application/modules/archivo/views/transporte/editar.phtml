@@ -1,0 +1,85 @@
+<div class="col-lg-12">
+<form name="form_transporte" id="form_transporte" method="post" autocomplete="off" action="">    
+<div class="panel panel-default">
+    <div class="panel-heading">Datos transporte</div>
+    <div class="panel-body">
+        <input name="guardar" id="guardar" type="hidden" value="2" > 
+        <input name="id" id="id" type="hidden" value="<?php echo $this->transporte['id_transporte'] ?>" > 
+        <input name="aux" id="aux" type="hidden" value="0" > 
+        
+        <div class="form-group">
+          <div class="form-inline">
+                <label class="control-label">*** Placa:</label>
+                <input name="placa" id="placa" disabled="true" type="text" value="<?php if(isset($this->transporte['placa'])) echo $this->transporte['placa'] ?>" class="form-control" placeholder="Ingrese número de placa" required >
+           </div>
+        </div>
+        
+      <hr>
+      
+        <div class="form-group col-xs-6 ">
+            <label class="control-label">*** Tipo de Transporte:</label>
+            <select class="form-control" name="tipo" id="tipo" >
+            <option value="-">-Seleccione-</option>
+            <?php if(isset($this->tipo) && count($this->tipo)):  ?>
+            <?php foreach($this->tipo as $val): ?>
+               <?php if($val['id_tipo_transporte']== $this->transporte['tipo_trans_id']): ?>
+                   <option value="<?php echo $val['id_tipo_transporte']  ?>" selected><?php echo $val['nombre_tipo_trans'] ?></option>
+               <?php else: ?>
+                   <option value="<?php echo $val['id_tipo_transporte']  ?>" ><?php echo $val['nombre_tipo_trans'] ?></option>
+               <?php endif; ?>                     
+            <?php endforeach; ?>
+            <?php endif; ?>
+            </select>
+        </div>
+
+        <div class="form-group col-xs-6 ">
+            <label class="control-label">*** Marca de Transporte:</label>
+            <select class="form-control" name="marca" id="marca"  >
+            <option value="-">-Seleccione-</option>
+            <?php if(isset($this->marca) && count($this->marca)):  ?>
+            <?php foreach($this->marca as $val): ?>
+               <?php if($val['id_marca']== $this->transporte['marca_transporte_id']): ?>
+                   <option value="<?php echo $val['id_marca']  ?>" selected><?php echo $val['nombre_marca'] ?></option>
+               <?php else: ?>
+                   <option value="<?php echo $val['id_marca']  ?>" ><?php echo $val['nombre_marca'] ?></option>
+               <?php endif; ?>                     
+            <?php endforeach; ?>
+            <?php endif; ?>
+            </select>
+        </div>
+      
+        <div class="form-group col-xs-6">
+          <label>*** Modelo:</label>
+          <input name="modelo" id="modelo" maxlength="100" type="text" value="<?php if(isset($this->transporte['modelo'])) echo $this->transporte['modelo'] ?>" class="form-control" placeholder="Ingrese modelo del Transporte" required >
+        </div>
+      
+        <div class="form-group col-xs-6">
+            <label>*** Capacidad:</label>
+            <input name="capacidad" type="text" value="<?php if(isset($this->transporte['capacidad'])) echo $this->transporte['capacidad'] ?>" class="form-control"  id="capacidad" placeholder="Ingrese capacidad maxima para carga" required >
+            <select name="medida" id="medida" class="form-control" >
+            <option value="-">-Seleccione Unidad de Medida-</option>
+            <?php if(isset($this->medida) && count($this->medida)):  ?>
+            <?php foreach($this->medida as $val): ?>
+               <?php if($val['id_uni_med']== $this->transporte['unidad_medida_id']): ?>
+                   <option value="<?php echo $val['id_uni_med']  ?>" selected><?php echo $val['nombre_uni_med'] ?></option>
+               <?php else: ?>
+                   <option value="<?php echo $val['id_uni_med']  ?>" ><?php echo $val['nombre_uni_med'] ?></option>
+               <?php endif; ?>                     
+            <?php endforeach; ?>
+            <?php endif; ?>
+            </select>
+        </div>
+    </div>
+    
+  </div>
+    <br/>
+        <a href="<?php echo BASE_URL ?>archivo/transporte/index">
+        <button type="button" title="Presione aquí para CANCELAR la Edición del registro" class="btn btn-danger"><i class="fa fa-undo"></i>Cancelar</button>
+        </a>
+            <button type="button" name="restaurar" id="restaurar" title="Presione aquí para REINICIAR el formulario" class="btn btn-danger">Limpiar</button>
+
+        <button type="button" name="agregar" id="agregar" disabled="true" title="Presione aquí para Guardar" class="btn btn-primary" ><i class="fa fa-floppy-o"></i>Guardar</button>
+    <br/>
+    <br/>
+</form>
+</div>

@@ -1,0 +1,138 @@
+<div class="row">
+        <div class="col-lg-8 col-md-6">
+			
+        <div class="panel panel-default">
+        <div class="">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand"> <button class="nuevo" title="Presione aquí para AGREGAR un nuevo registro" value="" ><i  class="fa fa-plus"></i></button> </a>
+                        <a class="navbar-brand" target="_blank" href="<?php echo BASE_URL ?>reporte/index/catRubrosProd/" title="Imprimir Catálogo"><button><i class="fa fa-print"></i></button></a>
+                    </div>  
+                    
+                    <form class="navbar-form navbar-right" role="search" action="" method="post">
+                        <div class="form-group">
+                            <input type="text" maxlength="100" name="busqueda" class="form-control alfa_desc" placeholder="Filtrar nombre">
+                        </div>
+                        <button type="submit" class="btn btn-default"><i  class="fa fa-search" > Buscar</i></button>
+                    </form>    
+                </div>
+            </nav>
+        </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr class="bg-teal-active">
+                        <th width="80">Código</th>
+                        <th>Nombre</th>
+                        <th>Accion</th>
+                        <th>Condicion</th>
+                        <th width="20"></th>
+                        <th	width="20"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php $i = 1; ?>    
+                    <?php if(isset($this->premisa) && count($this->premisa)) :?>
+                        <?php foreach ($this->premisa as $val) :?>
+                        <tr >
+                            <td><?php echo $val['id_premisa'] ?></td>
+                            <td><?php echo ucwords($val['nombre_premisa']) ?></td>
+                            <td><?php echo ucwords($val['accion_premisa']) ?></td>
+                            <td><?php echo strtoupper($val['tipo_premisa'].' '.$val['operador_premisa']. ' '.$val['comparador_premisa']) ?></td>
+                            <td>
+                                <?php if($val['estatus_premisa']==1): ?>
+                                <button class="editar" title="Presione aquí para EDITAR" value="<?php echo $val['id_premisa'] ?>" ><i  class="fa fa-pencil-square-o"></i></button>
+                                <?php endif; ?>
+                            </td>    
+                            <td>
+                                <?php if($val['estatus_premisa']==1): ?>
+                                <button class="eliminar" title="Presione aquí para ELIMINAR" value="<?php echo $val['id_premisa'] ?>"><i class="fa fa-trash-o"></i></button>
+								<?php else:  ?>
+									<?php if($val['estatus_premisa']==9): ?>
+										<button class="restaurar" title="Presione aquí para RESTAURAR" value="<?php echo $val['id_premisa'] ?>"><i class="fa fa-recycle"></i></button>									
+									<?php endif; ?>
+								<?php endif; ?>
+                            </td>
+                            
+                        </tr>
+                        <?php $i++; ?>
+                        <?php endforeach; ?>
+                    <?php endif; ?>    
+                    </tbody>
+                </table>
+                
+            </div>
+          </div>
+		  <div class="panel-footer" >
+            <p>
+                <?php if(isset($this->paginacion)) echo $this->paginacion; ?>
+            </p>
+    	  </div>	
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Gestión  de   Premisas  </div>
+            <div class="panel-body">
+                <form name="form_premisa" id="form_premisa" method="post" autocomplete="off" action="<?php echo BASE_URL ?>venta/premisa/agregar/">
+                    <input name="guardar" type="hidden" value="1" id="guardar">
+                    <input name="id" type="hidden" value="0" id="id">
+                    <input name="aux" type="hidden" value="" id="aux">
+                    <div class="form-group">
+                      <label>*Nombre:</label>
+                      <input name="nombre" disabled="disabled" maxlength="100" type="text" class="form-control alfa_desc" id="nombre" required placeholder="Ingrese nombre " >
+                    </div>
+                    <div class="form-group">
+                      <label>*Descripcion:</label>
+                      <input name="descripcion" disabled="disabled" maxlength="100" type="text" class="form-control alfa_desc" id="descripcion" required placeholder="Ingrese descripcion" >
+                    </div>
+                    <div class="form-group">
+                      <label>*Tipo de Premisa:</label>
+                      <select name="tipo" disabled="disabled" class="form-control " id="tipo" required  >
+						<option value="">-SELECCIONE-</option>
+						<option value="VENTA">VENTA</option>
+						<option value="COMPRA">COMPRA</option>
+						<option value="CXC">CXC</option>
+						<option value="CXP">CXP</option>
+					  </select>
+                    </div>
+                    <div class="form-group">
+                      <label>*Porcentaje:</label>
+                      <input name="porcentaje" disabled="disabled" maxlength="100" type="text" class="form-control alfa_desc" id="porcentaje" required placeholder="Ingrese porcentaje" >
+                    </div>
+					<div class="form-group">
+                      <label>*Accion:</label>
+                      <select name="accion" disabled="disabled" class="form-control alfa_desc" id="accion" required  >
+						<option value="">-SELECCIONE-</option>
+						<option value="suma">Suma</option>
+						<option value="resta">Resta</option>
+					  </select>
+                    </div>                                        
+                    <div class="form-group">
+                      <label>*Operador:</label>
+                      <select name="operador" disabled="disabled" class="form-control alfa_desc" id="operador" required  >
+						<option value="">-SELECCIONE-</option>
+						<option value="MAYOR">MAYOR</option>
+						<option value="MENOR">MENOR</option>
+						<option value="MAYOR IGUAL">MAYOR IGUAL</option>
+						<option value="MENOR IGUAL">MENOR IGUAL</option>
+						<option value="IGUAL">IGUAL</option>
+					  </select>
+                    </div>
+                    <div class="form-group">
+                      <label>*Valor de Comparacion:</label>
+                      <input name="valor" disabled="disabled" maxlength="100" type="text" class="form-control alfa_desc" id="valor" required placeholder="Ingrese el valor de comparacion " >
+                    </div>
+                    <div class="form-group">
+                      <label>Visualizacion de Condicion:</label>
+                      <textarea name="condicion" disabled="disabled" maxlength="150" cols="1" rows="2" type="text" multiple="1" class="form-control alfa_desc" id="condicion"  placeholder="Ingrese una condicion"></textarea>
+                    </div>
+                    <button type="button" disabled="disabled" name="agregar" id="agregar" title="Presione aquí para GUARDAR el registro"  class="btn btn-primary"> <i class="fa fa-floppy-o"></i> Guardar</button>
+                    <button type="button" disabled="disabled" name="cancelar" title="Presione aquí para CANCELAR el registro" id="cancelar" class="btn btn-danger"> <i class="fa fa-undo"></i> Cancelar</button>
+                </form>    
+            </div>
+        </div>
+    </div>    
+</div>

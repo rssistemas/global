@@ -1,0 +1,142 @@
+<div class="col-lg-12">
+    <form name="form_proveedor_editar" id="form_proveedor_editar" method="post" autocomplete="off" action="">    
+<div class="panel panel-default">
+    <div class="panel-heading">Información Personal</div>
+    
+    <div class="panel-body">
+        <input name="guardar" id="guardar" type="hidden" value="2" /> 
+        <input name="id" id="id" type="hidden" value="<?php echo $this->proveedor['id_proveedor'] ?>" /> 
+        <div class="form-group ">
+            <div class="form-inline">
+              <label class="control-label">*Rif:</label>
+              <select  class="form-control" title="Seleccione el tipo de documento" <?php if($this->cant_uso['total']>0) echo "disabled='true'"  ?> name="nacionalidad" id="nacionalidad" required />
+                  <option value="0">-</option>
+                  <option value="V" <?php if($this->proveedor['tipo_rif'] =='V') echo 'selected' ?> >V</option>
+                  <option value="E" <?php if($this->proveedor['tipo_rif'] =='E') echo 'selected' ?> >E</option>
+                  <option value="J" <?php if($this->proveedor['tipo_rif'] =='J') echo 'selected' ?> >J</option>
+                  <option value="P" <?php if($this->proveedor['tipo_rif'] =='P') echo 'selected' ?> >P</option>
+                  <option value="G" <?php if($this->proveedor['tipo_rif'] =='G') echo 'selected' ?> >G</option>
+              </select>
+              <input name="cedula" maxlength="9" class="form-control rif" type="text" <?php if($this->cant_uso['total']>0) echo "readonly='true'"  ?> value="<?php if(isset($this->proveedor['rif_proveedor'])) echo $this->proveedor['rif_proveedor'] ?>"  title="Solo valores numericos Ej.: 5417293"  id="cedula" placeholder="Ingrese el Número de identificación" />
+            </div>              
+        </div>
+        <hr>   
+        <div class="form-group col-xs-8">
+            <label>*Razón Social:</label>
+            <input name="nombre_pro" maxlength="100" type="text" <?php if($this->cant_uso['total']>0) echo "readonly='true'"  ?> value="<?php if(isset($this->proveedor['razon_social'])) echo $this->proveedor['razon_social'] ?>" class="form-control alfa_desc"  id="nombre_pro" placeholder="Ingrese la Razón Social del proveedor" required >
+
+        </div>
+        <div class="form-group col-xs-4">
+            <label>*Tipo de Proveedor:</label>
+            <select class="form-control" name="tipo" <?php if($this->cant_uso['total']>0) echo "disabled='true'"  ?> id="tipo" title="Seleccione el tipo de proveedor" required />
+                <option value="-">-Seleccione-</option>
+                <?php if(isset($this->tipo) && count($this->tipo)):  ?>
+                <?php foreach($this->tipo as $val): ?>
+                   <?php if($val['id_tipo_proveedor']== $this->proveedor['tipo_proveedor']): ?>
+                       <option value="<?php echo $val['id_tipo_proveedor']  ?>" selected><?php echo $val['nombre_tipo_proveedor'] ?></option>
+                   <?php else: ?>
+                       <option value="<?php echo $val['id_tipo_proveedor']  ?>" ><?php echo $val['nombre_tipo_proveedor'] ?></option>
+                   <?php endif; ?>                     
+                <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+        </div>     
+        <div class="form-group col-xs-8">
+            <label>*Correo Electrónico Proveedor:</label>
+            <input name="correo_pro" maxlength="60" type="email" value="<?php if(isset($this->proveedor['correo_proveedor'])) echo $this->proveedor['correo_proveedor'] ?>" class="form-control alfa_correo" id="correo_pro" placeholder="Ej.: micorreo@hotmail.com" required >
+        </div>
+        <div class="form-group col-xs-4">
+            <label>*Teléfono Proveedor:</label>
+            <input name="telf_pro" type="text" maxlength="12" value="<?php if(isset($this->proveedor['telefono_proveedor'])) echo $this->proveedor['telefono_proveedor'] ?>" class="form-control num" id="telf_pro" placeholder="Ej.: 04141592306" required >
+        </div>
+        <div class="form-group col-xs-6">
+            <label>*Estado:</label>
+            <select class="form-control" name="estado" title="Seleccione el estado de residencia" id="estado" required  />
+                <option value="0">-Seleccione-</option>
+                <?php if(isset($this->esta) && count($this->esta)):  ?>
+                <?php foreach($this->esta as $val): ?>
+                    <?php if($val['id_estado']== $this->proveedor['estado_id']): ?>
+                        <option value="<?php echo $val['id_estado']  ?>" selected><?php echo $val['descripcion_estado'] ?></option>
+                    <?php else: ?>
+                        <option value="<?php echo $val['id_estado']  ?>" ><?php echo $val['descripcion_estado'] ?></option>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+        </div>
+        <div class="form-group col-xs-6">
+            <label>*Municipio:</label>
+            <select class="form-control" name="municipio" title="Seleccione el municipio de residencia" id="municipio" required />
+                <option value="0">-Seleccione-</option>
+                <?php if(isset($this->muni) && count($this->muni)):  ?>
+                <?php foreach($this->muni as $val): ?>
+                    <?php if($val['id_municipio']== $this->proveedor['municipio_id']): ?>
+                        <option value="<?php echo $val['id_municipio']  ?>" selected><?php echo $val['descripcion_municipio'] ?></option>
+                    <?php else: ?>
+                        <option value="<?php echo $val['id_municipio']  ?>" ><?php echo $val['descripcion_municipio'] ?></option>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+        </div>
+        <div class="form-group col-xs-6">
+            <label>*Parroquia:</label>
+            <select class="form-control" name="parroquia" title="Seleccione la parroquia de residencia" id="parroquia" required />
+             <option value="0">-Seleccione-</option>
+             <?php if(isset($this->parr) && count($this->parr)):  ?>
+             <?php foreach($this->parr as $val): ?>
+                <?php if($val['id_parroquia']== $this->proveedor['parroquia_id']): ?>
+                    <option value="<?php echo $val['id_parroquia']  ?>" selected><?php echo $val['descripcion_parroquia'] ?></option>
+                <?php else: ?>
+                    <option value="<?php echo $val['id_parroquia']  ?>" ><?php echo $val['descripcion_parroquia'] ?></option>
+                <?php endif; ?>
+             <?php endforeach; ?>
+             <?php endif; ?>
+            </select>
+        </div>
+        <div class="form-group col-xs-6">
+            <label>*Sector:</label>
+            <select class="form-control" name="sector" title="Seleccione el sector de residencia" id="sector" required />
+             <option value="0">-Seleccione-</option>
+             <?php if(isset($this->sect) && count($this->sect)):  ?>
+             <?php foreach($this->sect as $val): ?>
+                <?php if($val['id_sector']== $this->proveedor['sector_id']): ?>
+                    <option value="<?php echo $val['id_sector']  ?>" selected><?php echo $val['descripcion_sector'] ?></option>
+                <?php else: ?>
+                    <option value="<?php echo $val['id_sector']  ?>" ><?php echo $val['descripcion_sector'] ?></option>
+                <?php endif; ?>
+             <?php endforeach; ?>
+             <?php endif; ?>
+            </select>
+        </div>
+        <div class="form-group col-xs-12">
+            <label>*Dirección del Proveedor:</label>
+            <input name="direccion" maxlength="100" required type="text" value="<?php if(isset($this->proveedor['direccion_fiscal'])) echo $this->proveedor['direccion_fiscal']; ?>" class="form-control alfa_dir" id="direccion" placeholder="Ingrese dirección de domicilio" >
+        </div>        
+    </div>
+</div>        
+       
+<div class="panel panel-default">
+    <div class="panel-heading">Información del Contacto Proveedor</div>
+    <div class="panel-body">
+        <div class="form-group col-xs-8">
+            <label>*Nombre y Apellido del Contacto:</label>
+            <input name="nombre_con" maxlength="100" type="text" value="<?php if(isset($this->proveedor['contacto_proveedor'])) echo $this->proveedor['contacto_proveedor'] ?>" class="form-control alfa_desc" id="nombre_con" placeholder="Ingrese nombre y apellido del contacto" >
+        </div>
+        <div class="form-group col-xs-4">
+            <label>*Teléfono Contacto:</label>
+            <input type="text" maxlength="12" class="form-control num_tel" value="<?php if(isset($this->proveedor['telefono_contacto'])) echo $this->proveedor['telefono_contacto'] ?>" name="telf_con" id="telf_con" placeholder="Ej.: 0255-2569856" />
+        </div>
+    </div>
+</div>
+
+</div>
+    <br/>
+        <button type="button" name="agregar" id="agregar" title="Presione aquí para Guardar" class="btn btn-primary" ><i class="fa fa-floppy-o"></i> Guardar</button>
+        <a href="<?php echo BASE_URL ?>archivo/proveedor/index">
+        <button type="button" title="Presione aquí para SALIR de la Edición" class="btn btn-danger"><i class="fa fa-undo"></i> Cancelar</button>
+        </a>
+    <br/>
+    <br/>
+</form>
+</div>

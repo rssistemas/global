@@ -1,0 +1,147 @@
+<div class="row">
+<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel panel-heading">Registro de Cliente</div>
+        <div class="panel panel-body">
+        <form name="form_cliente" id="form_cliente"  method="post" autocomplete="off" action="">    
+            <div class="panel panel-default">
+                <div class="panel-heading bg-teal-active">Información Personal</div>
+                <div class="panel-body">
+                    <input name="guardar" id="guardar" type="hidden" value="2" /> 
+                                    <input name="id_cliente" id="id_cliente" type="hidden" value="<?php if(isset($this->datos)) echo $this->datos[0]['id_cliente'] ?>" />
+                    <div class="form-group ">
+                        <div class="form-inline">
+                          <label class="control-label">Rif / Cédula:</label>
+                          <input name="cedula" maxlength="11" type="text" class="form-control" placeholder="Ingrese N° identificación" id="cedula" placeholder="" required="true" value="<?php if(isset($this->datos))echo $this->datos[0]['rif_cliente'] ?>" />
+                         </div>              
+                    </div>
+                    <hr>   
+                    <div class="form-group col-xs-12">
+                        <label>Razon Social:</label>
+                        <input name="razon_social" maxlength="30"  type="text" class="form-control" size="10" id="razon_social" value="<?php if(isset($this->datos))echo $this->datos[0]['razon_social_cliente'] ?>" placeholder="*** Ingrese primer nombre" required="true" >
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label>Denominacion Comercial:</label>
+                        <input name="denominacion" maxlength="30"  type="text" class="form-control" size="30" id="denominacion" value="<?php if(isset($this->datos))echo $this->datos[0]['denominacion_cliente'] ?>" placeholder="Ingrese segundo nombre" >
+                    </div>  
+                </div>
+            </div>        
+            <div class="panel panel-default">
+                <div class="panel-heading bg-teal-active">Datos de Referencia</div>
+                <div class="panel-body">
+                    <div class="form-group col-xs-6">
+                        <label>Estado: ***</label>
+                        <select class="form-control"  name="estado" id="estado" required  />
+                             <option value="-">-Seleccione-</option>
+                             <?php if(isset($this->estado) && count($this->estado)):  ?>
+                             <?php foreach($this->estado as $val): ?>
+                             <?php if(isset($this->localidad) and $val['id_estado']== $this->localidad['estado_id']): ?>
+                                    <option value="<?php echo $val['id_estado']  ?>" selected><?php echo strtoupper($val['descripcion_estado']) ?></option>                        
+                             <?php else: ?>
+                                    <option value="<?php echo $val['id_estado']  ?>" ><?php echo strtoupper($val['descripcion_estado']) ?></option>                        
+                            <?php endif ?>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </div>
+                    <div class="form-group col-xs-6">
+                        <label>Municipio: ***</label>
+                        <select class="form-control"  name="municipio" id="municipio" required />
+                             <option value="-">-Seleccione-</option>
+                             <?php if(isset($this->municipio) && count($this->municipio)):  ?>
+                             <?php foreach($this->municipio as $val): ?>
+                                                     <?php if(isset($this->localidad) and $val['id_municipio']== $this->localidad['id_municipio']): ?>
+                                <option value="<?php echo $val['id_municipio']  ?>" selected><?php echo strtoupper($val['descripcion_municipio']) ?></option>
+                             <?php else: ?>
+                                                            <option value="<?php echo $val['id_municipio']  ?>"><?php echo strtoupper($val['descripcion_municipio']) ?></option>
+                                                     <?php endif ?>
+                                                     <?php endforeach; ?>
+                             <?php endif; ?>
+                        </select>
+                    </div>
+                    <div class="form-group col-xs-6">
+                        <label>Parroquia: ***</label>
+                        <select class="form-control"  name="parroquia" id="parroquia" required />
+                         <option value="-">-Seleccione-</option>
+                         <?php if(isset($this->parroquia) && count($this->parroquia)):  ?>
+                         <?php foreach($this->parroquia as $val): ?>
+                         <?php if(isset($this->localidad) and $val['id_parroquia']== $this->localidad['id_parroquia']): ?>    
+                                                     <option value="<?php echo $val['id_parroquia']  ?>" selected><?php echo strtoupper($val['descripcion_parroquia']) ?></option>
+                         <?php else: ?>
+                                                     <option value="<?php echo $val['id_municipio']  ?>"><?php echo strtoupper($val['descripcion_municipio']) ?></option>
+                                             <?php endif; ?>
+                                             <?php endforeach; ?>
+                         <?php endif; ?>
+                        </select>
+                    </div>
+                    <div class="form-group col-xs-6">
+                        <label>Sector: ***</label>
+                        <select class="form-control"  name="sector" id="sector" required />
+                         <option value="-">-Seleccione-</option>
+                         <?php if(isset($this->sector) && count($this->sector)):  ?>
+                         <?php foreach($this->sector as $val): ?>
+                         <?php if(isset($this->localidad) and $val['id_sector'] = $this->localidad['id_sector']): ?>
+                                                    <option value="<?php echo $val['id_sector']  ?>" selected><?php echo strtoupper($val['descripcion_sector']) ?></option>
+                         <?php else: ?>
+                                                    <option value="<?php echo $val['id_sector']  ?>"><?php echo strtoupper($val['descripcion_sector']) ?></option>
+                                             <?php endif ?>
+                                             <?php endforeach; ?>
+                         <?php endif; ?>
+                        </select>
+                    </div>
+                    <div class="form-group col-xs-6">
+                        <label>Dirección de Domicilio:</label>
+                        <input name="direccion" maxlength="100"  type="text" class="form-control" value="<?php if(isset($this->datos))echo $this->datos[0]['direccion_fiscal_cliente'] ?>" id="direccion" placeholder="*** Ingrese dirección de domicilio" required >  
+                    </div>
+                    <div class="form-group col-xs-6">
+                        <label>Teléfono Movil:</label>
+                        <input name="celular" maxlength="11"  type="text" class="form-control" id="celular" value="<?php if(isset($this->datos))echo $this->datos[0]['telefono_cliente'] ?>" placeholder="*** Ej.: 04141592306" required>
+                    </div>
+                    <div class="form-group col-xs-6">
+                        <label>Teléfono Local:</label>
+                        <input name="local" id="local" maxlength="11"   type="text" class="form-control" value="<?php if(isset($this->datos))echo $this->datos[0]['celular_cliente'] ?>" placeholder="Ej.: 02552569856"  />
+                    </div>
+                    <div class="form-group col-xs-6">
+                        <label>Correo Electrónico:</label>
+                        <input type="email" maxlength="100"  value="<?php if(isset($this->datos))echo $this->datos[0]['correo_cliente'] ?>" class="form-control" name="correo" id="correo" placeholder="Ej.: micorreo@hotmail.com"  />
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading bg-teal-active">Información Adicional:</div>
+                <div class="panel-body">
+                    <div class="form-group col-xs-4">
+                        <label>Tipo de Contribuyente</label>
+                        <select class="form-control"  name="tipo" id="tipo" required />
+                            <option value="">-Seleccione-</option>
+                            <option value="1" <?php if($this->datos[0]['tipo_cliente']==1) echo'selected' ?>>Ordinal</option>
+                                                    <option value="2" <?php if($this->datos[0]['tipo_cliente']==2) echo'selected' ?>>Especial</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-xs-4">
+                        <label>Permite Credito:</label>
+                        <select name="credito"   class="form-control" id="credito" placeholder="" required="true" >
+                            <option value="">-Seleccione-</option>
+                            <option value="1" <?php if($this->datos[0]['credito_cliente']==1) echo"selected" ?>>SI</option>
+                                                    <option value="9" <?php if($this->datos[0]['credito_cliente']==9) echo"selected" ?> >NO</option>
+                        </select>  
+                    </div>
+                    <div class="form-group col-xs-4">
+                        <label>Limite de Credito:</label>
+                        <input name="limite" maxlength="12"  type="text" class="form-control" id="limite" value="<?php if(isset($this->datos))echo $this->datos[0]['limite_credito_cliente'] ?>" placeholder="Ingrese su número" >  
+                    </div>  
+                </div>
+            </div>        
+            <br/>
+            <a href="<?php echo BASE_URL ?>venta/cliente/index">
+                <button type="button" type="button" title="Presione aquí para SALIR del registro" class="btn btn-danger"><i class="fa fa-undo"></i> Cancelar</button>
+            </a>
+            <button type="button" type="button" name="agregar" id="agregar"  title="Presione aquí para Guardar" class="btn btn-primary" ><i class="fa fa-floppy-o"></i> Guardar</button>
+
+            <br/>
+            <br/>
+        </form>
+    </div>
+    </div>
+</div>
+</div>        

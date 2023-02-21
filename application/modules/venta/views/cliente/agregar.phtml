@@ -1,0 +1,130 @@
+<div class="row">
+    <div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel panel-heading">Registro de Cliente</div>
+        <div class="panel panel-body">
+        <div class="col-lg-12">
+        <form name="form_agregar" id="form_cliente"  method="post" autocomplete="off" action="">    
+        <div class="panel panel-default">
+            <div class="panel-heading bg-teal-active">Información Personal</div>
+
+            <div class="panel-body">
+                <input name="guardar" id="guardar" type="hidden" value="1" /> 
+                <div class="form-group ">
+                    <div class="form-inline">
+                      <label class="control-label">Cédula:</label>
+                      <select class="form-control" name="nacionalidad" id="nacionalidad" required="true" />
+                          <option value="V">V</option>
+                          <option value="E">E</option>
+                      </select>
+                      <input name="cedula" maxlength="11" type="text" class="form-control" placeholder="Ingrese N° identificación" id="cedula"  required="true" />
+                     </div>              
+                </div>
+                <hr>   
+                <div class="form-group col-xs-12">
+                    <label>Razon Social:</label>
+                    <input name="razon_social" maxlength="30" disabled="true" type="text" class="form-control" size="10" id="razon_social" placeholder="*** Ingrese primer nombre" required="true" >
+                </div>
+                <div class="form-group col-xs-12">
+                    <label>Denominacion Comercial:</label>
+                    <input name="denominacion" maxlength="30" disabled="true" type="text" class="form-control" size="30" id="denominacion" placeholder="Ingrese segundo nombre" >
+                </div>
+               
+                
+            </div>
+        </div>        
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading bg-teal-active">Datos de Referencia</div>
+            <div class="panel-body">
+                <div class="form-group col-xs-6">
+                    <label>Estado: ***</label>
+                    <select class="form-control" disabled="true" name="estado" id="estado" required  />
+                         <option value="-">-Seleccione-</option>
+                         <?php if(isset($this->esta) && count($this->esta)):  ?>
+                         <?php foreach($this->esta as $val): ?>
+                             <option value="<?php echo $val['id_estado']  ?>"><?php echo strtoupper($val['descripcion_estado']) ?></option>
+                         <?php endforeach; ?>
+                         <?php endif; ?>
+                    </select>
+                </div>
+                <div class="form-group col-xs-6">
+                    <label>Municipio: ***</label>
+                    <select class="form-control" disabled="true" name="municipio" id="municipio" required />
+                         <option value="">-Seleccione-</option>
+                         
+                    </select>
+                </div>
+                <div class="form-group col-xs-6">
+                    <label>Parroquia: ***</label>
+                    <select class="form-control" disabled="true" name="parroquia" id="parroquia" required />
+                     <option value="">-Seleccione-</option>
+                     
+                    </select>
+                </div>
+                <div class="form-group col-xs-6">
+                    <label>Sector: ***</label>
+                    <select class="form-control" disabled="true" name="sector" id="sector" required />
+                     <option value="">-Seleccione-</option>
+                     
+                    </select>
+                </div>
+                <div class="form-group col-xs-6">
+                    <label>Dirección de Domicilio:</label>
+                    <input name="direccion" maxlength="100" disabled="true" type="text" class="form-control" id="direccion" placeholder="*** Ingrese dirección de domicilio" required >  
+                </div>
+                <div class="form-group col-xs-6">
+                    <label>Teléfono Movil:</label>
+                    <input name="celular" maxlength="11" disabled="true" type="text" class="form-control" id="celular" placeholder="*** Ej.: 04141592306" required>
+                </div>
+                <div class="form-group col-xs-6">
+                    <label>Teléfono Local:</label>
+                    <input name="local" id="local" maxlength="11" disabled="true"  type="text" class="form-control" placeholder="Ej.: 02552569856"  />
+                </div>
+                <div class="form-group col-xs-6">
+                    <label>Correo Electrónico:</label>
+                    <input type="email" maxlength="100" disabled="true" class="form-control" name="correo" id="correo" placeholder="Ej.: micorreo@hotmail.com"  />
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading bg-teal-active">Información Adicional:</div>
+            <div class="panel-body">
+                <div class="form-group col-xs-4">
+                    <label>Tipo de Contribuyente</label>
+                    <select class="form-control" disabled="true" name="contribuyente" id="contribuyente" required />
+                        <option value="">-Seleccione-</option>
+                        <option value="1">Normar</option>
+						<option value="2">Especial</option>
+                    </select>
+                </div>
+                <div class="form-group col-xs-4">
+                    <label>Permite Credito:</label>
+                    <select name="credito"  disabled="true" class="form-control" id="credito" placeholder="" required="true" >
+                        <option value="">-Seleccione-</option>
+                        <option value="1">SI</option>
+						<option value="9">NO</option>
+                    </select>  
+                </div>
+                <div class="form-group col-xs-4">
+                    <label>Limite de Credito:</label>
+                    <input name="limite" maxlength="12" disabled="true" type="text" class="form-control" id="limite" placeholder="Ingrese su número" >  
+                </div>
+               
+            </div>
+        </div>        
+        <br/>
+        <a href="<?php echo BASE_URL ?>venta/cliente/index">
+            <button type="button" title="Presione aquí para SALIR del registro" class="btn btn-danger"><i class="fa fa-undo"></i> Cancelar</button>
+        </a>
+        <button type="button" type="button" name="agregar" id="agregar" disabled="true" title="Presione aquí para Guardar" class="btn btn-primary" ><i class="fa fa-floppy-o"></i> Guardar</button>
+        <button type="reset" name="limpiar" id="limpiar" title="Presione aquí para REINICIAR el formulario" class="btn btn-danger"> Limpiar</button>
+        
+    </form> 
+   </div>  
+   </div>
+    </div>
+</div>
+</div>        

@@ -1,0 +1,80 @@
+<div class="row-fluid">
+        <div class="col-lg-8 col-md-6">
+        <div class="panel panel-default">
+            <div class="">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                           
+                        </div>  
+                        <form class="navbar-form navbar-right" role="search" action="" method="post">
+                            <div class="form-group">
+                                <input type="text" name="busqueda" class="form-control" placeholder="Filtrar descripción">
+                            </div>
+                            <button type="submit" class="btn btn-default"><i  class="fa fa-search" > Buscar</i></button>
+                        </form>    
+                    </div>
+                </nav>
+            </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Fecha</th>
+                        <th>Usuario</th>
+                        <th>Recurso</th>
+                        <th>Accion</td>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        
+                    <?php if(isset($this->lista) && count($this->lista)) :?>
+                        <?php foreach ($this->lista as $val) :?>
+                        
+                        <tr>
+                            <td><?php echo $val['id_bitacora'] ?></td>
+                            <td><?php echo date('d-m-Y',strtotime($val['fecha'])) ?></td>
+                            <td><?php echo ucfirst($val['alias_usuario']) ?></td>
+                            <td><?php echo ucfirst($val['nombre_recurso']) ?></td>
+                            <td><?php echo ucfirst($val['accion']) ?></td>
+                            
+                            <td>
+                                
+                            </td>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                        
+                        <?php endforeach; ?>
+                    <?php endif; ?>    
+                    </tbody>
+                </table>
+                <hr>
+                <p>
+                      <?php if(isset($this->paginacion)) echo $this->paginacion; ?>
+                </p>
+            </div>
+          </div>
+
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Usuarios en Session</div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <?php if(isset($this->conectados) && count($this->conectados)): ?>
+                        <?php foreach($this->conectados as $usu): ?>
+                    <li class="list-unstyled"><i class="fa fa-laptop"></i> <?php echo ucfirst($usu['alias_usuario']) ?>.........................<?php echo date('d-m-Y',strtotime($usu['fec_ult_ent'])) ?> </li>
+                        <?php endforeach;?>
+                    <?php endif; ?>
+                </ul>    
+            </div>
+        </div>
+    </div>    
+</div>

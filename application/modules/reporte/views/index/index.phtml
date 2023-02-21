@@ -1,0 +1,34 @@
+<h1 class="mensaje">Reporte </h1>
+<section id="lado_a">
+    <article id="sub_menu">
+        <label>Reportes</label>
+        <br>
+        <ul>
+            <li class="titulo_reporte"><input name="lista" type="radio" id="rep1" value="1" onclick="activarRango(this.value)" />Ingresos Por Contribuyente</li>
+            <li class="titulo_reporte"><input name="lista" type="radio" id="rep2" value="2" onclick="activarRango(this.value)" />Ingresos por Recaudacion</li>
+            <li class="titulo_reporte"><input name="lista" type="radio" id="rep3" value="3" onclick="activarRango(this.value)" />Licencias</li>
+            <li class="titulo_reporte"><input name="lista" type="radio" id="rep4" value="4" onclick="activarRango(this.value)" />Multas</li>
+        </ul>
+    </article>
+</section>
+<section id="lado_b">
+    <div class="minitable_der">
+        <label>Rango de Fecha </label>
+        <hr>
+        <form name="form-reporte" id="form_reporte" method="post" action="<?php echo BASE_URL ?>reporte/index/procesarReporte/" >
+            <input name="reporte" id="reporte" type="hidden" value=""  />
+            <p>
+                <label>Desde</label>
+                <input name="inicio" id="inicio" type="date" value="<?php echo date('Y-m-d'); ?>" class="text_med" max="<?php echo date('Y-m-d'); ?>" disabled="true" />
+            </p>
+            <p>
+                <label>Hasta</label>
+                <input name="final" id="final" type="date" value="<?php echo date('Y-m-d'); ?>" class="text_med" min="<?php echo date('Y-m-d'); ?>" disabled="true" />
+            </p>
+            <p>
+                <button type="button" id="enviar" onclick="enviarReporte()" disabled="true"><img src="<?php echo BASE_URL ?>public/img/cancelar.png" title="Cancelar">Enviar</button>
+            </p>
+        </form>        
+    </div>
+    
+</section>

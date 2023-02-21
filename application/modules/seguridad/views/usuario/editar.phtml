@@ -1,0 +1,115 @@
+<div class="row">
+<div class="col-lg-12">
+    <form name="form_usuario_editar" id="form_usuario_editar" method="post"  autocomplete="off" action="">
+        <input name="guardar" id="guardar" type="hidden" value="2" />
+        <input name="usuario" id="usuario" type="hidden" value="<?php echo $this->usuario['id_usuario'] ?>" /> 
+        <div class="panel panel-default">
+            <div class="panel-heading">Información del Trabajador</div>
+            <div class="panel-body">
+                <div class="form-inline">  
+                    <label>*Cedula:</label>
+                    <select class="form-control" title="Seleccione el tipo de documento" disabled="disabled" name="nacionalidad" id="nacionalidad" required />
+                        <option value="V" <?php if($this->usuario['nacionalidad_persona'] =='V') echo 'selected' ?> >V</option>
+                        <option value="E" <?php if($this->usuario['nacionalidad_persona'] =='E') echo 'selected' ?> >E</option>
+                        <option value="J" <?php if($this->usuario['nacionalidad_persona'] =='J') echo 'selected' ?> >J</option>
+                        <option value="P" <?php if($this->usuario['nacionalidad_persona'] =='P') echo 'selected' ?> >P</option>
+                    </select>
+                    <input name="cedula_persona" readonly="true"  type="text" class="form-control" value="<?php if(isset($this->usuario['cedula_persona'])) echo $this->usuario['cedula_persona'] ?>" id="cedula_persona"  />
+                    <input name="id_persona" type="hidden"  id="id_persona" value="<?php if(isset($this->usuario['id_persona'])) echo $this->usuario['id_persona'] ?>" />
+                </div>      
+              <hr>
+              <div class="form-group col-xs-6">
+                <label>Primer Nombre:</label>
+                <input name="pri_nombre" readonly="true" type="text" class="form-control" id="pri_nombre" value="<?php if(isset($this->usuario['pri_nombre_persona'])) echo $this->usuario['pri_nombre_persona'] ?>"  >
+                
+              </div>
+              <div class="form-group col-xs-6">
+                <label>Segundo Nombre:</label>
+                <input name="seg_nombre" readonly="true"  type="text" class="form-control" id="seg_nombre" value="<?php if(isset($this->usuario['seg_nombre_persona'])) echo $this->usuario['seg_nombre_persona'] ?>" >
+              </div>
+              <div class="form-group col-xs-6">
+                <label>Primer Apellido:</label>
+                <input name="pri_apellido" readonly="true"  type="text" class="form-control" id="pri_apellido" value="<?php if(isset($this->usuario['pri_apellido_persona'])) echo $this->usuario['pri_apellido_persona'] ?>" >
+              </div>
+              <div class="form-group col-xs-6">
+                <label>Segundo Apellido:</label>
+                <input name="seg_apellido" readonly="true"  type="text" class="form-control" id="seg_apellido" value="<?php if(isset($this->usuario['seg_apellido_persona'])) echo $this->usuario['seg_apellido_persona'] ?>"  >
+              </div>
+              <hr>
+              <div class="form-group col-xs-4">
+                <label>Fecha nacimiento:</label>
+                <input type="date" readonly="true"  class="form-control" name="fecha_nacimiento" value="<?php if(isset($this->usuario['fecha_nac_persona'])) echo $this->usuario['fecha_nac_persona'] ?>" id="fecha_nacimiento" required  />
+              </div>
+              <div class="form-group col-xs-4">
+                <label>Lugar nacimiento:</label>
+                <input type="text" readonly="true"  class="form-control" name="lugar_nacimiento" value="<?php if(isset($this->usuario['lugar_nac_persona'])) echo ucfirst ($this->usuario['lugar_nac_persona']) ?>" id="lugar_nacimiento" placeholder="" required />
+              </div>
+              <div class="form-group col-xs-4">
+                <label>Sexo:</label>
+                <select class="form-control" disabled="disabled" name="sexo" id="sexo"  required>
+                    <option value="0">-Seleccione-</option>
+                    <option value="M" <?php if($this->usuario['sexo_persona'] =='M') echo 'selected' ?> >Masculino</option>
+                    <option value="F" <?php if($this->usuario['sexo_persona'] =='F') echo 'selected' ?> >Femenino</option>
+                </select>
+              </div>
+
+            </div>
+         </div>        
+          <div class="panel panel-default">
+            <div class="panel-heading">Información del Usuario</div>
+            <div class="panel-body">
+                <div class="form-group col-xs-4">
+                  <label>*Login:</label>
+                  <input name="login_usuario" placeholder="Ingese el nombre de usuario para acceso"  maxlength="30" type="text" class="form-control alfa_desc" id="login_usuario" required  value="<?php if(isset($this->usuario['alias_usuario'])) echo $this->usuario['alias_usuario'] ?>" />
+                </div>
+                <div class="form-group col-xs-8">
+                  <label>*Correo Electrónico:</label>
+                  <input name="correo" placeholder="Ej.: micorreo@hotmail.com"  type="email" maxlength="60" class="form-control alfa_correo" id="correo" value="<?php if(isset($this->usuario['correo_usuario'])) echo $this->usuario['correo_usuario'] ?>" required />
+                </div>
+                <div class="form-group col-xs-4">
+                  <label>*Rol:</label>
+                  <select class="form-control" title="Seleccione el Rol del Usuario"  name="rol" id="rol" required />
+                      <option value="0">-Seleccione-</option>
+                      <?php if(isset($this->rol) && count($this->rol)):  ?>
+                      <?php foreach($this->rol as $rl): ?>
+                          <?php if($rl['id_role']== $this->usuario['role_id']): ?>
+                              <option value="<?php echo $rl['id_role']  ?>" selected><?php echo $rl['nombre_role'] ?></option>
+                          <?php else: ?>
+                              <option value="<?php echo $rl['id_role']  ?>" ><?php echo $rl['nombre_role'] ?></option>
+                          <?php endif; ?>
+                      <?php endforeach; ?>
+                      <?php endif; ?>
+                  </select>
+                </div>
+                <hr>
+                <div class="form-group col-xs-4">
+                  <label>*Pregunta de Seguridad:</label>
+                  <select class="form-control" title="Seleccione la pregunta de seguridad"  name="pregunta" id="pregunta" required />
+                      <option value="0">-Seleccione-</option>
+                      <?php if(isset($this->pregunta) && count($this->pregunta)):  ?>
+                      <?php foreach($this->pregunta as $pre): ?>
+                      <?php if($this->pregunta_usu['pregunta_id'] == $pre['id_pregunta']): ?>
+                          <option value="<?php echo $pre['id_pregunta']  ?>" selected><?php echo $pre['pregunta'] ?></option>
+                      <?php else: ?>
+                          <option value="<?php echo $pre['id_pregunta']  ?>" ><?php echo $pre['pregunta'] ?></option>
+                      <?php endif; ?>    
+                      <?php endforeach; ?>
+                      <?php endif; ?>
+                  </select>
+                </div>
+                <div class="form-group col-xs-4">
+                  <label>*Respuesta:</label>
+                  <input name="respuesta" id="respuesta" type="password" class="form-control alfa_desc" value="<?php if(isset($this->pregunta_usu['respuesta_pregunta'])) echo $this->pregunta_usu['respuesta_pregunta'] ?>" required />
+                </div>
+            </div>
+          </div>
+        <div class="form-inline  col-lg-12">
+            <button type="button" title="Presione aquí para GUARDAR" oninvalid="alert('Llene todos los campos obligatorios ....');" name="agregar" id="agregar" class="btn btn-primary" ><i class="fa fa-floppy-o"></i> Guardar</button>
+            <a href="<?php echo BASE_URL ?>seguridad/usuario/index">
+            <button type="button" title="Presione aquí para CANCELAR el registro" class="btn btn-danger"><i class="fa fa-undo"></i> Cancelar</button>
+        
+        </div>
+        
+    </form>    
+</div>
+</div>

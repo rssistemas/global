@@ -1,0 +1,52 @@
+<div class="container ">
+        <div class="row loginbox">
+            <div class="col-md-8">
+                <div>
+                    <img src="<?php echo BASE_IMG ?>img1.png"  width="700" height="550" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default panel-login " >
+                    <div class="panel-body">
+                        <div class="page-header">
+                            <h2>Inicio de Session</h2>
+                        </div>
+                        
+                        <p>     
+                            <?php if(isset($this->error)): ?>
+                            <label class="alert alert-danger alert-dismissible" role="alert">
+                                <i class="fa fa-exclamation"></i> <?php echo $this->error; ?>
+                            </label>
+                            <?php endif; ?>
+                        </p>
+                        <form role="form" method="post" action="" autocomplete="off">
+                            <input name="entrar" type="hidden" value="1"/>
+                                <div class="form-group">
+                                    <label >Usuario</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                        <input name="usuario" type="text" size="20" class="form-control" id="usuario" placeholder="Nombre de usuario">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label >Clave</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-star"></span></span>
+                                        <input name="clave" type="password" size="20" class="form-control" id="clave" placeholder="Clave">
+                                    </div>
+                                </div>
+                                
+                                
+                                <button type="reset" class="btn btn-danger"><span class="glyphicon glyphicon-arrow-left"></span> Limpiar</button>
+                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-share-alt"></span> Entrar</button>
+                                
+                                <p>
+                                    <br>
+                                    <a href="<?php echo BASE_URL ?>index/recuperarClave/" class="text-right">Olvide mi clave de acceso</a>
+                                </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

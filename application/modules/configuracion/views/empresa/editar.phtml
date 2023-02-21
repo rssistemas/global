@@ -1,0 +1,128 @@
+<div class="row">
+	<div class="col-md-12">
+		<form name="form-empresa" method="post" autocomplete="off" action="<?php echo BASE_URL ?>configuracion/empresa/editar" id="form-empresa">
+			<input name="guardar" id="guardar" value="2" type="hidden" />
+			<input name="id" id="id" value="<?php if(isset($this->datos['id_empresa']))echo $this->datos['id_empresa'] ?>" type="hidden" />
+			<div class="col-md-12">
+				<div class="box box-info">
+					<div class="box-header with-border">
+						<h3 class="box-title">Datos de la Empresa</h3>
+					</div>
+					<div class="box-body">
+						<div class="form-group col-md-6">
+							<label>*Razon Social Empresa:</label>
+							<input name="razon_social"  maxlength="30" type="text" class="form-control input-sm" id="razon_social" value="<?php if(isset($this->datos['nombre_empresa']))echo $this->datos['nombre_empresa'] ?>" placeholder="Ingrese la razon social de la empresa o el nombre" required >
+						</div>
+						<div class="form-group col-md-6">
+							<label>*Direccion Empresa:</label>
+							<input name="direccion"   type="text" class="form-control input-sm" id="direccion" value="<?php if(isset($this->datos['direccion_empresa']))echo $this->datos['direccion_empresa'] ?>" placeholder="Ingrese la direccion fiscal de la empresa" required >
+						</div>
+						<div class="form-group col-md-6">
+							<label>*Telefono Empresa:</label>
+							<input name="telefono"  maxlength="30" type="text" class="form-control input-sm" id="telefono" value="<?php if(isset($this->datos['telefono_empresa']))echo $this->datos['telefono_empresa'] ?>" placeholder="Ingrese el numero de telefono de la empresa" required >
+						</div>
+						<div class="form-group col-md-6">
+							<label>*Correo Electronico Empresa:</label>
+							<input name="correo"   type="text" class="form-control input-sm" id="correo" value="<?php if(isset($this->datos['correo_empresa']))echo $this->datos['correo_empresa'] ?>" placeholder="Ingrese el correo de la empresa " required >
+						</div>
+						<div class="form-group col-md-6">
+							<label>*Tipo Empresa:</label>
+							<select name="tipo_empresa"  class="form-control input-sm" id="tipo_empresa" placeholder="" required >
+									<option value="">-Seleccione-</option>
+									<option <?php if(isset($this->datos['tipo_empresa'])&& $this->datos['tipo_empresa']=='COMPRA Y VENTA' )echo 'selected' ?>>COMPRA Y VENTA</option>
+									<option <?php if(isset($this->datos['tipo_empresa'])&& $this->datos['tipo_empresa']=='FABRICACION' )echo 'selected' ?>>FABRICACION</option>
+									<option <?php if(isset($this->datos['tipo_empresa'])&& $this->datos['tipo_empresa']=='DISTRIBUCION' )echo 'selected' ?>>DISTRIBUCION</option>
+									<option <?php if(isset($this->datos['tipo_empresa'])&& $this->datos['tipo_empresa']=='IMPORTACION' )echo 'selected' ?>>IMPORTACION</option>
+							</select>
+						</div>
+						<div class="form-group col-md-6">
+							<label>*Modalidad de Prestaciones:</label>
+							<select name="prestaciones"  class="form-control input-sm" id="prestaciones" placeholder="" required >
+									<option value="">-Seleccione-</option>
+									<option value="MENSUAL" <?php if(isset($this->datos['modo_prestaciones'])&& $this->datos['modo_prestaciones']=='MENSUAL' )echo 'selected' ?>>MENSUAL</option>
+									<option value="TRIMESTRAL" <?php if(isset($this->datos['modo_prestaciones'])&& $this->datos['modo_prestaciones']=='TRIMESTRAL' )echo 'selected' ?>>TRIMESTRAL</option>
+									<option value="ANUAL" <?php if(isset($this->datos['modo_prestaciones'])&& $this->datos['modo_prestaciones']=='ANUAL' )echo 'selected' ?>>ANUAL</option>
+							</select>
+						</div>
+						<div class="form-group col-md-6">
+							<label>*Moneda Principal:</label>
+							<select name="moneda"  class="form-control input-sm" id="moneda" placeholder="" required >
+									<option value="">-Seleccione-</option>
+									<?php if(count($this->moneda)): ?>
+										<?php foreach ($this->moneda as $dato): ?>
+											<?php if($dato[id_moneda]==$this->datos['moneda_principal']): ?>
+													<option value="<?php echo $dato['id_moneda'] ?>" selected><?php echo $dato['nombre_moneda'].' - '.$dato['nombre_corto'] ?></option>
+											<?php else: ?>
+													<option value="<?php echo $dato['id_moneda'] ?>" ><?php echo $dato['nombre_moneda'].' - '.$dato['nombre_corto'] ?></option>
+											<?php endif ?>
+										<?php endforeach; ?>
+									<?php endif ?>
+							</select>
+						</div>
+						<div class="form-group col-md-6">
+							<label>*Moneda Secundaria:</label>
+							<select name="moneda2"  class="form-control input-sm" id="moneda2" placeholder="" required >
+									<option value="">-Seleccione-</option>
+									<?php if(count($this->moneda)): ?>
+										<?php foreach ($this->moneda as $dato): ?>
+											<?php if($dato[id_moneda]==$this->datos['moneda_secundaria']): ?>
+													<option value="<?php echo $dato['id_moneda'] ?>" selected><?php echo $dato['nombre_moneda'].' - '.$dato['nombre_corto'] ?></option>
+											<?php else: ?>
+													<option value="<?php echo $dato['id_moneda'] ?>" ><?php echo $dato['nombre_moneda'].' - '.$dato['nombre_corto'] ?></option>
+											<?php endif ?>
+										<?php endforeach; ?>
+									<?php endif ?>
+							</select>
+						</div>
+						<div class="form-group col-md-6">
+							<label>*Licencia de Actividad:</label>
+							<input name="licencia_actividad"   type="text" class="form-control input-sm" id="licencia_actividad" value="<?php if(isset($this->datos['licencia_actividad']))echo $this->datos['licencia_actividad'] ?>" placeholder="" required >
+						</div>
+
+						<div class="form-group col-md-6">
+							<label><p class="help-block">Seleccione la Imágen a subir</p></label>
+							<input type="file" id="files" name="files" class="filestyle" data-icon="false" value="<?php echo $this->dato['logo_empresa'] ?>">
+
+						</div>
+					</div>
+				</div>
+				</div>
+				<div class="col-md-12">
+					<div class="box box-info">
+						<div class="box-header with-border">
+							<h3 class="box-title">Informacion Fiscal</h3>
+						</div>
+						<div class="box-body">
+							<div class="form-group col-md-6">
+								<label>*RIF Empresa:</label>
+								<input name="rif"   type="text" class="form-control input-sm" id="rif" value="<?php if(isset($this->datos['rif']))echo $this->datos['rif'] ?>" placeholder="Ingrese el rif de la empresa " required >
+							</div>
+							<div class="form-group col-md-6">
+								<label>NIF:</label>
+								<input name="nif"   type="text" class="form-control input-sm" id="nif" value="<?php if(isset($this->datos['nit']))echo $this->datos['nit'] ?>" placeholder="Ingrese el nif de la empresa " required >
+							</div>
+							<div class="form-group col-md-6">
+								<label>*Formato Factura:</label>
+								<select name="formato_factura"  class="form-control input-sm" id="formato_factura" placeholder="" required >
+										<option value="">-Seleccione-</option>
+										<option value="C" <?php if(isset($this->datos['formato_factura'])&& $this->datos['formato_factura']=='C' )echo 'selected' ?>>CARTA</option>
+										<option value="MC" <?php if(isset($this->datos['formato_factura'])&& $this->datos['formato_factura']=='MC' )echo 'selected' ?> >MEDIA CARTA</option>
+										<option value="T" <?php if(isset($this->datos['formato_factura'])&& $this->datos['formato_factura']=='T' )echo 'selected' ?>>TICKET</option>
+								</select>
+							</div>
+
+							<div class="form-group col-md-6">
+								<label>*Es Agente de Retencion:</label>
+								<input name="agente_retencion"   type="checkbox" value="S" class="icheckbox_minimal-blue checked" id="agente_retencion" <?php if(isset($this->datos['agente_retencion'])&& $this->datos['agente_retencion']=='S' )echo 'checked' ?> >
+							</div>
+						</div>
+					</div>
+
+			</div>
+				<div col-lg-12">
+					<button type="button" title="Presione aquí para GUARDAR" oninvalid="alert('Llene todos los campos obligatorios ....');" name="agregar" id="agregar" class="btn btn-primary" ><i class="fa fa-floppy-o"></i> Guardar</button>
+					<a href="<?php echo BASE_URL ?>configuracion/empresa/index"><button type="button" title="Presione aquí para CANCELAR el registro" class="btn btn-danger"><i class="fa fa-undo"></i> Cancelar</button></a>
+				</div>
+		</form>
+	</div>
+</div>

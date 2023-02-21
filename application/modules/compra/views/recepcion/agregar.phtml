@@ -1,0 +1,204 @@
+<div class="row">
+<div class="col-lg-12">
+<div class="panel panel-default"> 
+	<form name="form_recepcion" method="post" autocomplete="off" action="<?php echo BASE_URL ?>almacen/recepcion/agregar" id="form_recepcion">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">				
+			<div class="navbar-header">
+				<h4>Compras  /  Fecha: <?php echo date('d-m-Y') ?></h4>
+			</div>	
+			<div class="navbar-form navbar-right" >
+				<label >Unidad Operativa</label>
+				<select class="form-control input-sm" name="unidad" id="unidad" required  />
+					<option value="-">-TODOS-</option>
+					<?php if(isset($this->unidad)&& count($this->unidad)): ?>
+						<?php foreach ($this->unidad as $val): ?>
+						<option value="<?php echo $val['id_unidad_operativa'] ?>"><?php echo strtoupper($val['nombre_unidad_operativa']) ?> </option>
+						<?php endforeach; ?>
+					<?php endif; ?>
+				</select>				
+				<label >Deposito</label>
+				<select class="form-control input-sm" name="almacen" id="almacen" required  />
+					<option value="">-Seleccione-</option>					
+				</select>
+			</div>					  							
+		</div>
+	</nav>
+    <div class="panel-body">
+    
+        <input name="guardar" type="hidden" value="1" /> 
+	<div class="col-lg-4">
+              <div class="panel panel-default">                
+                <div class="panel-heading "><h4 style="margin-bottom:0px;margin-top:2px;padding:2px;" >Inf. Adicional</h4></div>
+                    <div class="panel-body">
+			<div class="col-lg-6">
+	                    <div class="form-group">    
+	                        <label>Operacion </label>
+	                        <select name="operacion" id="operacion" class="form-control input-sm" disabled="true" >
+	                            <option value="">-Seleccione-</option>
+	                            <option value="PROVEEDORES">Recepcion a Proveedores</option>
+	                            <option value="INTERNA">Recepcion Interna</option>                                    
+	                        </select>    
+	                    </div>
+                        </div>
+                        <div class="col-lg-6">
+	                    <div class="form-group ">
+				<label>Orden de Compra</label>
+				<div class="input-group">
+				  <span class="input-group-addon">
+                                      <input type="checkbox" aria-label="..." id="act_ord_cpra" disabled="true"  >
+				  </span>
+                                    <input type="text" class="form-control" name="ord_cpra"  id="ord_cpra" disabled="true" placeholder="Busqueda por...">
+				  <span class="input-group-btn">
+					<button id="bto_cpra" class="btn btn-default"   type="button" disabled="true"><i class='fa fa-search-plus'></i></button>
+				  </span>
+				</div>
+                            </div>                            
+                        </div>
+                        
+                        <div class="col-lg-6">
+	                    <div class="form-group">    
+	                        <label>Doc. de Recepcion</label>
+	                        <select name="tdoc" id="tdoc" class="form-control input-sm" disabled="true" >
+	                            <option value="">-Seleccione-</option>
+	                            
+                                        <?php if(isset($this->_documentos)&& count($this->_documentos)): ?>
+						<?php foreach ($this->_documentos as $val): ?>
+						<option value="<?php echo $val['id_tipo_documento'] ?>"><?php echo strtoupper($val['nombre_tipo_documento']) ?> </option>
+						<?php endforeach; ?>
+					<?php endif; ?>
+                                    
+	                        </select>    
+	                    </div>
+                        </div>
+                        <div class="col-lg-6">
+	                    <div class="form-group">    
+	                        <label>Nro. de Documento</label>
+                                <input name="nro_doc" id="nro_doc" type="text" class="form-control input-sm" disabled="true" />
+	                    </div>
+                        </div>
+                                                                                        
+                    </div>
+              </div>       
+        </div>
+		
+        <div class="col-lg-8">
+            <div class="panel panel-info ">
+                <div class="panel-heading bg-light-blue-gradient"><h4 style="margin-bottom:0px;margin-top:2px;padding:2px;">Detalle del Documento</h4></div>
+                <hr style="margin:0px;margin-bottom:4px;">
+                <div class="panel-body">
+                    <div class="col-lg-6">
+	                <div class="form-group">    
+	                   <label>Origen  /  Proveedor</label>
+                           <input name="origen" id="origen" type="text" class="form-control" />
+                           <input name="id_origen" id="id_origen" type="hidden"value="0" />
+	                </div>
+                        
+                        
+                            
+                    </div>
+                    <div class="form-group col-lg-3">    
+                        <label>Emision</label>
+                        <input name="fecha_doc" id="fecha_doc" type="text" class="form-control" />
+                    </div>
+                    <div class="form-group col-lg-3">    
+                        <label>Vencimiento</label>
+                        <input name="vence_doc" id="vence_doc" type="text" class="form-control" />
+                    </div>
+                  
+                    <div class="form-group col-lg-3">    
+                        <label>Condicion</label>
+                        <input name="condicion_doc" id="condicion_doc" type="text" class="form-control" />
+                    </div
+                    >
+                    <div class="col-lg-9">
+	                <div class="form-group">    
+	                    <label>Comentario</label>
+	                    <text name="comentario" id="comentario"  class="form-control " disabled="true" ></textarea> 
+                            <input name="comentario_rec" id="comentario_rec" type="hidden" /> 
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="col-lg-12">    
+            
+            <div class="panel panel-default">
+                
+                <div class="panel-body">
+                    <p>
+                            <button class="btn btn-default input-sm"  id="agregar" type="button" disabled="true" ><i class="fa fa-plus"></i></button>
+                    </p>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="tabla">
+                            <thead>
+                                <tr class="bg-light-blue-active">    
+				<th width='80'>Codigo</th>
+				<th width='400'>Descripcion</th>
+                                <th width='220'>Marca</th>
+                                <th width='130'>Precio</th>
+                                <th width='80'>Tsa. IVA</th>
+				<th width='90'>Solicitados</th>
+                                <th width='90'>Recibidos</th>
+                                <th width='130'>Monto</th>
+                                <th></th>
+				</tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+	    <button type="button" class="btn btn-warning" id="cancelar"><i class="fa fa-eraser"></i> </button>
+            <a href="<?php echo BASE_URL ?>almacen/requisicion/index"><button type="button" class="btn btn-danger" id="cancelar"><i class="fa fa-undo"></i> </button></a>
+            <button type="button" class="btn btn-primary" id="guardar" disabled="true" ><i class="fa fa-floppy-o"></i> </button>
+            <br/>
+            <br/>   
+        </div>
+      
+         
+	</div>
+	</form>   
+</div>
+</div>    
+</div>
+
+<div class="modal fade" id="myModal" data-toggle="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header cabecera-gris">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <label>Ordenes de Compra Proveedor</label>
+      </div>
+      <div class="modal-body">
+          <div class="panel panel-default" >
+              <div class="panel-body">
+                  <div class="box-tools">
+                      <div class="input-group">
+                        <input name="bus_proveedor" id="bus_proveedor" class="form-control" />
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                      </div>
+                  </div>
+                  <hr>
+                  
+                  
+                  <div id="table_concepto">
+                      
+                  </div>   
+              </div>
+          </div>
+		  <input name="contador" id="contador" type="hidden" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default cerrar" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

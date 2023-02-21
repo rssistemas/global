@@ -1,0 +1,123 @@
+<div class="col-lg-12">
+    <form name="form_deposito_agregar" id="form_deposito_agregar" method="post"  autocomplete="off" action="">
+    <div class="panel panel-default">
+        <div class="panel-heading">Información del Depósito</div>
+        <div class="panel-body">
+
+        <input name="guardar" id="guardar" type="hidden" value="1" />
+		<div class="form-group col-lg-3">
+            <label>*Unidad Operativa: </label>
+            <select class="form-control" name="unidad" id="unidad" required />
+                <option value="-">-Seleccione-</option>
+                <?php if(isset($this->unidad)&& count($this->unidad)): ?>
+                    <?php foreach ($this->unidad as $val): ?>
+					                 <option value="<?php echo $val['id_unidad_operativa'] ?>"><?php echo strtoupper($val['nombre_unidad_operativa']) ?> </option>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+          </div>
+		<div class="form-group col-lg-3">
+			<label>*Tipo de Depósito: </label>
+			<select class="form-control" name="tipo" id="tipo" required />
+				<option value="-">-Seleccione-</option>
+				<?php if(isset($this->tipo)&& count($this->tipo)): ?>
+					<?php foreach ($this->tipo as $val): ?>
+				<option value="<?php echo $val['id_tipo_deposito'] ?>"><?php echo ucwords($val['nombre_tipo_deposito']) ?> </option>
+					<?php endforeach; ?>
+				<?php endif; ?>
+			</select>
+		</div>
+          <div class="form-group col-lg-6">
+             <label>*Nombre:</label>
+             <input name="nombre" id="nombre" type="text" maxlength="50" class="form-control alfa_desc" placeholder="Ingrese nombre del depósito" required />
+          </div>
+          <div class="form-group col-xs-6">
+            <label>*Teléfono:</label>
+            <input type="text" name="telefono" id="telefono" maxlength="12" class="form-control num_tel" placeholder="Ingrese Teléfono de referencia" required />
+          </div>
+          <div class="form-group col-xs-6">
+            <label>Fax:</label>
+            <input type="text" name="fax" id="fax"  maxlength="12" class="form-control num_tel"  placeholder="Ingrese número de Fax" />
+          </div>
+          <div class="form-group col-xs-6">
+            <label>Unidad de Almacenamiento:</label>
+            <select name="medida" id="medida" class="form-control">
+                <option value="-">-Seleccione-</option>
+                <?php if(isset($this->medida) && count($this->medida)):  ?>
+                     <?php foreach($this->medida as $val): ?>
+                        <?php if($val['estatus_uni_med']==1): ?>
+                            <option value="<?php echo $val['id_uni_med']  ?>"><?php echo ucfirst($val['nombre_uni_med']) ?></option>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                     <?php endif; ?>
+            </select>
+          </div>
+          <div class="form-group col-xs-3">
+            <label>Capacidad Maxima:</label>
+            <input type="text" name="max" id="max" maxlength="100" class="form-control alfa_correo" placeholder="Ej.: 2000" required />
+        </div>
+        <div class="form-group col-xs-3">
+            <label>Capacidad Minima:</label>
+            <input type="text" name="min" id="min" maxlength="100" class="form-control alfa_correo" placeholder="Ej.: 2000" required />
+        </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">Ubicacion del Depósito</div>
+        <div class="panel-body">
+            <div class="form-group col-lg-6">
+                <label>*Estado:</label>
+                <select class="form-control" name="estado" id="estado" required  />
+                     <option value="0">-Seleccione-</option>
+                     <?php if(isset($this->esta) && count($this->esta)):  ?>
+                     <?php foreach($this->esta as $val): ?>
+                        <?php if($val['estatus_estado']==1): ?>
+                     <option value="<?php echo $val['id_estado']  ?>"><?php echo ucfirst($val['descripcion_estado']) ?></option>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                     <?php endif; ?>
+                </select>
+            </div>
+            <div class="form-group col-lg-6">
+                <label>*Municipio:</label>
+                <select class="form-control" name="municipio" id="municipio" required />
+                     <option value="0">-Seleccione-</option>
+                     <?php if(isset($this->muni) && count($this->muni)):  ?>
+                     <?php foreach($this->muni as $val): ?>
+                            <?php if($val['estatus_municipio']==1): ?>
+                     <option value="<?php echo $val['id_municipio']  ?>"><?php echo ucfirst($val['descripcion_municipio']) ?></option>
+                            <?php endif; ?>
+                    <?php endforeach; ?>
+                     <?php endif; ?>
+                </select>
+            </div>
+            <div class="form-group col-lg-6">
+                <label>*Sector:</label>
+                <select class="form-control" name="sector" id="sector" required />
+                     <option value="0">-Seleccione-</option>
+                     <?php if(isset($this->sec) && count($this->sec)):  ?>
+                     <?php foreach($this->sec as $val): ?>
+                            <?php if($val['estatus_sector']==1): ?>
+                     <option value="<?php echo $val['id_sector']  ?>"><?php echo ucfirst($val['descripcion_sector']) ?></option>
+                            <?php endif; ?>
+                    <?php endforeach; ?>
+                     <?php endif; ?>
+                </select>
+            </div>
+          <div class="form-group col-xs-6">
+            <label>*Ubicación:</label>
+            <input name="ubicacion" id="ubicacion" type="text" maxlength="100" class="form-control alfa_dir" placeholder="Ingrese dirección del depósito" required />
+          </div>
+        </div>
+  </div>
+
+</div>
+<br/>
+    <button type="button" name="agregar" id="agregar" title="Presione aquí para Guardar el registro" class="btn btn-primary" ><i class="fa fa-floppy-o"></i> Guardar</button>
+    <a href="<?php echo BASE_URL ?>almacen/deposito/index">
+    <button type="button" title="Presione aquí para SALIR Y CANCELAR el registro" class="btn btn-danger"><i class="fa fa-undo"></i> Cancelar</button>
+    </a>
+<br/>
+<br/>
+</form>
+</div>
