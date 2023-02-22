@@ -35,9 +35,9 @@
             $registry ->_request = new request();
             
             $registry ->_db = new database();
-            //$registry ->_rdb = new rdb();
+            
             $registry ->_acl = new acl();
-            // die("prueba");
+            
             bootstrap ::start($registry->_request);
           
             }catch(errorsys $e)

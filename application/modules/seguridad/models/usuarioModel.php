@@ -7,11 +7,13 @@ class usuarioModel extends Model{
         
        
     }
+    
     public function ult_usuario_reg()
     {
         return $this->_ult_usuario;
     }        
     //metodo del controlador que carga un listado de usuarios
+    
     public function cargarUsuario($item = false,$emp)
     {
         if($item)
@@ -39,10 +41,8 @@ class usuarioModel extends Model{
     
     public function getAllUser()
     {
-        
-       $res = r::findAll("usuario");
-     
-       return $res; 
+       //return $this->loadQuery();        
+       return $this->get_all();
     }   
     //--------------------------------------------------------------------------
     //metodo del controlador que busca un usuario por su id 

@@ -33,10 +33,9 @@ class usuarioController extends seguridadController
         }
         else
         {
-            //$this->_view->lista =  $paginador->paginar($this->_usuario->cargarUsuario(false,$this->_empresa),$pagina);
-            $this->_view->lista =  $paginador->paginar($this->_usuario->getAllUser(),$pagina);
-            
-            
+            //print_r($this->_usuario->get("_table"));
+            $datos = $this->_usuario->get("_table");
+            $this->_view->lista =  $paginador->paginar($datos['datos'],$pagina);                        
         }
         $this->_view->paginacion = $paginador->getView('paginacion','seguridad/usuario/index');
 
@@ -148,8 +147,8 @@ class usuarioController extends seguridadController
             $this->_view->setJsPlugin(array('validaciones'));
 
             //se carga rol
-            $this->_rol = $this->loadModel('role');
-            $this->_view->rol = $this->_rol->getAllRoles();
+            //$this->_rol = $this->loadModel('role');
+            //$this->_view->rol = $this->_rol->getAllRoles();
 
             //se carga estado
             //$this->_estado = $this->loadModel('estado','configuracion');

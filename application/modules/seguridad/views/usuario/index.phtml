@@ -23,9 +23,9 @@
                     <thead>
                         <tr class="bg-secondary color-palette" >
                         <th>Usuario</th>
-                        <th>Teléfono</th>
-                        <th>Celular</th>
                         <th>Correo Electrónico</th>
+                        <th>Teléfono</th>
+                        <th>Rol</th>
                         <th>Condición</th>
                         <th width="30"></th>
                         <th width="30"></th>
@@ -37,10 +37,10 @@
                         <?php foreach ($this->lista as $val) :?>
                         <tr>
                             <td><?php echo ucwords($val['alias_usuario']) ?></td>
-                            
-                            <td><?php echo $val['telefono_persona'] ?></td>
-                            <td><?php echo $val['celular_persona'] ?></td>
                             <td><?php echo $val['correo_usuario'] ?></td>
+                            <td><?php echo $val['telefono_usuario'] ?></td>
+                            <td><?php echo $val['celular_persona'] ?></td>
+                            
                             <td><?php echo strtoupper($val['condicion_usuario']) ?></td>
                             <td>
                                 <a href="<?php echo BASE_URL ?>seguridad/usuario/editar/<?php echo $val['id_usuario'] ?>" >
