@@ -39,8 +39,7 @@
                             <td><?php echo ucwords($val['alias_usuario']) ?></td>
                             <td><?php echo $val['correo_usuario'] ?></td>
                             <td><?php echo $val['telefono_usuario'] ?></td>
-                            <td><?php echo $val['celular_persona'] ?></td>
-                            
+                            <td><?php echo (isset($val['role'][0]['nombre_role']))?$val['role'][0]['nombre_role']:"" ?></td>
                             <td><?php echo strtoupper($val['condicion_usuario']) ?></td>
                             <td>
                                 <a href="<?php echo BASE_URL ?>seguridad/usuario/editar/<?php echo $val['id_usuario'] ?>" >

@@ -25,9 +25,9 @@
 					  <select class="form-control"  name="rol" id="rol" title="Seleccione el Rol del Usuario" required />
 						  <option value="0">-Seleccione-</option>
 						  <?php if(isset($this->rol) && count($this->rol)):  ?>
-						  <?php foreach($this->rol as $rl): ?>
+						  <?php foreach($this->rol['datos'] as $rl): ?>
 							  <?php if($rl['estatus_role']==1): ?><i class="fa fa-floppy-o">
-							  <option value="<?php echo $rl['id_role']  ?>"><?php echo $rl['nombre_role'] ?></option>
+							  <option value="<?php echo $rl['id']  ?>"><?php echo $rl['nombre_role'] ?></option>
 							  <?php endif; ?>
 						  <?php endforeach; ?>
 						  <?php endif; ?>
@@ -46,7 +46,7 @@
 							  <?php if(isset($this->pregunta) && count($this->pregunta)):  ?>
 							  <?php foreach($this->pregunta as $rl): ?>
 								  <?php if($rl['estatus_pregunta']==1): ?>
-								  <option value="<?php echo $rl['id_pregunta']  ?>"><?php echo $rl['pregunta'] ?></option>
+								  <option value="<?php echo $rl['id']  ?>"><?php echo $rl['pregunta'] ?></option>
 								  <?php endif; ?>
 							  <?php endforeach; ?>
 							  <?php endif; ?>

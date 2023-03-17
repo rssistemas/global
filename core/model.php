@@ -26,20 +26,21 @@ class model
             $this->_model = substr(get_class($this),0,strpos(get_class($this),"M"));            
             $this->_table = array(); 
             $this->_nrow = array();
+            $this->_relation_one_many = array();
             $this->_table_max_limit = 100;	
             $this->_seek =false;
             $this->_index=array("key_primary"=>"","foreign_key"=>array());
+            // se obtiene informacion de la tabla
             $this->_table_info = $this->get_info_table();
             
             /// mapeo de tablas al modelo
             $this->maping_model();
+
             
             // carga inicial de datos
-            $this->get_all();
+            //$this->_table['datos'] = $this->get_all();
 
-                       
-            
-        
+                         
         }
 
 
@@ -86,41 +87,49 @@ class model
        //Metodo que retorna regitros de una tabla esta limitado por la variable
        //$this->_table_max_limit por defecto 100
        //-------------------------------------------------------------------
-       public function get_all()
+       public function get_all($filter = false)
        {
-
+            if($filter)
+                $res = $this->_db->sqlQuery('select * from '.$this->_model.' where '.$filter,$this->_table_max_limit); 
         /// cargo datos del modelo principal
-           $res = $this->_db->sqlQuery('select * from '.$this->_model,$this->_table_max_limit);
+            else
+                $res = $this->_db->sqlQuery('select * from '.$this->_model,$this->_table_max_limit);
+
            if(count($res))
            {
                $datos = array();
+              //print_r($this->_relation_one_many);exit();
+              //print_r($res); exit();
                foreach ($res as $key =>$value)
                {
-                   $datos[] = $value;
-        ///recorrer relaciones y cargar datos           
+                    //echo($key);
+                   $datos[$key] = $value;
+                ///recorrer relaciones y cargar datos           
                    for($i=0;$i<count($this->_relation_one_many['foreing_key']);$i++)
                    {
-                        if($this->_relation_one_many['foreing_key'][$i]==$key)
-                        {
-                                if($value)
+                       // if($this->_relation_one_many['foreing_key'][$i]==$key)
+                       // {
+                             if($value)
                                 {
                                     $model = $this->_relation_one_many['foreing_model'][$i];
                                     $dat = $this->_db->sqlQuery('select * from '.$model.' where id='.$value['id'],$this->_table_max_limit);
-                                    $datos[$model][]=$dat;
+                                    $datos[$key][$model] = $dat;
                                 }                        
-                        }
+                       // }
                    }    
                }
                
                $this->_table['datos'] = $datos;
-               
-               return $this->_table['datos'];
+               return $datos;
            }else
            {
                return array();
            }
            
        }
+
+
+
 
 
        public function loadQuery()
@@ -228,9 +237,12 @@ class model
     
        }
        ////----------------------------------------------------------------
-       //metodo que asigna valor  
+       //metodo que retorna valor  
        //------------------------------------------------------------------
-
+       /**
+        * @param fiel, variable a retornar puede ser un array o un valor
+        *  
+        */
        public function get($field)
        {
            if(isset($field))
@@ -273,19 +285,34 @@ class model
        //-----------------------------------------------------------------
        //-----------------------------------------------------------------
        //metodo que setea arreglos que contiene relaciones el 
-       //modelo insanceado
+       //modelo instanceado
        //-----------------------------------------------------------------
        public function one_to_many(array $valor)
        {
+            //print_r($valor);
+            $this->_relation_one_many['primary_model'][] = $this->_model;
+            $this->_relation_one_many['primary_key'][]   = $this->_index['key_primary']; 
+
             if(count($valor))
             {
-                for($i=0;$i<count($valor);$i++)
-                {
-                    $this->_relation_one_many['primary_model'][] = $this->_model;
-                    $this->_relation_one_many['primary_key'][]   = $this->_index['key_primary']; 
-                    $this->_relation_one_many['foreing_model'][] = $valor['model'][$i];
-                    $this->_relation_one_many['foreing_key'][]   = $valor['key'][$i];                     
-                }
+              //  for($i=0;$i<count($valor);$i++)
+              //  {
+                    for($j = 0;$j < count($valor['model']);$j++)        
+                    {
+                        if($valor['model'][$j]!='none')
+                        {
+                            $this->_relation_one_many['foreing_model'][] = $valor['model'][$j];    
+                        }
+                    }
+                    for($k = 0;$k < count($valor['model']);$k++)    
+                    {
+                           if($valor['key'][$k] != 'none')
+                        {
+                            $this->_relation_one_many['foreing_key'][]   = $valor['key'][$k];
+                        }
+                    }    
+                                         
+               // }
             }else
                 return false;
 
@@ -300,9 +327,10 @@ class model
        {
             //se carga informacion de la tabla
             $this->_table_info = $this->get_info_table();
-            
+            //print_r($this->_table_info);exit();
             if(count($this->_table_info))
             {
+                
                 $foreing = array();
                 foreach($this->_table_info as $value)
                 {
@@ -312,21 +340,34 @@ class model
 
                     }else
                         {
+                            $v = strpos($value['Field'],"_id");
+                            //die($v);
                             
-                            if(strpos($value['Field'],"_id"))
+                            if(strpos($value['Field'],"_id")>0)
                             {
+                                //print_r($value);exit();
                                 $this->set_foreing_key($value['Field']);
                                 $model = substr($value['Field'],0,strpos($value['Field'],'_id'));
                                 $foreing['model'][]=$model;
                                 $foreing['key'][]=$value['Field'];
-                            }
+                            }else
+                                {
+                                    //se difine valor none para indicar que no tiene clave foranea
+                                    $this->set_foreing_key('none');
+                                    $model = 'none';
+                                    $foreing['model'][]=$model;
+                                    $foreing['key'][]='none';
+                                }
 
                         }                  
 
                 }
-               // print_r($foreing);exit();
+                //print_r($foreing);exit();
                 $this->one_to_many($foreing);              
 
+            }else
+            {
+                return false;
             } 
 
 

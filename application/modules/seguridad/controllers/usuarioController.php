@@ -10,10 +10,16 @@ class usuarioController extends seguridadController
     private $_empresa;
 
     public function __construct() {
+        
         parent::__construct();
-        $this->_usuario = $this->loadModel('usuario');
+
         $this->_empresa = session::get('empresa');
-        //$this->_bitacora = $this->loadModel('bitacora');
+        //instancia modelo usuario
+        $this->_usuario = $this->loadModel('usuario');
+        
+        $this->_usuario->get_all('empresa_id='.$this->_empresa);
+        
+        
     }
     public function index($pagina = 1)
     {
@@ -147,16 +153,19 @@ class usuarioController extends seguridadController
             $this->_view->setJsPlugin(array('validaciones'));
 
             //se carga rol
-            //$this->_rol = $this->loadModel('role');
-            //$this->_view->rol = $this->_rol->getAllRoles();
+            $this->_rol = $this->loadModel('role');
+            $role = $this->_rol->get("_table");
+            //print_r($role);
+            $this->_view->rol = $role;
 
             //se carga estado
             //$this->_estado = $this->loadModel('estado','configuracion');
             //$this->_view->esta = $this->_estado->cargarEstado();
 
             //se carga pregunta de seguridad
-            //$this->_pregunta = $this->loadModel('pregunta');
-            //$this->_view->pregunta = $this->_pregunta->cargarPregunta(false,$this->_empresa);
+            $this->_pregunta = $this->loadModel('pregunta');
+            $pregunta = $this->_pregunta->get("_table");
+            $this->_view->pregunta = $pregunta['datos'];
 
 
 
