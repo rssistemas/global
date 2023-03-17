@@ -268,11 +268,10 @@ class empresaModel extends model
             where estatus_empresa='1' and emp.id=demp.empresa_id and demp.usuario_id = '$usuario'  order by nombre_empresa";
 		 }
         //die($sql);
-        $res = $this->_db->query($sql);
-        if($res)
+        $res = $this->_db->sqlQuery($sql);
+        if(count($res))
         {
-            $res->setFetchMode(PDO::FETCH_ASSOC);
-            return $res->fetchAll();
+            return $res;
         }
         else
         {

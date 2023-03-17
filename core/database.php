@@ -3,6 +3,7 @@
 class database extends PDO
 {
               
+    
     public function __construct() {
 
                   parent::__construct(
@@ -17,36 +18,82 @@ class database extends PDO
      
                   
     }
-           
-     public function select($sql, $array = array(), $fetchMode = PDO::FETCH_ASSOC){
 
-		//Dejar al pelo l a sentencia
-		$sth = $this->prepare($sql);
+    
+    //-----------------------------------------------------------
+    //Metodo que da soporte para reistro de log sobre operaciones 
+    //de base de datos.
+    //-----------------------------------------------------------
+    private function logReport($mensaje = false)
+    {
+        if(!$mensaje)
+        {
+            $error = $this->getError();
+            $mensaje = $error[2];
+                
+        }
 
-		foreach ($array as $key => $value) {
-			$sth->bindValue($key,$value);
-		
-                        echo $key;
-                }
+        if($log = fopen(LOG_PATH."logDB.txt","a+"))
+        {
+            if(!empty($mensaje))
+            {
+                fwrite($log, date("F j, Y, g:i a").'  '.$mensaje. chr(13));
+            }    
+            fclose($log);
+            return TRUE;
+        }
+    }
+    //--------------------------------------------------------------
+    //
+    //--------------------------------------------------------------
+    public function select($field = false, $condition = array(),$table=false)
+    {
+        $fetchMode = PDO::FETCH_ASSOC;
+
+        if(!$field)
+            $field = " * ";
+
+        if($condition)
+        {
+            $where="";
+            $order="";
+            $group="";
+            if(is_array($condition))
+            {
+                 $where =    $condition['where'];
+                 $order =    $condition['order'];
+                 $group =    $condition['group'];
+            }
+        }
                 
-                //$sth->
-		$res=$sth->execute();
+
+        $sql = "select (". $field .") from ". $table;
+
+        if(!empty($where))
+            $sql = $sql . " where " . $where; 
+
+        if(!empty($order))
+            $sql = $sql . " order by " . $order;
+
+        if(!empty($group))
+            $sql = $sql . " group by " . $group;
+
+            $res = $this->query($sql);
+            if($res)
+            {
+                $res->setFetchMode(PDO::FETCH_ASSOC);
+                $datos = $res->fetchAll();
                 
-                //die($sql);
-                //$res = $this->query($sql);
-                if(!$res)
+            }else
                 {
-                    $error =$this->getError();
-                    logger::errorLog($error['2'],'DB');
+                    $error = $this->getError();
+                    $this->logReport($error[2]);
                     return array();
-                }else
-                {
-                    //$res->setFetchMode(PDO::FETCH_ASSOC);
-                    return $sth->fetchAll($fetchMode);
-                    //return $res->fetchAll($fetchMode);
-                }
+                }            
                     
 	}
+
+
 
     public function select_one($parameters,$table)
     {
@@ -60,7 +107,7 @@ class database extends PDO
         if(!empty($indice))
             $sql = "select * from ". $table . " where ".$indice ." = ". $value;
         else
-        $sql = "select * from ". $table . " where  id = ". $value;
+            $sql = "select * from ". $table . " where  id = ". $value;
         $res = $this->query($sql);
         if($res)
         {
@@ -74,14 +121,8 @@ class database extends PDO
 
 
 
-	/**
-		Insert
-	*	@param String $table | Tabla enn donde se insertarán los datos
-	*	@param String $data | Arreglo asociativo con los datos a insertar
-	*	
-	*	@return Boolean $sth->exceute | Resultado de la consulta
-	*/
-	public function insert($table,$data){
+	public function insert($table,$data)
+    {
 		ksort($data);
 
 		$fieldNames = implode('`,`',array_keys($data));
@@ -96,24 +137,19 @@ class database extends PDO
 		$res = $sth->execute();
                 if(!$res)
                 {
-                    $error =$this->getError();
-                    logger::errorLog($error['2'],'DB');
+                    $error = $this->getError();
+                    $this->logReport($error);
                     return false;
                 }else
                     return $res;
-                
-                
+                        
 	}
 
-	/**
-		Update
-	*	@param String $table | Tabla enn donde se insertarán los datos
-	*	@param String $data | Arreglo asociativo con los datos a insertar
-	*	@param String $where | La parte de la sentencia WHERE
-	*	
-	*	@return Boolean $sth->exceute | Resultado de la consulta
-	*/
-	public function update($table, $data, $where){
+
+
+
+	public function update($table, $data, $where)
+    {
 
 		ksort($data);
 
@@ -135,28 +171,22 @@ class database extends PDO
                 if(!$res)
                 {
                     $error =$this->getError();
-                    logger::errorLog($error['2'],'DB');
+                    $this->logReport($error);
                 }else
                     return $res;
 	}
 
-	/**
-		Delete
-	*	
-	*	@param String $table | Tabla enn donde se insertarán los datos
-	*	@param String $where | La parte de la sentencia WHERE
-	*	@param int $limit | Limite
-	*	
-	*	@return Boolean $this->exc | Resultado de la consulta
-	*/
-	public function delete($table,$where,$limit = 1){
+
+
+    public function delete($table,$where,$limit = 1)
+    {
 		$res = $this->exec("DELETE FROM $table WHERE $where LIMIT $limit");
-                if(!$res)
-                {
-                    $error =$this->getError();
-                     logger::errorLog($error['2'],'DB');
-                }else
-                    return $res;
+        if(!$res)
+        {
+            $error =$this->getError();
+            $this->logReport($error);
+        }else
+            return $res;
 	}
 
 	public function getInsertedId(){
@@ -166,41 +196,50 @@ class database extends PDO
 	public function getError(){
 		return self::errorInfo();
 	} 
-           
-        // Method that starts transaction in MYSQL  
-        public function start()
-        {
-            self::beginTransaction(); 
-        }
-        
-        
-        // Method that confirms transaction in MYSQL 
-        public function confirm()
-        {
-            self::commit();
-        }
-       
-        // Method that cancels transaction in MYSQL 
-        public function cancel()
-        {
-            self::rollBack();
-            $error =$this->getError();
-            logger::errorLog($error['2'],'DB');
-        }   
-        //-------------------------------------------------------------
-        //Metodo de query sql 
-        //-------------------------------------------------------------
-        public function sqlQuery($sql,$limit)
-        {
+    //----------------------------------------------------   
+    // Method that starts transaction in MYSQL  
+    //----------------------------------------------------
+    public function start()
+    {
+        self::beginTransaction(); 
+    }
+    
+    //----------------------------------------------------
+    // Method that confirms transaction in MYSQL 
+    //----------------------------------------------------
+    public function confirm()
+    {
+        self::commit();
+    }
+    //----------------------------------------------------
+    // Method that cancels transaction in MYSQL 
+    //----------------------------------------------------
+    public function cancel()
+    {
+        self::rollBack();
+        $error =$this->getError();
+        $this->logReport($error);
+    }   
+    //-------------------------------------------------------------
+    //Metodo de query sql 
+    //-------------------------------------------------------------
+    public function sqlQuery($sql,$limit=false)
+    {
+        if($limit)
             $sql = $sql." LIMIT ". $limit;
-            $res = $this->query($sql);
-            if($res)
-            {
-                $res->setFetchMode(PDO::FETCH_ASSOC);
-                return $res->fetchAll();
-            }else
-                return array();
-        }      
+        
+       // die($sql);
+        $res = $this->query($sql);
+        if($res)
+        {
+            $res->setFetchMode(PDO::FETCH_ASSOC);
+            return $res->fetchAll();
+        }else
+            return array();
+    }
+        
+    
+    
            
 }
 

@@ -149,4 +149,11 @@ class indexController extends Controller
         //exit();
 	}
 
+
+        public function prueba()
+        {
+               echo "Hola Mundo";         
+
+        }
+
 }
