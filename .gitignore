@@ -1,0 +1,5 @@
+core/
+/application/log/
+db/
+log/
+*.ini

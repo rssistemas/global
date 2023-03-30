@@ -56,53 +56,26 @@ class usuarioController extends seguridadController
 
         if(validate::getInt('guardar')==1)
         {
+            $this->_usuario->new();
+            $this->_usuario->setNrow("persona_id",0);
+            $this->_usuario->setNrow("empresa_id",$this->_empresa);
+            $this->_usuario->setNrow("correo_usuario",validate::getPostParam('correo'));
+            $this->_usuario->setNrow("telefono_usuario",validate::getPostParam('telefono'));
+            $this->_usuario->setNrow("alias_usuario",validate::getPostParam('nombre'));
+            $this->_usuario->setNrow("estatus_usuario",'1');
+            $this->_usuario->setNrow("role_id",validate::getInt('rol'));
+            $this->_usuario->setNrow("condicion_usuario","DESCONECTADO");
+            $this->_usuario->setNrow("fec_crea_usuario","now()");
 
-			//cargo modelo persona
-			$this->_persona = $this->loadModel('persona');
+           // print_r($this->_usuario->get('_nrow'));exit();
 
-			$licencia = (validate::getPostParam('licencia'))?validate::getPostParam('licencia'):'NA';
-			//creamos promero la persona
-			//-----------------------------
-			$datos_persona = array(
-				"nacionalidad" =>validate::getPostParam('nacionalidad'),
-                "cedula"=>		validate::getPostParam('cedula'),
-                "pri_nom"=>  	validate::getPostParam('pri_nombre'),
-                "seg_nom"=>  	validate::getPostParam('seg_nombre'),
-                "pri_ape"=>  	validate::getPostParam('pri_apellido'),
-                "seg_ape"=>  	validate::getPostParam('seg_apellido'),
-                "direccion"=>   validate::getPostParam('direccion'),
-                "local"=>		validate::getPostParam('local'),
-                "celular"=>		validate::getPostParam('celular'),
-                "fecha_nac"=>	validate::getPostParam('fecha_nac'),
-                "licencia"=>	$licencia,
-                "sexo"=>		validate::getPostParam('sexo'),
-                "estado_civil"=>validate::getPostParam('estado_civil'),
-                "lugar_nac"=>  	validate::getPostParam('lugar_nac'),
-                "sector"=>		validate::getInt('sector'),
-                "parroquia"=>	validate::getInt('parroquia'),
-                "estado"=>		validate::getInt('estado'),
-                "municipio"=>	validate::getInt('municipio'),
-                "empresa"=> $this->_empresa,
-				        "correo"=>		validate::getPostParam('email')
-			);
+			$this->_usuario->save();		
+            
+            //"pregunta" =>validate::getInt('pregunta'),
+			//"respuesta"=>validate::getPostParam('respuesta'),
+					
 
-			//print_r($datos_persona); exit();
-			if($this->_persona->incluir($datos_persona))
-			{
-				$ult_persona = $this->_persona->ult_persona_reg();
-				$cedula = validate::getPostParam('nacionalidad').validate::getPostParam('cedula');
-
-				$parametro = array(
-					"persona"  =>$ult_persona,
-					"condicion"=>validate::getPostParam('condicion'),
-					"correo"   =>validate::getPostParam('email'),
-					"alias"    =>$cedula,
-					"pregunta" =>validate::getInt('pregunta'),
-					"respuesta"=>validate::getPostParam('respuesta'),
-					"empresa"  =>$this->_empresa,
-					"rol"      =>validate::getInt('rol'));
-
-				if(!$this->_usuario->insertar($parametro))
+				/* if(!$this->_usuario->insertar($parametro))
 				{
 					Logger::errorLog("Error registrando Persona",'ERROR');
 					$this->redireccionar('seguridad/usuario/index');
@@ -135,17 +108,18 @@ class usuarioController extends seguridadController
 							}
 						$this->redireccionar('seguridad/usuario/');
 						exit();
-				}
+				    } */
 
-			}else
-			{
-				Logger::errorLog("Error registrando Persona",'ERROR');
-				$this->redireccionar('seguridad/usuario/index');
-				exit();
-				//$this->_view->renderizar('agregar','seguridad','usuario');
-				//exit();
-			}
-
+			// }else
+			// {
+			// 	Logger::errorLog("Error registrando Persona",'ERROR');
+			// 	$this->redireccionar('seguridad/usuario/index');
+			// 	exit();
+			// 	//$this->_view->renderizar('agregar','seguridad','usuario');
+			// 	//exit();
+			// }
+            $this->redireccionar('seguridad/usuario/');
+            exit();
         }else
         {
             $this->_view->title = "Agregar Usuario";
@@ -154,6 +128,7 @@ class usuarioController extends seguridadController
 
             //se carga rol
             $this->_rol = $this->loadModel('role');
+            $this->_rol->get_all('empresa_id='.$this->_empresa);
             $role = $this->_rol->get("_table");
             //print_r($role);
             $this->_view->rol = $role;
@@ -164,6 +139,7 @@ class usuarioController extends seguridadController
 
             //se carga pregunta de seguridad
             $this->_pregunta = $this->loadModel('pregunta');
+            $this->_pregunta->get_all('empresa_id='.$this->_empresa);
             $pregunta = $this->_pregunta->get("_table");
             $this->_view->pregunta = $pregunta['datos'];
 
