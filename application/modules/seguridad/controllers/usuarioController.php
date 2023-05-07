@@ -16,6 +16,7 @@ class usuarioController extends seguridadController
         $this->_empresa = session::get('empresa');
         //instancia modelo usuario
         $this->_usuario = $this->loadModel('usuario');
+        $this->_usuario->mani_to_mani('pregunta');
         
         $this->_usuario->get_all('empresa_id='.$this->_empresa);
         
@@ -40,6 +41,7 @@ class usuarioController extends seguridadController
         else
         {
             //print_r($this->_usuario->get("_table"));
+            //exit();
             $datos = $this->_usuario->get("_table");
             $this->_view->lista =  $paginador->paginar($datos['datos'],$pagina);                        
         }
@@ -69,10 +71,17 @@ class usuarioController extends seguridadController
 
            // print_r($this->_usuario->get('_nrow'));exit();
 
-			$this->_usuario->save();		
+			if($this->_usuario->save())		
+            {
+                $pregunta = validate::getInt('pregunta');
+			    $respuesta = validate::getPostParam('respuesta');
+                
+                $this->_pregunta = $this->loadModel('pregunta');
+                
+
+
+            }
             
-            //"pregunta" =>validate::getInt('pregunta'),
-			//"respuesta"=>validate::getPostParam('respuesta'),
 					
 
 				/* if(!$this->_usuario->insertar($parametro))
@@ -133,9 +142,7 @@ class usuarioController extends seguridadController
             //print_r($role);
             $this->_view->rol = $role;
 
-            //se carga estado
-            //$this->_estado = $this->loadModel('estado','configuracion');
-            //$this->_view->esta = $this->_estado->cargarEstado();
+            
 
             //se carga pregunta de seguridad
             $this->_pregunta = $this->loadModel('pregunta');
@@ -195,17 +202,31 @@ class usuarioController extends seguridadController
             $this->_view->title = "Editar Usuario";
             $this->_view->setJs(array('usuario_js'));
             $this->_view->setJsPlugin(array('validaciones'));
-            $this->getLibrary('paginador');
-            $paginador = new Paginador();
+            //$this->getLibrary('paginador');
+            //$paginador = new Paginador();
             if($id)
             {
+                //se carga rol
                 $this->_rol = $this->loadModel('role');
+                $this->_rol->get_all('empresa_id='.$this->_empresa);
+                $role = $this->_rol->get("_table");
+                $this->_view->rol = $role;
+                
+                
                 $this->_pregunta = $this->loadModel('pregunta');
-                $this->_view->usuario = $this->_usuario->buscar($id);
-                $this->_view->rol = $this->_rol->cargarRoles();
-                $this->_view->pregunta = $this->_pregunta->cargarPregunta(FALSE,$this->_empresa);
-                $this->_view->pregunta_usu = $this->_usuario->cargarPreguntaUsuario($id);
-                $this->_view->paginacion = $paginador->getView('paginacion','seguridad/usuario/editar');
+                $this->_pregunta->get_all('empresa_id='.$this->_empresa);
+                $pregunta = $this->_pregunta->get("_table");
+                $this->_view->pregunta = $pregunta['datos'];
+                
+                
+                if($this->_usuario->seek($id))
+                {
+                    $this->_view->usuario = $this->_usuario->found();
+                }
+                 
+                
+               // $this->_view->pregunta_usu = $this->_usuario->cargarPreguntaUsuario($id);
+                //$this->_view->paginacion = $paginador->getView('paginacion','seguridad/usuario/editar');
                 $this->_view->renderizar('editar','seguridad');
                 exit();
             }

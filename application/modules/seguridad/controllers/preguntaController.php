@@ -2,10 +2,21 @@
 class preguntaController extends seguridadController
 {
     private $_pregunta;
+    private $_empresa;
+
+
+
+
     public function __construct() {
         parent::__construct();
+        $this->_empresa = session::get('empresa');
+
         $this->_pregunta= $this->loadModel('pregunta');
+
+        $this->_pregunta->get_all('empresa_id='.$this->_empresa);
     }
+
+    
     public function index($pagina = 1)
     {
         $this->_view->title = "Preguntas de Seguridad";
@@ -18,16 +29,17 @@ class preguntaController extends seguridadController
         
         if(validate::getPostParam('busqueda'))
         {
-            $this->_view->lista = $paginador->paginar($this->_pregunta->cargarPregunta(validate::getPostParam('busqueda'),$empresa[0]['id_empresa']),$pagina);
+            $this->_view->lista = $paginador->paginar($this->_pregunta->cargarPregunta(validate::getPostParam('busqueda'),$this->_empresa),$pagina);
         }
         else      
         {
-            $this->_view->lista = $paginador->paginar($this->_pregunta->cargarPregunta(false,$empresa[0]['id_empresa']),$pagina);
+            $this->_view->lista = $paginador->paginar($this->_pregunta->cargarPregunta(false,$this->_empresa),$pagina);
         }
 		$this->_view->paginacion = $paginador->getView('paginacion','seguridad/pregunta/index');	
 		$this->_view->renderizar('index','seguridad');
 		exit();
     }
+
     public function agregar()
     {
 		$empresa = session::get('actEmp');

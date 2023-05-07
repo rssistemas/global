@@ -132,5 +132,10 @@ class preguntaModel  extends model
         }
     }
 
+    public function addAnswer()
+    {
+        
+    }
+
 
 }

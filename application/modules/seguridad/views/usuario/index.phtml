@@ -2,9 +2,9 @@
     <div class="col-lg-12 col-md-6">
         <div class="card">
 			
-			<div class="card-header">
-				<a  href="<?php echo BASE_URL ?>seguridad/usuario/agregar/" title="Presione aquí para AGREGAR un nuevo registro"><button class="btn btn-default btn-sm" ><i class="fa fa-plus"></i></button></a>
-				<div class="card-tools">
+            <div class="card-header">
+              <a  href="<?php echo BASE_URL ?>seguridad/usuario/agregar/" title="Presione aquí para AGREGAR un nuevo registro"><button class="btn btn-default btn-sm" ><i class="fa fa-plus"></i></button></a>
+              <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
 
@@ -14,8 +14,8 @@
                       </button>
                     </div>
                   </div>
-                </div>
-			</div>
+              </div>
+            </div>
  
           <div class="card-body">
             <div class="table-responsive">
@@ -42,7 +42,7 @@
                             <td><?php echo (isset($val['role'][0]['nombre_role']))?$val['role'][0]['nombre_role']:"" ?></td>
                             <td><?php echo strtoupper($val['condicion_usuario']) ?></td>
                             <td>
-                                <a href="<?php echo BASE_URL ?>seguridad/usuario/editar/<?php echo $val['id_usuario'] ?>" >
+                                <a href="<?php echo BASE_URL ?>seguridad/usuario/editar/<?php echo $val['id'] ?>" >
                                     <button class="btn btn-default btn-sm" title="Presione aquí para EDITAR"> <i class="fa fa-pencil-square"></i></button>
                             </td>
                             <td>
